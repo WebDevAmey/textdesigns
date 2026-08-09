@@ -1,0 +1,63 @@
+import FadeText from "@/components/ui/text/FadeText";
+import CharacterReveal from "@/components/ui/text/CharacterReveal";
+import WordReveal from "@/components/ui/text/WordReveal";
+import BlurText from "@/components/ui/text/BlurText";
+import CharacterBlur from "@/components/ui/text/CharacterBlur";
+import WaveText from "@/components/ui/text/WaveText";
+import TypewriterText from "@/components/ui/text/TypewriterText";
+import ScrambleText from "@/components/ui/text/ScrambleText";
+import GlitchText from "@/components/ui/text/GlitchText";
+import MagneticText from "@/components/ui/text/MagneticText";
+import HoverDistortText from "@/components/ui/text/HoverDistortText";
+import WaveLoopText from "@/components/ui/text/WaveLoopText";
+import FlipText from "@/components/ui/text/FlipText";
+import ScaleText from "@/components/ui/text/ScaleText";
+import RotateText from "@/components/ui/text/RotateText";
+import GravityText from "@/components/ui/text/GravityText";
+
+export default function Home() {
+  return (
+     <main className="flex min-h-screen flex-col items-center justify-center gap-6">
+    {/* Animates instantly for 1 second
+    <FadeText text="Hello TextLab" duration={1} delay={0} />
+
+    Animates after a 0.5-second delay for 2 seconds
+    <FadeText text="Building the Web" duration={2} delay={0.5} />
+
+    Animates after a 1.5-second delay for 1.5 seconds
+    <FadeText text="With GSAP & React" duration={1.5} delay={1.5} />*/}
+
+    {/* <CharacterReveal text="Hello TextLab" /> */}
+
+    {/* <WordReveal text="Build things that feel alive" /> */}
+
+    {/* <BlurText text="Hello TextLab" /> */}
+
+    {/* <CharacterBlur text="Make it feel alive" /> */}
+
+    {/* <WaveText text="Hello TextLab" /> */}
+
+    {/* <TypewriterText text="Build something cool." /> */}
+
+    {/* <ScrambleText text="Hello TextLab" /> */}
+
+        {/* <GlitchText text="Hello TextLab" /> */}
+
+    {/* <MagneticText text="Come closer" />   */}
+
+      {/* <HoverDistortText text="Hover over me" /> */}
+    
+    {/* <FlipText text="Hello TextLab" /> */}
+
+      {/* <ScaleText text="Make it bigger" /> */}
+
+      {/* <RotateText text="Rotate into place" /> */}
+
+      <GravityText text="Gravity" />
+
+
+
+
+    </main>
+  );
+}
