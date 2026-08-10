@@ -1,15 +1,11 @@
 import Navbar from "@/components/home/Navbar";
+import Hero from "@/components/home/Hero";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-white text-black">
       <Navbar />
-
-      <section className="flex min-h-screen items-center justify-center">
-        <h1 className="text-6xl font-bold">
-          TextLab
-        </h1>
-      </section>
+      <Hero />
     </main>
   );
 }
