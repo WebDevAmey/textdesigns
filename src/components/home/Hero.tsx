@@ -34,7 +34,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-white/10" />
 
           {/* Top readability */}
-          <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-white/90 via-white/30 to-transparent backdrop-blur-[2px]" />
+          <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-white/90 via-white/30 to-transparent" />
 
           {/* Bottom fade */}
           <div className="absolute inset-x-0 bottom-0 h-[220px] bg-gradient-to-t from-white/30 via-white/10 to-transparent" />
