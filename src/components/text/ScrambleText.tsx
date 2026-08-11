@@ -11,58 +11,64 @@ interface ScrambleTextProps {
 }
 
 const characters =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
 
-export default function ScrambleText({ text }: ScrambleTextProps) {
+export default function ScrambleText({
+  text,
+}: ScrambleTextProps) {
   const textRef = useRef<HTMLSpanElement>(null);
 
-  useGSAP(() => {
-    if (!textRef.current) return;
+  useGSAP(
+    () => {
+      if (!textRef.current) return;
 
-    const element = textRef.current;
-    const originalText = text;
+      const element = textRef.current;
 
-    const scramble = {
-      progress: 0,
-    };
+      const state = {
+        progress: 0,
+      };
 
-    const updateText = () => {
-      const progress = scramble.progress;
+      const timeline = gsap.timeline();
 
-      const revealedCount = Math.floor(
-        progress * originalText.length
-      );
+      timeline.to(state, {
+        progress: text.length,
+        duration: 1.4,
+        ease: "none",
 
-      const result = originalText
-        .split("")
-        .map((char, index) => {
-          if (char === " ") return " ";
+        onUpdate: () => {
+          const resolved = Math.floor(state.progress);
 
-          if (index < revealedCount) {
-            return char;
+          let output = "";
+
+          for (let i = 0; i < text.length; i++) {
+            if (i < resolved) {
+              output += text[i];
+            } else {
+              output +=
+                characters[
+                  Math.floor(
+                    Math.random() * characters.length
+                  )
+                ];
+            }
           }
 
-          return characters[
-            Math.floor(Math.random() * characters.length)
-          ];
-        })
-        .join("");
+          element.textContent = output;
+        },
 
-      element.textContent = result;
-    };
+        onComplete: () => {
+          element.textContent = text;
+        },
+      });
 
-    gsap.to(scramble, {
-      progress: 1,
-      duration: 2,
-      ease: "none",
-      onUpdate: updateText,
-    });
-  });
+    },
+    { scope: textRef }
+  );
 
   return (
     <span
       ref={textRef}
-      className="font-mono text-6xl font-bold tracking-tight"
+      className="inline-block whitespace-pre"
     >
       {text}
     </span>

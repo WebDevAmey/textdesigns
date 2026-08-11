@@ -5,7 +5,6 @@ import FadeText from "@/components/text/FadeText";
 import WaveText from "@/components/text/WaveText";
 import ScrambleText from "@/components/text/ScrambleText";
 import GlitchText from "@/components/text/GlitchText";
-import TypewriterText from "@/components/text/TypewriterText";
 import RotateText from "@/components/text/RotateText";
 import ScaleText from "@/components/text/ScaleText";
 import MagneticText from "@/components/text/MagneticText";
@@ -15,6 +14,11 @@ import BlurText from "@/components/text/BlurText";
 import HoverDistortText from "@/components/text/HoverDistortText";
 import CollapseText from "@/components/text/CollapseText";
 import TideText from "@/components/text/TideText";
+import TypewriterText from "@/components/text/TypewriterText";
+import LineReveal from "@/components/text/LineReveal";
+import TextTrail from "@/components/text/TextTrail";
+import TextMelt from "@/components/text/TextMelt";
+import TypequakeText from "@/components/text/TypequakeText";
 
 export const animations = [
   {
@@ -58,12 +62,6 @@ export const animations = [
     slug: "glitch",
     description: "A distorted glitch effect for expressive typography.",
     component: GlitchText,
-  },
-  {
-    name: "Typewriter",
-    slug: "typewriter",
-    description: "Text appears progressively like a typewriter.",
-    component: TypewriterText,
   },
   {
     name: "Rotate",
@@ -123,5 +121,45 @@ export const animations = [
     "A continuous wave travels through each character like a moving surface.",
   component: TideText,
   code: `<TideText text="Text Tides" />`,
+},
+{
+  name: "Typewriter",
+  slug: "typewriter",
+  description:
+    "A natural typing and deletion effect with a blinking cursor.",
+  component: TypewriterText,
+  code: `<TypewriterText text="Typewriter" />`,
+},
+{
+  name: "Line Reveal",
+  slug: "line-reveal",
+  description:
+    "Text reveals line by line through individual clipping masks.",
+  component: LineReveal,
+  code: `<LineReveal text="Create beautiful text animations" />`,
+},
+{
+  name: "Text Trail",
+  slug: "text-trail",
+  description:
+    "Characters leave behind fading temporal echoes as they move.",
+  component: TextTrail,
+  code: `<TextTrail text="Text Trail" />`,
+},
+{
+  name: "Text Melt",
+  slug: "text-melt",
+  description:
+    "Characters soften, stretch and melt before reforming into place.",
+  component: TextMelt,
+  code: `<TextMelt text="Text Melt" />`,
+},
+{
+  name: "Typequake",
+  slug: "typequake",
+  description:
+    "A travelling shockwave sends each character briefly out of position.",
+  component: TypequakeText,
+  code: `<TypequakeText text="Typequake" />`,
 },
 ];

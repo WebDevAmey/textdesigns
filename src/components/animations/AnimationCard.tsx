@@ -10,7 +10,7 @@ interface AnimationCardProps {
   component: React.ComponentType<{ text: string }>;
 }
 
-const LOOP_MS = 5000;
+const LOOP_MS = 6000;
 
 export default function AnimationCard({
   name,

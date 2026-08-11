@@ -30,8 +30,8 @@ export default function TideText({ text }: TideTextProps) {
     const wave = {
       amplitude: 28,
       wavelength: 2.8,
-      speed: 1.4,
-      cycles: 2,
+      speed: 1.6,
+      cycles: 3,
     };
 
     const state = {
@@ -41,11 +41,21 @@ export default function TideText({ text }: TideTextProps) {
     const applyWave = () => {
       const total = Math.PI * 2 * wave.cycles;
 
-      // Fade the wave in and out over the loop so each cycle
-      // starts and ends gently instead of jumping
-      const envelope = Math.sin(
-        (state.progress / total) * Math.PI
-      );
+      // Envelope: gradual rise, hold at full amplitude, then one
+// continuous gradual decrease — each segment joined with zero
+// velocity so the motion never kinks
+      const p = state.progress / total;
+
+      const s01 = (t: number) => t * t * (3 - 2 * t);
+
+      let envelope: number;
+      if (p < 0.35) {
+        envelope = s01(p / 0.35);
+      } else if (p < 0.65) {
+        envelope = 1;
+      } else {
+        envelope = 1 - s01((p - 0.65) / 0.35);
+      }
 
       chars.forEach((char, index) => {
         const phase =
@@ -88,11 +98,11 @@ export default function TideText({ text }: TideTextProps) {
           y: 0,
           rotation: 0,
           scale: 1,
-          duration: 0.7,
-          ease: "power2.inOut",
+          duration: 0.8,
+          ease: "power3.inOut",
           stagger: 0.04,
         },
-        "<+0.2"
+        "<+0.3"
       );
 
     return () => {

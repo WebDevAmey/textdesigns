@@ -21,48 +21,70 @@ export default function TypewriterText({
 
     const element = textRef.current;
 
+    const state = {
+      progress: 0,
+    };
+
     const timeline = gsap.timeline({
       repeat: -1,
+      repeatDelay: 1.5,
     });
 
-    timeline
-      .to(element, {
-        width: "100%",
-        duration: text.length * 0.08,
-        ease: "none",
-      })
-      .to({}, { duration: 1 })
-      .to(element, {
-        width: "0%",
-        duration: text.length * 0.05,
-        ease: "none",
-      })
-      .to({}, { duration: 0.5 });
+    // Start empty
+    gsap.set(element, {
+      textContent: "",
+    });
 
+    // Cursor blinking
     gsap.to(cursorRef.current, {
       opacity: 0,
-      duration: 0.5,
+      duration: 0.45,
       repeat: -1,
       yoyo: true,
-      ease: "power2.inOut",
+      ease: "steps(1)",
     });
+
+    // Typing
+    timeline.to(state, {
+      progress: text.length,
+      duration: text.length * 0.075,
+      ease: "none",
+
+      onUpdate: () => {
+        const count = Math.floor(state.progress);
+
+        element.textContent = text.slice(0, count);
+      },
+    });
+
+    // Hold completed text
+    timeline.to({}, {
+      duration: 1.2,
+    });
+
+    // Delete
+    timeline.to(state, {
+      progress: 0,
+      duration: text.length * 0.035,
+      ease: "none",
+
+      onUpdate: () => {
+        const count = Math.floor(state.progress);
+
+        element.textContent = text.slice(0, count);
+      },
+    });
+
   });
 
   return (
-    <div className="flex items-center">
-      <span className="relative inline-block overflow-hidden whitespace-nowrap">
-        <span
-          ref={textRef}
-          className="inline-block overflow-hidden"
-        >
-          {text}
-        </span>
-      </span>
+    <span className="inline-flex items-center">
+      <span ref={textRef} />
 
       <span
         ref={cursorRef}
-        className="ml-1 inline-block h-10 w-0.5 bg-current"
+        className="ml-1 inline-block h-[1em] w-[2px] bg-current"
       />
-    </div>
+    </span>
   );
 }
