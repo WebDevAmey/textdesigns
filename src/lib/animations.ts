@@ -22,7 +22,7 @@ export const animations = [
     component: GravityText,
   },
   {
-    name: "Character Blur",
+    name: "Char Blur",
     slug: "character-blur",
     description: "Characters emerge from a soft blur.",
     component: CharacterBlur,
@@ -88,7 +88,7 @@ export const animations = [
     component: WordReveal,
   },
   {
-    name: "Character Reveal",
+    name: "Char Reveal",
     slug: "character-reveal",
     description: "Characters reveal themselves individually.",
     component: CharacterReveal,

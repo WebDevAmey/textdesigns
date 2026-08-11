@@ -30,63 +30,23 @@ export default function AnimationCard({
     return () => clearTimeout(timer);
   }, [iteration]);
 
-  // Manually replay the animation
-  const replay = () => {
-    setIteration((i) => i + 1);
-  };
-
   return (
     <article className="group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">
 
       {/* Preview */}
-      <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-neutral-950 px-6">
-
-        {/* Subtle glow behind the text */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.09),transparent_60%)]" />
+      <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-neutral-50 px-6">
 
         {/* Live preview chip */}
-        <span className="absolute left-5 top-5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-white/40 backdrop-blur-sm">
+        <span className="absolute left-5 top-5 rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-black/40 shadow-sm">
           Live preview
         </span>
 
-        <div className="relative text-5xl font-medium tracking-tight text-white">
+        <div className="relative whitespace-nowrap text-center text-3xl font-medium leading-none tracking-tight text-black/90">
           <Animation
             key={iteration}
             text={name}
           />
         </div>
-
-        {/* Replay button */}
-        <button
-          type="button"
-          onClick={replay}
-          aria-label={`Replay ${name} animation`}
-          className="
-            absolute
-            bottom-4
-            right-4
-            rounded-full
-            border
-            border-white/15
-            bg-white/10
-            px-4
-            py-2
-            text-xs
-            font-medium
-            text-white
-            shadow-sm
-            backdrop-blur-md
-            transition-all
-            duration-200
-            opacity-100
-            sm:opacity-0
-            sm:group-hover:opacity-100
-            hover:-translate-y-0.5
-            hover:bg-white/20
-          "
-        >
-          Replay ↻
-        </button>
 
       </div>
 
