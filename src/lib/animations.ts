@@ -20,6 +20,7 @@ import TextTrail from "@/components/text/TextTrail";
 import TextMelt from "@/components/text/TextMelt";
 import TypequakeText from "@/components/text/TypequakeText";
 import LiquidText from "@/components/text/LiquidText";
+import DisplacementText from "@/components/text/DisplacementText";
 
 export const animations = [
   {
@@ -170,5 +171,13 @@ export const animations = [
     "Letters melt and ripple like liquid as you hover over them.",
   component: LiquidText,
   code: `<LiquidText text="Liquid" />`,
+},
+{
+  name: "Displacement",
+  slug: "displacement",
+  description:
+    "Glyphs lift and warp away from the cursor with a soft falloff.",
+  component: DisplacementText,
+  code: `<DisplacementText text="Displacement" />`,
 },
 ];

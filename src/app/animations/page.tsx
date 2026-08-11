@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AnimationCard from "@/components/animations/AnimationCard";
 import LiquidText from "@/components/text/LiquidText";
 import { animations } from "@/lib/animations";
@@ -11,9 +12,12 @@ export default function AnimationsPage() {
         {/* Header */}
         <div className="max-w-3xl">
 
-          <p className="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-black/40">
+          <Link
+            href="/"
+            className="mb-5 block text-xs font-medium uppercase tracking-[0.2em] text-black/40 transition-colors duration-200 hover:text-black"
+          >
             TextLab
-          </p>
+          </Link>
 
           <LiquidText
             text="Text animations."
