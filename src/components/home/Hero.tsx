@@ -101,7 +101,7 @@ export default function Hero() {
                 max-w-[21rem]
                 text-sm
                 leading-6
-                text-black/65
+                text-black
 
                 sm:max-w-xl
                 sm:text-base
