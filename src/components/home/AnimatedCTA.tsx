@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import MagneticText from "@/components/text/MagneticText";
 import AnimatedButton from "@/components/ui/animated-button";
 
