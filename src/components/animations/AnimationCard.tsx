@@ -20,13 +20,20 @@ export default function AnimationCard({
 }: AnimationCardProps) {
   const [iteration, setIteration] = useState(0);
 
+  // Automatically replay the animation
   useEffect(() => {
     const timer = setTimeout(
       () => setIteration((i) => i + 1),
-      LOOP_MS,
+      LOOP_MS
     );
+
     return () => clearTimeout(timer);
   }, [iteration]);
+
+  // Manually replay the animation
+  const replay = () => {
+    setIteration((i) => i + 1);
+  };
 
   return (
     <article className="group overflow-hidden rounded-3xl border border-black/10 bg-neutral-50">
@@ -40,6 +47,36 @@ export default function AnimationCard({
             text={name}
           />
         </div>
+
+        {/* Replay button */}
+        <button
+          type="button"
+          onClick={replay}
+          aria-label={`Replay ${name} animation`}
+          className="
+            absolute
+            bottom-4
+            right-4
+            rounded-full
+            border
+            border-black/10
+            bg-white
+            px-4
+            py-2
+            text-xs
+            font-medium
+            shadow-sm
+            transition-all
+            duration-200
+            opacity-100
+            sm:opacity-0
+            sm:group-hover:opacity-100
+            hover:-translate-y-0.5
+            hover:shadow-md
+          "
+        >
+          Replay ↻
+        </button>
 
       </div>
 
