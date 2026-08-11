@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 
 interface AnimationCardProps {
   name: string;
@@ -10,17 +10,23 @@ interface AnimationCardProps {
   component: React.ComponentType<{ text: string }>;
 }
 
+const LOOP_MS = 3000;
+
 export default function AnimationCard({
   name,
   slug,
   description,
   component: Animation,
 }: AnimationCardProps) {
-  const animationKey = useRef(0);
+  const [iteration, setIteration] = useState(0);
 
-  const replay = () => {
-    animationKey.current += 1;
-  };
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setIteration((i) => i + 1),
+      LOOP_MS,
+    );
+    return () => clearTimeout(timer);
+  }, [iteration]);
 
   return (
     <article className="group overflow-hidden rounded-3xl border border-black/10 bg-neutral-50">
@@ -30,37 +36,10 @@ export default function AnimationCard({
 
         <div className="text-5xl font-medium tracking-tight">
           <Animation
-            key={animationKey.current}
+            key={iteration}
             text={name}
           />
         </div>
-
-        {/* Replay */}
-        <button
-          type="button"
-          onClick={replay}
-          className="
-            absolute
-            bottom-4
-            right-4
-            rounded-full
-            border
-            border-black/10
-            bg-white
-            px-4
-            py-2
-            text-xs
-            font-medium
-            opacity-0
-            shadow-sm
-            transition-all
-            duration-200
-            group-hover:opacity-100
-            hover:-translate-y-0.5
-          "
-        >
-          Replay
-        </button>
 
       </div>
 
