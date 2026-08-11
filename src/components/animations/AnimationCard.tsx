@@ -36,12 +36,20 @@ export default function AnimationCard({
   };
 
   return (
-    <article className="group overflow-hidden rounded-3xl border border-black/10 bg-neutral-50">
+    <article className="group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">
 
       {/* Preview */}
-      <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden px-6">
+      <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-neutral-950 px-6">
 
-        <div className="text-5xl font-medium tracking-tight">
+        {/* Subtle glow behind the text */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.09),transparent_60%)]" />
+
+        {/* Live preview chip */}
+        <span className="absolute left-5 top-5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-white/40 backdrop-blur-sm">
+          Live preview
+        </span>
+
+        <div className="relative text-5xl font-medium tracking-tight text-white">
           <Animation
             key={iteration}
             text={name}
@@ -59,20 +67,22 @@ export default function AnimationCard({
             right-4
             rounded-full
             border
-            border-black/10
-            bg-white
+            border-white/15
+            bg-white/10
             px-4
             py-2
             text-xs
             font-medium
+            text-white
             shadow-sm
+            backdrop-blur-md
             transition-all
             duration-200
             opacity-100
             sm:opacity-0
             sm:group-hover:opacity-100
             hover:-translate-y-0.5
-            hover:shadow-md
+            hover:bg-white/20
           "
         >
           Replay ↻
@@ -81,12 +91,12 @@ export default function AnimationCard({
       </div>
 
       {/* Information */}
-      <div className="border-t border-black/10 p-6">
+      <div className="border-t border-black/5 bg-white p-6">
 
         <div className="flex items-start justify-between gap-6">
 
           <div>
-            <h2 className="font-medium">
+            <h2 className="text-lg font-medium tracking-tight text-black/90">
               {name}
             </h2>
 
@@ -99,11 +109,19 @@ export default function AnimationCard({
             href={`/animations/${slug}`}
             className="
               shrink-0
+              rounded-full
+              border
+              border-black/10
+              px-4
+              py-2
               text-sm
               font-medium
-              transition-transform
+              text-black/70
+              transition-all
               duration-300
-              group-hover:translate-x-1
+              group-hover:border-black/20
+              group-hover:bg-black
+              group-hover:text-white
             "
           >
             View →

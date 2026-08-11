@@ -1,4 +1,3 @@
-import Navbar from "@/components/home/Navbar";
 import AnimationCard from "@/components/animations/AnimationCard";
 import { animations } from "@/lib/animations";
 
@@ -27,7 +26,7 @@ export default function AnimationsPage() {
         </div>
 
         {/* Animation Grid */}
-        <div className="mt-20 grid gap-5 md:grid-cols-2">
+        <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {animations.map((animation) => (
             <AnimationCard
               key={animation.slug}
