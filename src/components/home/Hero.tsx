@@ -13,15 +13,15 @@ export default function Hero() {
         className="
           relative isolate overflow-hidden
           px-4
-          pb-16
-          pt-32
-          sm:pt-36
-          md:pb-24
+          pb-14
+          pt-24
+          sm:pt-28
+          md:pb-20
         "
       >
 
         {/* Background image */}
-        <div className="absolute inset-x-0 top-0 -z-10 h-[850px] overflow-hidden">
+        <div className="absolute inset-x-0 top-0 -z-10 h-[700px] overflow-hidden">
           <Image
             src="/herodith.png"
             alt=""
@@ -46,12 +46,12 @@ export default function Hero() {
         {/* Hero content */}
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center text-center">
 
-          <div className="pt-12 sm:pt-[12vh]">
+          <div className="pt-8 sm:pt-[9vh]">
 
             {/* Eyebrow */}
             <div
               className="
-                mx-auto mb-6
+                mx-auto mb-5
                 inline-flex
                 items-center
                 rounded-full
@@ -73,19 +73,19 @@ export default function Hero() {
               className="
                 mx-auto
                 max-w-[22rem]
-                text-[3rem]
+                text-[2.75rem]
                 font-medium
                 leading-[0.95]
                 tracking-[-0.055em]
                 text-black/90
 
                 sm:max-w-3xl
-                sm:text-6xl
+                sm:text-5xl
                 sm:leading-[0.92]
 
-                md:text-7xl
+                md:text-6xl
 
-                lg:text-8xl
+                lg:text-7xl
               "
             >
               Text that doesn&apos;t
@@ -93,32 +93,11 @@ export default function Hero() {
               sit still.
             </h1>
 
-            {/* Description */}
-            <p
-              className="
-                mx-auto
-                mt-6
-                max-w-[21rem]
-                text-sm
-                leading-6
-                text-black
-
-                sm:max-w-xl
-                sm:text-base
-                sm:leading-7
-
-                lg:text-lg
-              "
-            >
-              Handcrafted text animations built with React and GSAP.
-              Explore, customise, and copy animations for your next project.
-            </p>
-
             {/* Buttons */}
             <div
               className="
                 mx-auto
-                mt-8
+                mt-7
                 flex
                 w-full
                 max-w-[24rem]
@@ -127,7 +106,7 @@ export default function Hero() {
                 justify-center
                 gap-3
 
-                sm:mt-10
+                sm:mt-8
                 sm:w-auto
                 sm:max-w-none
                 sm:flex-row
@@ -155,23 +134,23 @@ export default function Hero() {
           </div>
 
           {/* Animation preview */}
-          <div className="mt-14 w-full max-w-6xl px-0 sm:mt-16 sm:px-4">
+          <div className="mt-10 w-full max-w-6xl px-0 sm:mt-12 sm:px-4">
 
             <div
               className="
                 relative
-                min-h-[420px]
+                min-h-[340px]
                 overflow-hidden
-                rounded-[28px]
+                rounded-[24px]
                 border
                 border-black/10
                 bg-black
                 shadow-[0_30px_100px_rgba(0,0,0,0.15)]
 
-                sm:min-h-[520px]
-                sm:rounded-[32px]
+                sm:min-h-[440px]
+                sm:rounded-[28px]
 
-                md:min-h-[600px]
+                md:min-h-[500px]
               "
             >
 
@@ -204,7 +183,7 @@ export default function Hero() {
               </div>
 
               {/* Animation */}
-              <div className="flex min-h-[420px] items-center justify-center px-6 pt-10 sm:min-h-[520px] md:min-h-[600px]">
+              <div className="flex min-h-[340px] items-center justify-center px-6 pt-10 sm:min-h-[440px] md:min-h-[500px]">
 
                 <div className="text-4xl font-medium tracking-tight text-white sm:text-6xl md:text-8xl">
                   <CharacterBlur text="Make your text move." />

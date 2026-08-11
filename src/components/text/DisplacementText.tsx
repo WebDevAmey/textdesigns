@@ -86,7 +86,7 @@ export default function DisplacementText({
           key={i}
           data-glyph
           aria-hidden
-          className="inline-block opacity-55 will-change-transform"
+          className="inline-block will-change-transform"
           style={{
             transition:
               "transform 0.28s cubic-bezier(0.16,1,0.3,1), opacity 0.28s",
