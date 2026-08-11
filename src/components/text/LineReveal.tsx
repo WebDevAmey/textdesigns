@@ -24,7 +24,7 @@ export default function LineReveal({
         types: "lines",
       });
 
-      const lines = split.lines;
+      const lines = split.lines ?? [];
 
       lines.forEach((line) => {
         const wrapper = document.createElement("span");

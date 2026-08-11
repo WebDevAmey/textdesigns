@@ -24,7 +24,7 @@ export default function TextMelt({
         types: "chars",
       });
 
-      const chars = split.chars;
+      const chars = split.chars ?? [];
 
       chars.forEach((char, index) => {
         const progress = index / Math.max(chars.length - 1, 1);

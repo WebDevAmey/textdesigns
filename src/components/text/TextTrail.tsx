@@ -24,7 +24,7 @@ export default function TextTrail({
         types: "chars",
       });
 
-      const chars = split.chars;
+      const chars = split.chars ?? [];
 
       chars.forEach((char, index) => {
         const trail = char.cloneNode(true) as HTMLElement;

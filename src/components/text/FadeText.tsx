@@ -26,7 +26,7 @@ export default function FadeText({ text, duration = 2, delay = 0 }: FadeTextProp
   });
 
   return (
-    <h1 ref={textRef} className="text-6xl font-bold tracking-tight">
+    <h1 ref={textRef} className="text-6xl font-normal tracking-tight">
       {text}
     </h1>
   );

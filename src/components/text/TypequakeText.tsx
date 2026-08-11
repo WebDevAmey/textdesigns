@@ -24,7 +24,7 @@ export default function TypequakeText({
         types: "chars",
       });
 
-      const chars = split.chars;
+      const chars = split.chars ?? [];
 
       const timeline = gsap.timeline({
         repeat: -1,

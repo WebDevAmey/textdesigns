@@ -71,7 +71,7 @@ export default function MagneticText({
   return (
     <h1
       ref={textRef}
-      className="text-6xl font-bold tracking-tight"
+      className="text-6xl font-normal tracking-tight"
     >
       {text}
     </h1>
