@@ -31,17 +31,17 @@ export default function AnimationCard({
   }, [iteration]);
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">
+    <article className="group overflow-hidden rounded-2xl border border-dotted border-neutral-500/70 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">
 
       {/* Preview */}
-      <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-neutral-50 px-6">
+      <div className="relative flex min-h-[260px] items-center justify-center overflow-hidden bg-neutral-50 px-4">
 
         {/* Live preview chip */}
-        <span className="absolute left-5 top-5 rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-black/40 shadow-sm">
+        <span className="absolute left-4 top-4 rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-black/40 shadow-sm">
           Live preview
         </span>
 
-        <div className="relative whitespace-nowrap text-center text-3xl font-medium leading-none tracking-tight text-black/90">
+        <div className="relative whitespace-nowrap text-center text-2xl font-medium leading-none tracking-tight text-black/90">
           <Animation
             key={iteration}
             text={name}
@@ -51,12 +51,12 @@ export default function AnimationCard({
       </div>
 
       {/* Information */}
-      <div className="border-t border-black/5 bg-white p-6">
+      <div className="border-t border-dotted border-neutral-500/70 bg-white p-5">
 
         <div className="flex items-start justify-between gap-6">
 
           <div>
-            <h2 className="text-lg font-medium tracking-tight text-black/90">
+            <h2 className="text-base font-medium tracking-tight text-black/90">
               {name}
             </h2>
 

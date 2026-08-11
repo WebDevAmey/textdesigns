@@ -19,6 +19,7 @@ import LineReveal from "@/components/text/LineReveal";
 import TextTrail from "@/components/text/TextTrail";
 import TextMelt from "@/components/text/TextMelt";
 import TypequakeText from "@/components/text/TypequakeText";
+import LiquidText from "@/components/text/LiquidText";
 
 export const animations = [
   {
@@ -161,5 +162,13 @@ export const animations = [
     "A travelling shockwave sends each character briefly out of position.",
   component: TypequakeText,
   code: `<TypequakeText text="Typequake" />`,
+},
+{
+  name: "Liquid",
+  slug: "liquid",
+  description:
+    "Letters melt and ripple like liquid as you hover over them.",
+  component: LiquidText,
+  code: `<LiquidText text="Liquid" />`,
 },
 ];
