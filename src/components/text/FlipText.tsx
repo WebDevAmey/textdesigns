@@ -39,7 +39,7 @@ export default function FlipText({ text }: FlipTextProps) {
     <div className="perspective-[600px]">
       <h1
         ref={textRef}
-        className="text-6xl font-normal tracking-tight"
+        className="inline-block"
       >
         {text}
       </h1>

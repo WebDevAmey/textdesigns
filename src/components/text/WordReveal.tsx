@@ -37,7 +37,7 @@ export default function WordReveal({ text }: WordRevealProps) {
   return (
     <h1
       ref={textRef}
-      className="text-6xl font-normal tracking-tight"
+      className="inline-block"
     >
       {text}
     </h1>
