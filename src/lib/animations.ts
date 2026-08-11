@@ -13,6 +13,8 @@ import WordReveal from "@/components/text/WordReveal";
 import CharacterReveal from "@/components/text/CharacterReveal";
 import BlurText from "@/components/text/BlurText";
 import HoverDistortText from "@/components/text/HoverDistortText";
+import CollapseText from "@/components/text/CollapseText";
+import TideText from "@/components/text/TideText";
 
 export const animations = [
   {
@@ -105,4 +107,21 @@ export const animations = [
     description: "Typography distorts as you interact with it.",
     component: HoverDistortText,
   },
+
+  {
+    name: "Collapse Text",
+    slug: "collapse-text",
+    description:
+      "Characters collapse towards a single point before reconstructing themselves.",
+    component: CollapseText,
+    code: `<CollapseText text="Collapse Text" />`,
+  },
+  {
+  name: "Text Tides",
+  slug: "text-tides",
+  description:
+    "A continuous wave travels through each character like a moving surface.",
+  component: TideText,
+  code: `<TideText text="Text Tides" />`,
+},
 ];

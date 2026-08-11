@@ -21,12 +21,29 @@ export default function WaveText({ text }: WaveTextProps) {
       types: "chars",
     });
 
-    gsap.from(split.chars, {
+    const chars = split.chars ?? [];
+
+    // Entrance — fall in with a gentle wave
+    gsap.from(chars, {
       y: (index) => Math.sin(index * 0.8) * 40,
       opacity: 0,
       duration: 1,
       stagger: 0.04,
       ease: "power3.out",
+    });
+
+    // Tides — rise and fall a few times, then settle back to normal
+    // (repeat 3 + yoyo ends the tween back at y: 0)
+    gsap.to(chars, {
+      y: -14,
+      duration: 0.5,
+      delay: 1.2,
+      stagger: {
+        each: 0.08,
+        repeat: 3,
+        yoyo: true,
+      },
+      ease: "sine.inOut",
     });
 
     return () => {
