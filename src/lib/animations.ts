@@ -24,6 +24,8 @@ import DisplacementText from "@/components/text/DisplacementText";
 import ScrollReveal from "@/components/text/ScrollReveal";
 import MarqueeText from "@/components/text/MarqueeText";
 import ShimmerText from "@/components/text/ShimmerText";
+import DecryptText from "@/components/text/DecryptText";
+import StrokeDrawText from "@/components/text/StrokedrawText";
 
 export const animations = [
   {
@@ -207,5 +209,21 @@ export const animations = [
     "A soft light gradient sweeps across the text on loop or hover.",
   component: ShimmerText,
   code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
+},
+{
+  name: "Decrypt",
+  slug: "decrypt",
+  description:
+    "Characters cycle through random glyphs before locking into the final text.",
+  component: DecryptText,
+  code: `<DecryptText text="Decrypt" duration={1.6} />`,
+},
+{
+  name: "Stroke Draw",
+  slug: "stroke-draw",
+  description:
+    "An SVG text outline draws itself using an animated stroke.",
+  component: StrokeDrawText,
+  code: `<StrokeDrawText text="Stroke Draw" fontSize={120} />`,
 },
 ];
