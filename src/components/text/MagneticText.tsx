@@ -14,7 +14,7 @@ interface MagneticTextProps {
 export default function MagneticText({
   text,
 }: MagneticTextProps) {
-  const textRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
 
   useGSAP(() => {
     if (!textRef.current) return;
@@ -69,11 +69,11 @@ export default function MagneticText({
   });
 
   return (
-    <h1
+    <span
       ref={textRef}
       className="inline-block"
     >
       {text}
-    </h1>
+    </span>
   );
 }

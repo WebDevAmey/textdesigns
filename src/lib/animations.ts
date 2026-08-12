@@ -23,6 +23,7 @@ import LiquidText from "@/components/text/LiquidText";
 import DisplacementText from "@/components/text/DisplacementText";
 import ScrollReveal from "@/components/text/ScrollReveal";
 import MarqueeText from "@/components/text/MarqueeText";
+import ShimmerText from "@/components/text/ShimmerText";
 
 export const animations = [
   {
@@ -198,5 +199,13 @@ export const animations = [
   component: MarqueeText,
   infinite: true,
   code: `<MarqueeText text="Marquee Text" speed={15} direction="left" />`,
+},
+{
+  name: "Shimmer",
+  slug: "shimmer",
+  description:
+    "A soft light gradient sweeps across the text on loop or hover.",
+  component: ShimmerText,
+  code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
 },
 ];

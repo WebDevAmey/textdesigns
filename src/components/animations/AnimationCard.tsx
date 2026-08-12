@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface AnimationCardProps {
   name: string;
@@ -22,10 +22,16 @@ export default function AnimationCard({
 }: AnimationCardProps) {
   const [iteration, setIteration] = useState(0);
 
+  const infiniteRef = useRef(infinite);
+
+  useEffect(() => {
+    infiniteRef.current = infinite;
+  }, [infinite]);
+
   // Automatically replay the animation (skipped for self-running
   // infinite animations like the marquee)
   useEffect(() => {
-    if (infinite) return;
+    if (infiniteRef.current) return;
 
     const timer = setTimeout(
       () => setIteration((i) => i + 1),
@@ -33,7 +39,7 @@ export default function AnimationCard({
     );
 
     return () => clearTimeout(timer);
-  }, [iteration, infinite]);
+  }, [iteration]);
 
   return (
     <article className="group overflow-hidden rounded-2xl border border-dotted border-neutral-500/70 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">
