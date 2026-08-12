@@ -8,6 +8,7 @@ interface AnimationCardProps {
   slug: string;
   description: string;
   component: React.ComponentType<{ text: string }>;
+  infinite?: boolean;
 }
 
 const LOOP_MS = 6000;
@@ -17,18 +18,22 @@ export default function AnimationCard({
   slug,
   description,
   component: Animation,
+  infinite = false,
 }: AnimationCardProps) {
   const [iteration, setIteration] = useState(0);
 
-  // Automatically replay the animation
+  // Automatically replay the animation (skipped for self-running
+  // infinite animations like the marquee)
   useEffect(() => {
+    if (infinite) return;
+
     const timer = setTimeout(
       () => setIteration((i) => i + 1),
       LOOP_MS
     );
 
     return () => clearTimeout(timer);
-  }, [iteration]);
+  }, [iteration, infinite]);
 
   return (
     <article className="group overflow-hidden rounded-2xl border border-dotted border-neutral-500/70 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">

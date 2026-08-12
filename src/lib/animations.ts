@@ -21,6 +21,8 @@ import TextMelt from "@/components/text/TextMelt";
 import TypequakeText from "@/components/text/TypequakeText";
 import LiquidText from "@/components/text/LiquidText";
 import DisplacementText from "@/components/text/DisplacementText";
+import ScrollReveal from "@/components/text/ScrollReveal";
+import MarqueeText from "@/components/text/MarqueeText";
 
 export const animations = [
   {
@@ -179,5 +181,22 @@ export const animations = [
     "Glyphs lift and warp away from the cursor with a soft falloff.",
   component: DisplacementText,
   code: `<DisplacementText text="Displacement" />`,
+},
+{
+  name: "Scroll Reveal",
+  slug: "scroll-reveal",
+  description:
+    "Lines or words fade and rise into view as they enter the viewport.",
+  component: ScrollReveal,
+  code: `<ScrollReveal text="Scroll Reveal" splitBy="lines" />`,
+},
+{
+  name: "Marquee",
+  slug: "marquee",
+  description:
+    "A continuously looping horizontal text banner.",
+  component: MarqueeText,
+  infinite: true,
+  code: `<MarqueeText text="Marquee Text" speed={15} direction="left" />`,
 },
 ];
