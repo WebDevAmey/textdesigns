@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -22,15 +22,25 @@ export default function StrokeDrawText({
   fillColor = "currentColor",
 }: StrokeDrawTextProps) {
   const textRef = useRef<SVGTextElement>(null);
+  const fillRectRef = useRef<SVGRectElement>(null);
 
-  const [layout, setLayout] = useState(() => ({
-    viewBox: `0 0 ${text.length * fontSize * 0.55} ${fontSize * 1.4}`,
-    width: text.length * fontSize * 0.55,
-    height: fontSize * 1.4,
-  }));
+  const rawId = useId();
+  const clipId = `strokedraw-clip-${rawId.replace(/[^a-zA-Z0-9_-]/g, "")}`;
+
+  const [layout, setLayout] = useState(() => {
+    const w = text.length * fontSize * 0.55;
+    const h = fontSize * 1.4;
+    return {
+      viewBox: `0 0 ${w} ${h}`,
+      width: w,
+      height: h,
+      box: { x: 0, y: fontSize * 0.25, width: w, height: fontSize * 0.9 },
+    };
+  });
 
   useGSAP(() => {
     const el = textRef.current;
+    const rect = fillRectRef.current;
     if (!el) return;
 
     const measure = () => {
@@ -40,6 +50,12 @@ export default function StrokeDrawText({
         viewBox: `${bbox.x - pad} ${bbox.y - pad} ${bbox.width + pad * 2} ${bbox.height + pad * 2}`,
         width: bbox.width + pad * 2,
         height: bbox.height + pad * 2,
+        box: {
+          x: bbox.x - pad,
+          y: bbox.y - pad,
+          width: bbox.width + pad * 2,
+          height: bbox.height + pad * 2,
+        },
       });
     };
 
@@ -65,18 +81,25 @@ export default function StrokeDrawText({
       ease: "power2.inOut",
     });
 
-    if (fillColor) {
-      gsap.to(el, {
-        fill: fillColor,
-        duration: 0.7,
-        delay: 2.4,
-        ease: "power1.out",
-      });
+    if (rect && fillColor) {
+      // Fill spreads from the center of the text toward both ends.
+      gsap.fromTo(
+        rect,
+        { scaleX: 0, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 1.4,
+          delay: 2.3,
+          ease: "power2.inOut",
+        }
+      );
     }
 
     return () => {
       window.removeEventListener("resize", measure);
       gsap.killTweensOf(el);
+      gsap.killTweensOf(rect);
     };
   }, [text, fillColor]);
 
@@ -88,6 +111,14 @@ export default function StrokeDrawText({
       style={{ maxWidth: "100%", height: "auto" }}
       className="mx-auto"
     >
+      <defs>
+        <clipPath id={clipId}>
+          <text x="0" y={fontSize} fontSize={fontSize} stroke="none">
+            {text}
+          </text>
+        </clipPath>
+      </defs>
+
       <text
         ref={textRef}
         x="0"
@@ -102,6 +133,18 @@ export default function StrokeDrawText({
       >
         {text}
       </text>
+
+      <g clipPath={`url(#${clipId})`}>
+        <rect
+          ref={fillRectRef}
+          x={layout.box.x}
+          y={layout.box.y}
+          width={layout.box.width}
+          height={layout.box.height}
+          fill={fillColor}
+          opacity="0"
+        />
+      </g>
     </svg>
   );
 }
