@@ -1,7 +1,14 @@
 import Link from "next/link";
 import AnimationCard from "@/components/animations/AnimationCard";
 import LiquidText from "@/components/text/LiquidText";
-import { animations } from "@/lib/animations";
+import { animations, type AnimationCategory } from "@/lib/animations";
+
+const SECTIONS: { key: AnimationCategory; label: string }[] = [
+  { key: "reveal", label: "Entrance & Reveal" },
+  { key: "hover", label: "Hover & Interactive" },
+  { key: "loop", label: "Loop & Motion" },
+  { key: "scroll", label: "Scroll" },
+];
 
 export default function AnimationsPage() {
   return (
@@ -32,15 +39,35 @@ export default function AnimationsPage() {
 
         </div>
 
-        {/* Animation Grid */}
-        <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {animations.map((animation) => (
-            <AnimationCard
-              key={animation.slug}
-              {...animation}
-            />
-          ))}
-        </div>
+        {/* Sections by category */}
+        {SECTIONS.map(({ key, label }) => {
+          const items = animations.filter((a) => a.category === key);
+          if (!items.length) return null;
+
+          return (
+            <section key={key} className="mt-20">
+
+              <div className="flex items-baseline justify-between gap-6">
+                <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-black/60">
+                  {label}
+                </h2>
+                <span className="text-xs tabular-nums text-black/30">
+                  {items.length} {items.length === 1 ? "animation" : "animations"}
+                </span>
+              </div>
+
+              <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {items.map((animation) => (
+                  <AnimationCard
+                    key={animation.slug}
+                    {...animation}
+                  />
+                ))}
+              </div>
+
+            </section>
+          );
+        })}
 
       </div>
 

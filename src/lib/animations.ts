@@ -32,243 +32,277 @@ import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
 
+export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
+
 export const animations = [
   {
     name: "Gravity",
     slug: "gravity",
+    category: "reveal",
     description: "Characters fall and settle with physical motion.",
     component: GravityText,
   },
   {
     name: "Char Blur",
     slug: "character-blur",
+    category: "reveal",
     description: "Characters emerge from a soft blur.",
     component: CharacterBlur,
   },
   {
     name: "3D Flip",
     slug: "3d-flip",
+    category: "reveal",
     description: "Characters rotate into view in 3D.",
     component: FlipText,
   },
   {
     name: "Fade",
     slug: "fade",
+    category: "reveal",
     description: "A clean character-by-character fade.",
     component: FadeText,
   },
   {
     name: "Wave",
     slug: "wave",
+    category: "reveal",
     description: "Characters move through a smooth wave.",
     component: WaveText,
   },
   {
     name: "Scramble",
     slug: "scramble",
+    category: "reveal",
     description: "Characters rapidly resolve into the final text.",
     component: ScrambleText,
   },
   {
     name: "Glitch",
     slug: "glitch",
+    category: "reveal",
     description: "A distorted glitch effect for expressive typography.",
     component: GlitchText,
   },
   {
     name: "Rotate",
     slug: "rotate",
+    category: "reveal",
     description: "Characters rotate into their final position.",
     component: RotateText,
   },
   {
     name: "Scale",
     slug: "scale",
+    category: "reveal",
     description: "Characters smoothly scale into view.",
     component: ScaleText,
   },
   {
-    name: "Magnetic",
-    slug: "magnetic",
-    description: "Characters react to the movement of the cursor.",
-    component: MagneticText,
-  },
-  {
     name: "Word Reveal",
     slug: "word-reveal",
+    category: "reveal",
     description: "Words reveal themselves one at a time.",
     component: WordReveal,
   },
   {
     name: "Char Reveal",
     slug: "character-reveal",
+    category: "reveal",
     description: "Characters reveal themselves individually.",
     component: CharacterReveal,
   },
   {
     name: "Blur",
     slug: "blur",
+    category: "reveal",
     description: "Text transitions from blur into focus.",
     component: BlurText,
   },
   {
-    name: "Hover Distort",
-    slug: "hover-distort",
-    description: "Typography distorts as you interact with it.",
-    component: HoverDistortText,
-  },
-
-  {
     name: "Collapse Text",
     slug: "collapse-text",
+    category: "reveal",
     description:
       "Characters collapse towards a single point before reconstructing themselves.",
     component: CollapseText,
     code: `<CollapseText text="Collapse Text" />`,
   },
   {
-  name: "Text Tides",
-  slug: "text-tides",
-  description:
-    "A continuous wave travels through each character like a moving surface.",
-  component: TideText,
-  code: `<TideText text="Text Tides" />`,
-},
-{
-  name: "Typewriter",
-  slug: "typewriter",
-  description:
-    "A natural typing and deletion effect with a blinking cursor.",
-  component: TypewriterText,
-  code: `<TypewriterText text="Typewriter" />`,
-},
-{
-  name: "Line Reveal",
-  slug: "line-reveal",
-  description:
-    "Text reveals line by line through individual clipping masks.",
-  component: LineReveal,
-  code: `<LineReveal text="Create beautiful text animations" />`,
-},
-{
-  name: "Text Trail",
-  slug: "text-trail",
-  description:
-    "Characters leave behind fading temporal echoes as they move.",
-  component: TextTrail,
-  code: `<TextTrail text="Text Trail" />`,
-},
-{
-  name: "Text Melt",
-  slug: "text-melt",
-  description:
-    "Characters soften, stretch and melt before reforming into place.",
-  component: TextMelt,
-  code: `<TextMelt text="Text Melt" />`,
-},
-{
-  name: "Typequake",
-  slug: "typequake",
-  description:
-    "A travelling shockwave sends each character briefly out of position.",
-  component: TypequakeText,
-  code: `<TypequakeText text="Typequake" />`,
-},
-{
-  name: "Liquid",
-  slug: "liquid",
-  description:
-    "Letters melt and ripple like liquid as you hover over them.",
-  component: LiquidText,
-  code: `<LiquidText text="Liquid" />`,
-},
-{
-  name: "Displacement",
-  slug: "displacement",
-  description:
-    "Glyphs lift and warp away from the cursor with a soft falloff.",
-  component: DisplacementText,
-  code: `<DisplacementText text="Displacement" />`,
-},
-{
-  name: "Scroll Reveal",
-  slug: "scroll-reveal",
-  description:
-    "Lines or words fade and rise into view as they enter the viewport.",
-  component: ScrollReveal,
-  code: `<ScrollReveal text="Scroll Reveal" splitBy="lines" />`,
-},
-{
-  name: "Marquee",
-  slug: "marquee",
-  description:
-    "A continuously looping horizontal text banner.",
-  component: MarqueeText,
-  infinite: true,
-  code: `<MarqueeText text="Marquee Text" speed={15} direction="left" />`,
-},
-{
-  name: "Shimmer",
-  slug: "shimmer",
-  description:
-    "A soft light gradient sweeps across the text on loop or hover.",
-  component: ShimmerText,
-  code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
-},
-{
-  name: "Decrypt",
-  slug: "decrypt",
-  description:
-    "Characters cycle through random glyphs before locking into the final text.",
-  component: DecryptText,
-  code: `<DecryptText text="Decrypt" duration={1.6} />`,
-},
-{
-  name: "Stroke Draw",
-  slug: "stroke-draw",
-  description:
-    "An SVG text outline draws itself using an animated stroke.",
-  component: StrokeDrawText,
-  code: `<StrokeDrawText text="Stroke Draw" fontSize={120} />`,
-},
-{
-  name: "Scroll Skew",
-  slug: "scroll-skew",
-  description:
-    "Text skews with scroll velocity and snaps back level when scrolling stops.",
-  component: ScrollSkewText,
-  code: `<ScrollSkewText text="Scroll Skew" />`,
-},
-{
-  name: "Letter Shuffle",
-  slug: "letter-shuffle",
-  description:
-    "Characters shuffle from randomized positions into their correct reading order.",
-  component: LetterShuffleText,
-  code: `<LetterShuffleText text="Letter Shuffle" />`,
-},
-{
-  name: "Kinetic Drag",
-  slug: "kinetic-drag",
-  description:
-    "Characters can be dragged and flicked with momentum, drifting back into place.",
-  component: KineticDragText,
-  code: `<KineticDragText text="Kinetic Drag" />`,
-},
-{
-  name: "Cinematic Zoom",
-  slug: "cinematic-zoom",
-  description:
-    "The whole line zooms in from a distance with a soft blur, like a camera pulling into focus.",
-  component: CinematicZoomText,
-  code: `<CinematicZoomText text="Cinematic Zoom" />`,
-},
-{
-  name: "Path Entrance",
-  slug: "path-entrance",
-  description:
-    "Characters travel in along a curved motion path before settling into the final line.",
-  component: PathEntranceText,
-  code: `<PathEntranceText text="Path Entrance" />`,
-},
+    name: "Text Tides",
+    slug: "text-tides",
+    category: "reveal",
+    description:
+      "A continuous wave travels through each character like a moving surface.",
+    component: TideText,
+    code: `<TideText text="Text Tides" />`,
+  },
+  {
+    name: "Line Reveal",
+    slug: "line-reveal",
+    category: "reveal",
+    description:
+      "Text reveals line by line through individual clipping masks.",
+    component: LineReveal,
+    code: `<LineReveal text="Create beautiful text animations" />`,
+  },
+  {
+    name: "Decrypt",
+    slug: "decrypt",
+    category: "reveal",
+    description:
+      "Characters cycle through random glyphs before locking into the final text.",
+    component: DecryptText,
+    code: `<DecryptText text="Decrypt" duration={1.6} />`,
+  },
+  {
+    name: "Stroke Draw",
+    slug: "stroke-draw",
+    category: "reveal",
+    description:
+      "An SVG text outline draws itself using an animated stroke.",
+    component: StrokeDrawText,
+    code: `<StrokeDrawText text="Stroke Draw" fontSize={120} />`,
+  },
+  {
+    name: "Letter Shuffle",
+    slug: "letter-shuffle",
+    category: "reveal",
+    description:
+      "Characters shuffle from randomized positions into their correct reading order.",
+    component: LetterShuffleText,
+    code: `<LetterShuffleText text="Letter Shuffle" />`,
+  },
+  {
+    name: "Cinematic Zoom",
+    slug: "cinematic-zoom",
+    category: "reveal",
+    description:
+      "The whole line zooms in from a distance with a soft blur, like a camera pulling into focus.",
+    component: CinematicZoomText,
+    code: `<CinematicZoomText text="Cinematic Zoom" />`,
+  },
+  {
+    name: "Path Entrance",
+    slug: "path-entrance",
+    category: "reveal",
+    description:
+      "Characters travel in along a curved motion path before settling into the final line.",
+    component: PathEntranceText,
+    code: `<PathEntranceText text="Path Entrance" />`,
+  },
+  {
+    name: "Magnetic",
+    slug: "magnetic",
+    category: "hover",
+    description: "Characters react to the movement of the cursor.",
+    component: MagneticText,
+  },
+  {
+    name: "Hover Distort",
+    slug: "hover-distort",
+    category: "hover",
+    description: "Typography distorts as you interact with it.",
+    component: HoverDistortText,
+  },
+  {
+    name: "Liquid",
+    slug: "liquid",
+    category: "hover",
+    description:
+      "Letters melt and ripple like liquid as you hover over them.",
+    component: LiquidText,
+    code: `<LiquidText text="Liquid" />`,
+  },
+  {
+    name: "Displacement",
+    slug: "displacement",
+    category: "hover",
+    description:
+      "Glyphs lift and warp away from the cursor with a soft falloff.",
+    component: DisplacementText,
+    code: `<DisplacementText text="Displacement" />`,
+  },
+  {
+    name: "Kinetic Drag",
+    slug: "kinetic-drag",
+    category: "hover",
+    description:
+      "Characters can be dragged and flicked with momentum, drifting back into place.",
+    component: KineticDragText,
+    code: `<KineticDragText text="Kinetic Drag" />`,
+  },
+  {
+    name: "Typewriter",
+    slug: "typewriter",
+    category: "loop",
+    description:
+      "A natural typing and deletion effect with a blinking cursor.",
+    component: TypewriterText,
+    code: `<TypewriterText text="Typewriter" />`,
+  },
+  {
+    name: "Text Trail",
+    slug: "text-trail",
+    category: "loop",
+    description:
+      "Characters leave behind fading temporal echoes as they move.",
+    component: TextTrail,
+    code: `<TextTrail text="Text Trail" />`,
+  },
+  {
+    name: "Text Melt",
+    slug: "text-melt",
+    category: "loop",
+    description:
+      "Characters soften, stretch and melt before reforming into place.",
+    component: TextMelt,
+    code: `<TextMelt text="Text Melt" />`,
+  },
+  {
+    name: "Typequake",
+    slug: "typequake",
+    category: "loop",
+    description:
+      "A travelling shockwave sends each character briefly out of position.",
+    component: TypequakeText,
+    code: `<TypequakeText text="Typequake" />`,
+  },
+  {
+    name: "Marquee",
+    slug: "marquee",
+    category: "loop",
+    description:
+      "A continuously looping horizontal text banner.",
+    component: MarqueeText,
+    infinite: true,
+    code: `<MarqueeText text="Marquee Text" speed={15} direction="left" />`,
+  },
+  {
+    name: "Shimmer",
+    slug: "shimmer",
+    category: "loop",
+    description:
+      "A soft light gradient sweeps across the text on loop or hover.",
+    component: ShimmerText,
+    code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
+  },
+  {
+    name: "Scroll Reveal",
+    slug: "scroll-reveal",
+    category: "scroll",
+    description:
+      "Lines or words fade and rise into view as they enter the viewport.",
+    component: ScrollReveal,
+    code: `<ScrollReveal text="Scroll Reveal" splitBy="lines" />`,
+  },
+  {
+    name: "Scroll Skew",
+    slug: "scroll-skew",
+    category: "scroll",
+    description:
+      "Text skews with scroll velocity and snaps back level when scrolling stops.",
+    component: ScrollSkewText,
+    code: `<ScrollSkewText text="Scroll Skew" />`,
+  },
 ];
