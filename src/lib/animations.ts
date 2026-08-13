@@ -26,8 +26,11 @@ import MarqueeText from "@/components/text/MarqueeText";
 import ShimmerText from "@/components/text/ShimmerText";
 import DecryptText from "@/components/text/DecryptText";
 import StrokeDrawText from "@/components/text/StrokedrawText";
-
-
+import ScrollSkewText from "@/components/text/ScrollSkewText";
+import LetterShuffleText from "@/components/text/LetterShuffleText";
+import KineticDragText from "@/components/text/KineticDragText";
+import CinematicZoomText from "@/components/text/CinematicZoomText";
+import PathEntranceText from "@/components/text/PathEntranceText";
 
 export const animations = [
   {
@@ -227,5 +230,45 @@ export const animations = [
     "An SVG text outline draws itself using an animated stroke.",
   component: StrokeDrawText,
   code: `<StrokeDrawText text="Stroke Draw" fontSize={120} />`,
+},
+{
+  name: "Scroll Skew",
+  slug: "scroll-skew",
+  description:
+    "Text skews with scroll velocity and snaps back level when scrolling stops.",
+  component: ScrollSkewText,
+  code: `<ScrollSkewText text="Scroll Skew" />`,
+},
+{
+  name: "Letter Shuffle",
+  slug: "letter-shuffle",
+  description:
+    "Characters shuffle from randomized positions into their correct reading order.",
+  component: LetterShuffleText,
+  code: `<LetterShuffleText text="Letter Shuffle" />`,
+},
+{
+  name: "Kinetic Drag",
+  slug: "kinetic-drag",
+  description:
+    "Characters can be dragged and flicked with momentum, drifting back into place.",
+  component: KineticDragText,
+  code: `<KineticDragText text="Kinetic Drag" />`,
+},
+{
+  name: "Cinematic Zoom",
+  slug: "cinematic-zoom",
+  description:
+    "The whole line zooms in from a distance with a soft blur, like a camera pulling into focus.",
+  component: CinematicZoomText,
+  code: `<CinematicZoomText text="Cinematic Zoom" />`,
+},
+{
+  name: "Path Entrance",
+  slug: "path-entrance",
+  description:
+    "Characters travel in along a curved motion path before settling into the final line.",
+  component: PathEntranceText,
+  code: `<PathEntranceText text="Path Entrance" />`,
 },
 ];

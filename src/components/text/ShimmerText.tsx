@@ -10,6 +10,8 @@ interface ShimmerTextProps {
   text: string;
   loop?: boolean;
   trigger?: "hover" | "auto";
+  baseColor?: string;
+  shineColor?: string;
 }
 
 const SLIT_MASK =
@@ -19,6 +21,8 @@ export default function ShimmerText({
   text,
   loop = true,
   trigger = "auto",
+  baseColor = "currentColor",
+  shineColor = "rgba(0,0,0,0.5)",
 }: ShimmerTextProps) {
   const textRef = useRef<HTMLSpanElement>(null);
   const shineRef = useRef<HTMLSpanElement>(null);
@@ -77,7 +81,10 @@ export default function ShimmerText({
       }}
     >
       {/* Base text — solid like the button */}
-      <span className="inline-block select-none text-neutral-900">
+      <span
+        className="inline-block select-none"
+        style={{ color: baseColor }}
+      >
         {text}
       </span>
 
@@ -89,7 +96,7 @@ export default function ShimmerText({
         style={{
           backgroundImage:
             "linear-gradient(-75deg, transparent 30%, var(--shine) 50%, transparent 70%)",
-          ["--shine" as string]: "rgba(0,0,0,0.5)",
+          ["--shine" as string]: shineColor,
         }}
       >
         {text}

@@ -229,9 +229,9 @@ export default function Hero() {
               </div>
 
               {/* Animation */}
-              <div className="flex min-h-[340px] items-center justify-center px-6 pt-10 sm:min-h-[440px] md:min-h-[500px]">
+              <div className="flex min-h-[340px] items-center justify-center px-6 pt-10 text-center sm:min-h-[440px] md:min-h-[500px]">
 
-                <div className="text-4xl font-medium tracking-tight text-white sm:text-6xl md:text-8xl">
+                <div className="mx-auto text-3xl font-medium tracking-tight text-white sm:text-5xl md:text-7xl">
                   <Animation
                     key={`${index}:${replayKey}`}
                     text="Make your text move."
