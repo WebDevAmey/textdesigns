@@ -35,8 +35,8 @@ export default function TextTrail({
 
         gsap.set(trail, {
           position: "absolute",
-          left: 0,
-          top: 0,
+          left: char.offsetLeft,
+          top: char.offsetTop,
           opacity: 0,
           pointerEvents: "none",
         });
