@@ -1,10 +1,56 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import AnimatedButton from "@/components/ui/animated-button";
-import CharacterBlur from "@/components/text/CharacterBlur";
+import { animations } from "@/lib/animations";
+
+const LOOP_MS = 6000;
+const PREVIEW_COUNT = 15;
+
+// Best 15, curated for the hero preview — Character Blur up first.
+const PREVIEWS = [
+  "character-blur",
+  "gravity",
+  "3d-flip",
+  "shimmer",
+  "typewriter",
+  "wave",
+  "scramble",
+  "glitch",
+  "rotate",
+  "scale",
+  "magnetic",
+  "word-reveal",
+  "char-reveal",
+  "blur",
+  "fade",
+]
+  .map((slug) => animations.find((a) => a.slug === slug))
+  .filter((a): a is NonNullable<typeof a> => Boolean(a));
 
 export default function Hero() {
+  const [index, setIndex] = useState(0);
+  const [replayKey, setReplayKey] = useState(0);
+  const current = PREVIEWS[index];
+  const infinite = "infinite" in current && current.infinite;
+
+  useEffect(() => {
+    if (infinite) return;
+
+    const timer = setTimeout(
+      () => setReplayKey((k) => k + 1),
+      LOOP_MS
+    );
+    return () => clearTimeout(timer);
+  }, [replayKey, index, infinite]);
+
+  const goTo = (nextIndex: number) => {
+    setIndex((nextIndex + PREVIEWS.length) % PREVIEWS.length);
+    setReplayKey(0);
+  };
+
+  const Animation = current.component;
   return (
     <main className="min-h-screen overflow-x-hidden bg-white text-black">
 
@@ -178,7 +224,7 @@ export default function Hero() {
                 </span>
 
                 <span className="text-xs">
-                  Character Blur
+                  {current.name}
                 </span>
               </div>
 
@@ -186,7 +232,10 @@ export default function Hero() {
               <div className="flex min-h-[340px] items-center justify-center px-6 pt-10 sm:min-h-[440px] md:min-h-[500px]">
 
                 <div className="text-4xl font-medium tracking-tight text-white sm:text-6xl md:text-8xl">
-                  <CharacterBlur text="Make your text move." />
+                  <Animation
+                    key={`${index}:${replayKey}`}
+                    text="Make your text move."
+                  />
                 </div>
 
               </div>
@@ -214,9 +263,30 @@ export default function Hero() {
                   React + GSAP
                 </span>
 
-                <span className="text-xs text-white/50">
-                  01 / 15
-                </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-xs text-white/50">
+                    {String(index + 1).padStart(2, "0")} / {PREVIEW_COUNT}
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      aria-label="Previous animation"
+                      onClick={() => goTo(index - 1)}
+                      className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-white/60 transition-all duration-300 hover:border-white/50 hover:bg-white hover:text-black"
+                    >
+                      ←
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Next animation"
+                      onClick={() => goTo(index + 1)}
+                      className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-white/60 transition-all duration-300 hover:border-white/50 hover:bg-white hover:text-black"
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
               </div>
 
             </div>

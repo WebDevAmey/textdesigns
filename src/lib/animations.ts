@@ -27,6 +27,8 @@ import ShimmerText from "@/components/text/ShimmerText";
 import DecryptText from "@/components/text/DecryptText";
 import StrokeDrawText from "@/components/text/StrokedrawText";
 
+
+
 export const animations = [
   {
     name: "Gravity",

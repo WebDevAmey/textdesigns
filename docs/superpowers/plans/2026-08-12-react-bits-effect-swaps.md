@@ -133,9 +133,10 @@ Open `http://localhost:3000/animations`, find the **Rotate** card. Expected: sho
 
 ```bash
 git add src/components/RotatingText src/components/text/RotateText.tsx
-git rm src/components/RotatingText.jsx src/components/RotatingText.css src/components/RotatingText.d.ts
 git commit -m "feat: rewire RotateText to the react-bits word-cycling effect"
 ```
+
+(The stale flat `RotatingText.jsx/.css/.d.ts` were untracked and already removed from disk in Step 2 — there is nothing for git to stage for their removal.)
 
 ---
 
@@ -935,7 +936,7 @@ pnpm dev
 ```
 
 At `http://localhost:3000/animations`, confirm:
-- Exactly 36 cards total (31 original − 1 removed "Rotating Word" + 1 renamed-in-place "Rotate" + 5 new = 36... i.e. one fewer than before this plan started, plus five new ones).
+- Exactly 36 cards total (32 that existed before this plan started, minus the removed "Rotating Word", plus the 5 new effects).
 - **Rotate** shows the word-cycling behavior; no **Rotating Word** card exists.
 - **Variable Text** still shows the cursor-proximity thickening effect.
 - **Scroll Skew**, **Letter Shuffle**, **Kinetic Drag**, **Cinematic Zoom**, **Path Entrance** each behave per their Task 4–8 visual checks.
