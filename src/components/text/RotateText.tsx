@@ -1,46 +1,25 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import SplitType from "split-type";
-
-gsap.registerPlugin(useGSAP);
+import { useMemo } from "react";
+import RotatingText from "@/components/RotatingText/RotatingText";
 
 interface RotateTextProps {
   text: string;
 }
 
 export default function RotateText({ text }: RotateTextProps) {
-  const textRef = useRef<HTMLHeadingElement>(null);
-
-  useGSAP(() => {
-    if (!textRef.current) return;
-
-    const split = new SplitType(textRef.current, {
-      types: "chars",
-    });
-
-    gsap.from(split.chars, {
-      rotation: () => gsap.utils.random(-45, 45),
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      stagger: 0.06,
-      ease: "back.out(1.7)",
-    });
-
-    return () => {
-      split.revert();
-    };
-  });
+  const { staticWord, texts } = useMemo(() => {
+    const words = text.split(/\s+/).filter(Boolean);
+    if (words.length <= 1) {
+      return { staticWord: words[0] ?? "", texts: [text] };
+    }
+    return { staticWord: words[0], texts: words.slice(1) };
+  }, [text]);
 
   return (
-    <h1
-      ref={textRef}
-      className="inline-block"
-    >
-      {text}
-    </h1>
+    <span className="inline-flex items-baseline gap-2">
+      <span>{staticWord}</span>
+      <RotatingText texts={texts} />
+    </span>
   );
 }
