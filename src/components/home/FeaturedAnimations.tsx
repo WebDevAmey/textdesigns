@@ -1,14 +1,27 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import GravityText from "@/components/text/GravityText";
+import ShimmerText from "@/components/text/ShimmerText";
 
-import CharacterBlur from "@/components/text/CharacterBlur";
+import CharacterReveal from "@/components/text/CharacterReveal";
 
-import FlipText from "@/components/text/FlipText";
+import TypewriterText from "@/components/text/TypewriterText";
+
+const LOOP_MS = 6000;
 
 export default function FeaturedAnimations() {
+
+  const [iteration, setIteration] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setIteration((i) => i + 1),
+      LOOP_MS
+    );
+    return () => clearTimeout(timer);
+  }, [iteration]);
 
   return (
 
@@ -60,7 +73,7 @@ export default function FeaturedAnimations() {
 
         <div className="mt-16 grid gap-5 md:grid-cols-3">
 
-          {/* Gravity */}
+          {/* Shimmer */}
 
           <article className="group overflow-hidden rounded-3xl border border-black/10 bg-neutral-50">
 
@@ -68,7 +81,7 @@ export default function FeaturedAnimations() {
 
               <div className="text-4xl font-medium tracking-tight sm:text-5xl">
 
-                <GravityText text="Gravity" />
+                <ShimmerText key={iteration} text="Shimmer" />
 
               </div>
 
@@ -82,13 +95,13 @@ export default function FeaturedAnimations() {
 
                   <h3 className="font-medium">
 
-                    Gravity
+                    Shimmer
 
                   </h3>
 
                   <p className="mt-1 text-sm text-black/45">
 
-                    Characters fall and settle with physical motion.
+                    A soft light gradient sweeps across the text on loop or hover.
 
                   </p>
 
@@ -106,7 +119,7 @@ export default function FeaturedAnimations() {
 
           </article>
 
-          {/* Character Blur */}
+          {/* Char Reveal */}
 
           <article className="group overflow-hidden rounded-3xl border border-black/10 bg-neutral-50">
 
@@ -114,7 +127,7 @@ export default function FeaturedAnimations() {
 
               <div className="text-4xl font-medium tracking-tight sm:text-5xl">
 
-                <CharacterBlur text="Blur" />
+                <CharacterReveal key={iteration} text="Char Reveal" />
 
               </div>
 
@@ -128,13 +141,13 @@ export default function FeaturedAnimations() {
 
                   <h3 className="font-medium">
 
-                    Character Blur
+                    Char Reveal
 
                   </h3>
 
                   <p className="mt-1 text-sm text-black/45">
 
-                    Characters emerge from a soft blur.
+                    Characters reveal themselves individually.
 
                   </p>
 
@@ -152,7 +165,7 @@ export default function FeaturedAnimations() {
 
           </article>
 
-          {/* Flip */}
+          {/* Typewriter */}
 
           <article className="group overflow-hidden rounded-3xl border border-black/10 bg-neutral-50">
 
@@ -160,7 +173,7 @@ export default function FeaturedAnimations() {
 
               <div className="text-4xl font-medium tracking-tight sm:text-5xl">
 
-                <FlipText text="Flip" />
+                <TypewriterText key={iteration} text="Typewriter" />
 
               </div>
 
@@ -174,13 +187,13 @@ export default function FeaturedAnimations() {
 
                   <h3 className="font-medium">
 
-                    3D Flip
+                    Typewriter
 
                   </h3>
 
                   <p className="mt-1 text-sm text-black/45">
 
-                    Characters rotate into view in 3D.
+                    A natural typing and deletion effect with a blinking cursor.
 
                   </p>
 

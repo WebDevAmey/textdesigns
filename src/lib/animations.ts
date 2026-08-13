@@ -26,7 +26,6 @@ import MarqueeText from "@/components/text/MarqueeText";
 import ShimmerText from "@/components/text/ShimmerText";
 import DecryptText from "@/components/text/DecryptText";
 import StrokeDrawText from "@/components/text/StrokedrawText";
-import SlotRollText from "@/components/text/SlotrollText";
 
 export const animations = [
   {
@@ -226,13 +225,5 @@ export const animations = [
     "An SVG text outline draws itself using an animated stroke.",
   component: StrokeDrawText,
   code: `<StrokeDrawText text="Stroke Draw" fontSize={120} />`,
-},
-{
-  name: "Slot Roll",
-  slug: "slot-roll",
-  description:
-    "Characters roll vertically into place like a slot machine or odometer.",
-  component: SlotRollText,
-  code: `<SlotRollText text="Slot Roll" />`,
 },
 ];
