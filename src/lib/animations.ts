@@ -31,6 +31,8 @@ import LetterShuffleText from "@/components/text/LetterShuffleText";
 import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
+import MagneticInkShatter from "@/components/text/MagneticInkShatter";
+import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -233,6 +235,15 @@ export const animations = [
     code: `<KineticDragText text="Kinetic Drag" />`,
   },
   {
+    name: "Magnetic Shatter",
+    slug: "magnetic-shatter",
+    category: "hover",
+    description:
+      "Letters repel from the cursor with a velocity-driven chromatic split, and shatter into shards on click.",
+    component: MagneticInkShatter,
+    code: `<MagneticInkShatter text="Shatter" />`,
+  },
+  {
     name: "Typewriter",
     slug: "typewriter",
     category: "loop",
@@ -286,6 +297,15 @@ export const animations = [
       "A soft light gradient sweeps across the text on loop or hover.",
     component: ShimmerText,
     code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
+  },
+  {
+    name: "Constellation",
+    slug: "constellation-breathe",
+    category: "loop",
+    description:
+      "Letters scatter into a springy arranging, flash connector lines between them, and breathe with variable-font weight.",
+    component: ConstellationBreathe,
+    code: `<ConstellationBreathe text="Assemble" />`,
   },
   {
     name: "Scroll Reveal",
