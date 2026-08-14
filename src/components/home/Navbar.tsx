@@ -16,7 +16,7 @@ import { useState } from "react";
 const navItems = [
   { name: "Animations", link: "/animations" },
   { name: "About", link: "#about" },
-  { name: "Experiments", link: "#experiments" },
+  { name: "Experiments", link: "/experiments" },
 ];
 
 export default function NavbarComponent() {

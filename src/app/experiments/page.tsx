@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
 import MoltenMetalText from "@/components/text/MoltenMetalText";
 import ResonantChainText from "@/components/text/ResonantChainText";
@@ -6,12 +7,18 @@ export default function ExperimentsPage() {
   return (
     <main className="min-h-screen bg-white px-6 py-32 text-black">
       <div className="mx-auto flex max-w-5xl flex-col gap-32">
+        <Link
+          href="/"
+          className="w-fit rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-black/70 transition-all duration-300 hover:border-black/20 hover:bg-black hover:text-white"
+        >
+          ← Back to home
+        </Link>
         <section>
           <h2 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-black/40">
             Flux
           </h2>
           <p className="mb-10 text-sm text-black/50">
-            Move the cursor near the letters, then click.
+            Move the cursor near the letters.
           </p>
           <MagneticFluxText text="FLUX" />
         </section>
@@ -24,16 +31,6 @@ export default function ExperimentsPage() {
             The letterforms made of flowing particles. Hover to sweep them, click to shove.
           </p>
           <MagneticFluxText text="GLYPHS" layer="glyphs" />
-        </section>
-
-        <section>
-          <h2 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-black/40">
-            Flux — Pulses
-          </h2>
-          <p className="mb-10 text-sm text-black/50">
-            Click anywhere to fire an expanding ring pulse through the field.
-          </p>
-          <MagneticFluxText text="PULSES" layer="pulses" />
         </section>
 
         <section>
