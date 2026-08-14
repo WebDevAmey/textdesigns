@@ -18,6 +18,26 @@ export default function ExperimentsPage() {
 
         <section>
           <h2 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-black/40">
+            Flux — Glyphs
+          </h2>
+          <p className="mb-10 text-sm text-black/50">
+            The letterforms made of flowing particles. Hover to sweep them, click to shove.
+          </p>
+          <MagneticFluxText text="GLYPHS" layer="glyphs" />
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-black/40">
+            Flux — Pulses
+          </h2>
+          <p className="mb-10 text-sm text-black/50">
+            Click anywhere to fire an expanding ring pulse through the field.
+          </p>
+          <MagneticFluxText text="PULSES" layer="pulses" />
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-black/40">
             Temper
           </h2>
           <p className="mb-10 text-sm text-black/50">
