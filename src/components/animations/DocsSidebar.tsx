@@ -143,13 +143,11 @@ function SidebarGroup({
   activeSlug,
   hoveredPath,
   onHover,
-  numbered,
 }: {
   group: DocGroup;
   activeSlug: string;
   hoveredPath: string | null;
   onHover: (href: string) => void;
-  numbered: boolean;
 }) {
   return (
     <div className="flex flex-col">
@@ -159,11 +157,11 @@ function SidebarGroup({
       </div>
 
       <div className="mt-1 ml-4 flex flex-col space-y-0.5 border-l border-border pl-2">
-        {group.docs.map((doc, i) => (
+        {group.docs.map((doc) => (
           <SidebarItem
             key={doc.slug}
             href={`#${doc.slug}`}
-            name={numbered ? `${String(i + 1).padStart(2, "0")} ${doc.name}` : doc.name}
+            name={doc.name}
             isActive={doc.slug === activeSlug}
             isHovered={hoveredPath === `#${doc.slug}`}
             onHover={onHover}
@@ -191,14 +189,13 @@ export default function DocsSidebar({ groups, activeSlug, className }: DocsSideb
       className={cn("w-full space-y-6 pb-8", className)}
       onMouseLeave={handleMouseLeave}
     >
-      {groups.map((group, i) => (
+      {groups.map((group) => (
         <SidebarGroup
           key={group.label}
           group={group}
           activeSlug={activeSlug}
           hoveredPath={hoveredPath}
           onHover={handleHover}
-          numbered={i === 0}
         />
       ))}
     </nav>
