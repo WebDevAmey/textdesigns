@@ -1,0 +1,200 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import DocsNav from "@/components/animations/DocsNav";
+import DocsFooter from "@/components/animations/DocsFooter";
+import DocsSidebar from "@/components/animations/DocsSidebar";
+import type { AnimationDoc } from "@/lib/animations-docs";
+
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const TOKEN_RE =
+  /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|\b(import|from|export|default|const|let|var|function|return|interface|type|extends|if|else|for|while|switch|case|new|typeof|as|async|await|in|of)\b/g;
+
+function highlightTsx(code: string): string {
+  const parts: string[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  TOKEN_RE.lastIndex = 0;
+  while ((m = TOKEN_RE.exec(code))) {
+    parts.push(escapeHtml(code.slice(last, m.index)));
+    if (m[1]) {
+      parts.push(`<span class="text-neutral-400 italic">${escapeHtml(m[1])}</span>`);
+    } else if (m[2]) {
+      parts.push(`<span class="text-neutral-600">${escapeHtml(m[2])}</span>`);
+    } else {
+      parts.push(`<span class="font-medium text-neutral-900">${m[0]}</span>`);
+    }
+    last = m.index + m[0].length;
+  }
+  parts.push(escapeHtml(code.slice(last)));
+  return parts.join("");
+}
+
+interface AnimationDocsProps {
+  docs: AnimationDoc[];
+}
+
+export default function AnimationDocs({ docs }: AnimationDocsProps) {
+  const [activeSlug, setActiveSlug] = useState(docs[0].slug);
+  const [codeOpen, setCodeOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const readHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (docs.some((d) => d.slug === hash)) setActiveSlug(hash);
+    };
+    readHash();
+    window.addEventListener("hashchange", readHash);
+    return () => window.removeEventListener("hashchange", readHash);
+  }, [docs]);
+
+  const active = docs.find((d) => d.slug === activeSlug) ?? docs[0];
+  const activeIndex = docs.findIndex((d) => d.slug === active.slug);
+
+  const copySource = async () => {
+    if (!active.source) return;
+    try {
+      await navigator.clipboard.writeText(active.source);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <DocsNav />
+
+      <main className="mx-auto flex w-full max-w-7xl flex-1 gap-10 px-4 py-10 md:px-8">
+        <DocsSidebar
+          docs={docs}
+          activeSlug={active.slug}
+          className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-56 shrink-0 self-start overflow-y-auto lg:block"
+        />
+
+        <article className="min-w-0 max-w-3xl flex-1">
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+            {active.name}
+          </h1>
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+            {active.description}
+          </p>
+
+          <div className="mt-10 flex flex-col gap-8">
+            <section>
+              <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                Preview
+              </h2>
+              <div className="relative mt-3 flex h-[420px] w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/40">
+                <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                  Interactive Preview
+                </span>
+                <span className="absolute right-3 top-3 z-10 font-mono text-[10px] text-muted-foreground/70">
+                  {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                  {String(docs.length).padStart(2, "0")}
+                </span>
+                {active.interactions.length > 0 && (
+                  <div className="absolute bottom-3 right-3 z-10 flex gap-1">
+                    {active.interactions.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-sm border border-border bg-background px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.15em] text-muted-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <div className="flex max-w-full items-center justify-center px-6 text-foreground">
+                  {active.component ? (
+                    <active.component key={active.slug} text={active.previewText} />
+                  ) : (
+                    <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                      Under Construction
+                    </span>
+                  )}
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                Props
+              </h2>
+              {active.props.length > 0 ? (
+                <div className="mt-3 overflow-x-auto rounded-lg border border-border">
+                  <table className="w-full border-collapse text-sm">
+                    <thead>
+                      <tr className="border-b border-border text-left text-xs uppercase tracking-wider text-muted-foreground">
+                        <th className="px-3 py-2 font-medium">Prop</th>
+                        <th className="px-3 py-2 font-medium">Type</th>
+                        <th className="px-3 py-2 font-medium">Default</th>
+                        <th className="px-3 py-2 font-medium">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {active.props.map((p) => (
+                        <tr key={p.prop} className="border-b border-border/60 last:border-b-0">
+                          <td className="px-3 py-2 font-mono text-xs text-foreground">
+                            {p.prop}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-xs text-muted-foreground">
+                            {p.type}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-xs text-muted-foreground">
+                            {p.default}
+                          </td>
+                          <td className="px-3 py-2 text-sm text-muted-foreground">
+                            {p.description}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="mt-3 text-sm text-muted-foreground">None yet.</p>
+              )}
+            </section>
+
+            <section>
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                  Source
+                </h2>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setCodeOpen((o) => !o)}
+                    className="rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                  >
+                    {codeOpen ? "Hide Code" : "View Code"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={copySource}
+                    disabled={!active.source}
+                    className="rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {copied ? "Copied" : "Copy Code"}
+                  </button>
+                </div>
+              </div>
+              {codeOpen && active.source && (
+                <pre className="mt-3 max-h-96 overflow-auto rounded-lg border border-border bg-code-bg p-4 font-mono text-xs leading-relaxed text-code-foreground">
+                  <code dangerouslySetInnerHTML={{ __html: highlightTsx(active.source) }} />
+                </pre>
+              )}
+            </section>
+          </div>
+        </article>
+      </main>
+
+      <DocsFooter />
+    </div>
+  );
+}
