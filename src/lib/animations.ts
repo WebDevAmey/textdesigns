@@ -33,6 +33,8 @@ import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
 import MagneticInkShatter from "@/components/text/MagneticInkShatter";
 import ConstellationBreathe from "@/components/text/ConstellationBreathe";
+import CircularText from "@/components/text/CircularText";
+import ShuffleText from "@/components/text/ShuffleText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -176,6 +178,15 @@ export const animations = [
     code: `<LetterShuffleText text="Letter Shuffle" />`,
   },
   {
+    name: "Shuffle",
+    slug: "shuffle",
+    category: "reveal",
+    description:
+      "Characters start shuffled and swap places two at a time, sorting themselves into the correct word.",
+    component: ShuffleText,
+    code: `<ShuffleText text="Shuffle" />`,
+  },
+  {
     name: "Cinematic Zoom",
     slug: "cinematic-zoom",
     category: "reveal",
@@ -306,6 +317,16 @@ export const animations = [
       "Letters scatter into a springy arranging, flash connector lines between them, and breathe with variable-font weight.",
     component: ConstellationBreathe,
     code: `<ConstellationBreathe text="Assemble" />`,
+  },
+  {
+    name: "Circular Text",
+    slug: "circular-text",
+    category: "loop",
+    description:
+      "Text laid out around a circle, continuously rotating like a spinning badge.",
+    component: CircularText,
+    infinite: true,
+    code: `<CircularText text="Circular Text" />`,
   },
   {
     name: "Scroll Reveal",
