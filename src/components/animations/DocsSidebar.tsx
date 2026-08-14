@@ -132,7 +132,14 @@ const SidebarItem = memo(function SidebarItem({
             : "text-muted-foreground hover:text-foreground"
         )}
       >
-        <span className="truncate">{name}</span>
+        <motion.span
+          className="truncate"
+          style={{ transformOrigin: "left center" }}
+          animate={isHovered ? { scale: 1.07 } : { scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        >
+          {name}
+        </motion.span>
       </Link>
     </div>
   );
@@ -186,18 +193,20 @@ export default function DocsSidebar({ groups, activeSlug, className }: DocsSideb
   return (
     <nav
       aria-label="Animation documentation"
-      className={cn("w-full space-y-6 pb-8", className)}
+      className={cn("-ml-2 flex min-h-full w-full flex-col", className)}
       onMouseLeave={handleMouseLeave}
     >
-      {groups.map((group) => (
-        <SidebarGroup
-          key={group.label}
-          group={group}
-          activeSlug={activeSlug}
-          hoveredPath={hoveredPath}
-          onHover={handleHover}
-        />
-      ))}
+      <div className="my-auto w-full space-y-6 pb-8">
+        {groups.map((group) => (
+          <SidebarGroup
+            key={group.label}
+            group={group}
+            activeSlug={activeSlug}
+            hoveredPath={hoveredPath}
+            onHover={handleHover}
+          />
+        ))}
+      </div>
     </nav>
   );
 }
