@@ -177,7 +177,9 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                       )}
                       <div className="flex max-w-full items-center justify-center px-6 text-foreground">
                         {active.component ? (
-                          <active.component key={active.slug} text={active.previewText} />
+                          <div className="scale-125">
+                            <active.component key={active.slug} text={active.previewText} />
+                          </div>
                         ) : (
                           <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
                             Under Construction
