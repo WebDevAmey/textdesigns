@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { sampleTextParticles } from "@/lib/text-physics/geometry";
 import { clamp, angleDelta } from "@/lib/text-physics/physics";
-import { createNoiseField } from "@/lib/text-physics/noise";
 
 interface Needle {
   homeX: number;
@@ -16,7 +15,6 @@ interface Needle {
   angle: number;
   angularVelocity: number;
   homeAngle: number;
-  seed: number;
 }
 
 interface Pulse {
@@ -27,6 +25,8 @@ interface Pulse {
 
 interface MagneticFluxTextProps {
   text: string;
+  /** Which visual layer to render. */
+  layer?: "lines" | "glyphs" | "pulses";
   /** Grid spacing between needles, in px. Smaller = denser field. */
   particleSize?: number;
   /** Radius, in px, within which the cursor aligns nearby needles. */
@@ -46,6 +46,7 @@ const PULSE_LIFETIME_MS = 900;
  */
 export default function MagneticFluxText({
   text,
+  layer = "lines",
   particleSize = 5,
   interactionRadius = 140,
   fontSize = 140,
@@ -80,8 +81,6 @@ export default function MagneticFluxText({
     ctx.scale(dpr, dpr);
     ctx.lineCap = "round";
 
-    const noise = createNoiseField();
-
     const needles: Needle[] = points.map((p) => ({
       homeX: p.x,
       homeY: p.y,
@@ -92,7 +91,6 @@ export default function MagneticFluxText({
       angle: 0,
       angularVelocity: 0,
       homeAngle: 0,
-      seed: Math.random() * 1000,
     }));
 
     const needleLength = particleSize * 1.6;
@@ -114,20 +112,36 @@ export default function MagneticFluxText({
       pointerRef.current.x = -9999;
       pointerRef.current.y = -9999;
     };
+    const spawnPulse = (x: number, y: number) => {
+      const pulses = pulsesRef.current;
+      pulses.push({ x, y, start: performance.now() });
+      if (pulses.length > 6) pulses.shift();
+    };
+
     const handleDown = (event: PointerEvent) => {
       const rect = container.getBoundingClientRect();
-      const pulses = pulsesRef.current;
-      pulses.push({
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top,
-        start: performance.now(),
-      });
-      if (pulses.length > 6) pulses.shift();
+      spawnPulse(event.clientX - rect.left, event.clientY - rect.top);
     };
 
     container.addEventListener("pointermove", handleMove);
     container.addEventListener("pointerleave", handleLeave);
     container.addEventListener("pointerdown", handleDown);
+
+    const autoOrigins: Array<[number, number]> = [
+      [0.5, 0.5],
+      [0.24, 0.5],
+      [0.76, 0.5],
+      [0.5, 0.32],
+      [0.5, 0.68],
+    ];
+    let autoIndex = 0;
+    const fireAutoPulse = () => {
+      const [fx, fy] = autoOrigins[autoIndex % autoOrigins.length];
+      autoIndex += 1;
+      spawnPulse(fx * width, fy * height);
+    };
+    const initialAutoPulse = window.setTimeout(fireAutoPulse, 600);
+    const autoInterval = window.setInterval(fireAutoPulse, 1600);
 
     let lastTime = performance.now();
 
@@ -144,6 +158,9 @@ export default function MagneticFluxText({
       pulsesRef.current = pulses;
 
       ctx.clearRect(0, 0, width, height);
+
+      const drawDots = layer === "glyphs";
+      const drawRings = layer === "pulses";
 
       for (const needle of needles) {
         let influence = 0;
@@ -179,11 +196,8 @@ export default function MagneticFluxText({
           }
         }
 
-        const wanderX = noise(needle.seed, 0, t * 0.15) * 1.5;
-        const wanderY = noise(0, needle.seed, t * 0.15) * 1.5;
-
-        const targetX = needle.homeX + wanderX + flowX * 10 * influence;
-        const targetY = needle.homeY + wanderY + flowY * 10 * influence;
+        const targetX = needle.homeX + flowX * 10 * influence;
+        const targetY = needle.homeY + flowY * 10 * influence;
 
         const ax = (targetX - needle.x) * positionStiffness - needle.vx * positionDamping;
         const ay = (targetY - needle.y) * positionStiffness - needle.vy * positionDamping;
@@ -192,7 +206,16 @@ export default function MagneticFluxText({
         needle.x += needle.vx * dt;
         needle.y += needle.vy * dt;
 
-        const idleAngle = noise(needle.seed, 5, t * 0.1) * 0.3;
+        if (drawDots) {
+          const dotRadius = Math.max(particleSize * 0.45, 1.5);
+          ctx.fillStyle = "rgba(15, 15, 17, 0.92)";
+          ctx.beginPath();
+          ctx.arc(needle.x, needle.y, dotRadius, 0, Math.PI * 2);
+          ctx.fill();
+          continue;
+        }
+
+        const idleAngle = Math.sin(t * 0.35) * 0.06;
         const fieldAngle = Math.atan2(flowY, flowX);
         const targetAngle =
           influence > 0.02
@@ -204,12 +227,8 @@ export default function MagneticFluxText({
         needle.angularVelocity += angularForce * dt;
         needle.angle += needle.angularVelocity * dt;
 
-        const glow = 0.35 + influence * 0.65;
-        const mix = influence;
-        const r = Math.round(23 + (99 - 23) * mix);
-        const g = Math.round(23 + (102 - 23) * mix);
-        const b = Math.round(23 + (241 - 23) * mix);
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${glow})`;
+        const glow = drawRings ? 0.4 + influence * 0.4 : 0.75 + influence * 0.25;
+        ctx.strokeStyle = `rgba(0, 0, 0, ${glow})`;
         ctx.lineWidth = 1.4;
 
         const hx = Math.cos(needle.angle) * needleLength * 0.5;
@@ -219,17 +238,30 @@ export default function MagneticFluxText({
         ctx.lineTo(needle.x + hx, needle.y + hy);
         ctx.stroke();
       }
+
+      if (drawRings) {
+        for (const pulse of pulses) {
+          const age = (now - pulse.start) / PULSE_LIFETIME_MS;
+          ctx.strokeStyle = `rgba(0, 0, 0, ${(1 - age) * 0.85})`;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.arc(pulse.x, pulse.y, interactionRadius * 1.6 * age, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
     };
 
     gsap.ticker.add(tick);
 
     return () => {
+      window.clearTimeout(initialAutoPulse);
+      window.clearInterval(autoInterval);
       gsap.ticker.remove(tick);
       container.removeEventListener("pointermove", handleMove);
       container.removeEventListener("pointerleave", handleLeave);
       container.removeEventListener("pointerdown", handleDown);
     };
-  }, [text, particleSize, interactionRadius, fontSize]);
+  }, [text, layer, particleSize, interactionRadius, fontSize]);
 
   return (
     <div ref={containerRef} className="relative inline-block touch-none">

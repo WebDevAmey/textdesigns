@@ -38,7 +38,7 @@ interface MoltenMetalTextProps {
  */
 export default function MoltenMetalText({
   text,
-  particleSize = 14,
+  particleSize = 10,
   interactionRadius = 130,
   fontSize = 140,
 }: MoltenMetalTextProps) {
@@ -69,7 +69,7 @@ export default function MoltenMetalText({
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     ctx.scale(dpr, dpr);
-    canvas.style.filter = "blur(4px) contrast(38) brightness(1.02)";
+    canvas.style.filter = "contrast(38) brightness(1.02)";
 
     const noise = createNoiseField();
 
@@ -81,7 +81,7 @@ export default function MoltenMetalText({
       vx: 0,
       vy: 0,
       seed: Math.random() * 1000,
-      radius: particleSize * 0.92,
+      radius: particleSize * 0.65,
     }));
 
     const stiffness = 55;
