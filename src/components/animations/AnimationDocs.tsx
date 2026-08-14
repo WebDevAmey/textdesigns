@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Check, Copy, PictureInPicture2, SquareTerminal } from "lucide-react";
 import DocsNav from "@/components/animations/DocsNav";
 import DocsFooter from "@/components/animations/DocsFooter";
 import DocsSidebar from "@/components/animations/DocsSidebar";
@@ -39,7 +40,7 @@ interface AnimationDocsProps {
 export default function AnimationDocs({ groups }: AnimationDocsProps) {
   const docs = groups.flatMap((g) => g.docs);
   const [activeSlug, setActiveSlug] = useState(docs[0].slug);
-  const [codeOpen, setCodeOpen] = useState(false);
+  const [view, setView] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -87,39 +88,98 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
 
           <div className="mt-10 flex flex-col gap-8">
             <section>
-              <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                Preview
-              </h2>
-              <div className="relative mt-3 flex h-[420px] w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/40">
-                <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                  Interactive Preview
-                </span>
-                <span className="absolute right-3 top-3 z-10 font-mono text-[10px] text-muted-foreground/70">
-                  {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                  {String(docs.length).padStart(2, "0")}
-                </span>
-                {active.interactions.length > 0 && (
-                  <div className="absolute bottom-3 right-3 z-10 flex gap-1">
-                    {active.interactions.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-sm border border-border bg-background px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.15em] text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <div className="flex max-w-full items-center justify-center px-6 text-foreground">
-                  {active.component ? (
-                    <active.component key={active.slug} text={active.previewText} />
-                  ) : (
-                    <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
-                      Under Construction
-                    </span>
-                  )}
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="mb-0 inline-flex h-10 items-center justify-center rounded-lg bg-neutral-100 p-1 text-neutral-500">
+                  <button
+                    type="button"
+                    onClick={() => setView("preview")}
+                    className={`inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 gap-2 px-3 py-1.5 text-sm h-8 font-medium ${
+                      view === "preview"
+                        ? "bg-white text-neutral-900 shadow-sm"
+                        : "hover:text-neutral-700"
+                    }`}
+                  >
+                    <PictureInPicture2 className="h-4 w-4" />
+                    Preview
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setView("code")}
+                    className={`inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 gap-2 px-3 py-1.5 text-sm h-8 font-medium ${
+                      view === "code"
+                        ? "bg-white text-neutral-900 shadow-sm"
+                        : "hover:text-neutral-700"
+                    }`}
+                  >
+                    <SquareTerminal className="h-4 w-4" />
+                    Code
+                  </button>
                 </div>
+                {view === "code" && active.source && (
+                  <button
+                    type="button"
+                    onClick={copySource}
+                    aria-label="Copy code"
+                    className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    {copied ? (
+                      <Check className="h-3.5 w-3.5 text-emerald-500" />
+                    ) : (
+                      <Copy className="h-3.5 w-3.5" />
+                    )}
+                    {copied ? "Copied" : "Copy"}
+                  </button>
+                )}
               </div>
+
+              {view === "preview" ? (
+                <div className="relative mt-3 flex h-[420px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                  <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                    Interactive Preview
+                  </span>
+                  <span className="absolute right-3 top-3 z-10 font-mono text-[10px] text-muted-foreground/70">
+                    {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                    {String(docs.length).padStart(2, "0")}
+                  </span>
+                  {active.interactions.length > 0 && (
+                    <div className="absolute bottom-3 right-3 z-10 flex gap-1">
+                      {active.interactions.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-sm border border-border bg-background px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.15em] text-muted-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex max-w-full items-center justify-center px-6 text-foreground">
+                    {active.component ? (
+                      <active.component key={active.slug} text={active.previewText} />
+                    ) : (
+                      <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                        Under Construction
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                active.source && (
+                  <div className="mt-3 overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                    <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5">
+                      <span className="font-mono text-xs text-muted-foreground">
+                        {active.name.replace(/\s+/g, "-").toLowerCase()}.tsx
+                      </span>
+                    </div>
+                    <pre className="max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed">
+                      <code
+                        className="text-[13px] leading-relaxed text-neutral-500"
+                        dangerouslySetInnerHTML={{ __html: highlightTsx(active.source) }}
+                      />
+                    </pre>
+                  </div>
+                )
+              )}
             </section>
 
             <section>
@@ -159,36 +219,6 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                 </div>
               ) : (
                 <p className="mt-3 text-sm text-muted-foreground">None yet.</p>
-              )}
-            </section>
-
-            <section>
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                  Source
-                </h2>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setCodeOpen((o) => !o)}
-                    className="rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
-                  >
-                    {codeOpen ? "Hide Code" : "View Code"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={copySource}
-                    disabled={!active.source}
-                    className="rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    {copied ? "Copied" : "Copy Code"}
-                  </button>
-                </div>
-              </div>
-              {codeOpen && active.source && (
-                <pre className="mt-3 max-h-96 overflow-auto rounded-lg border border-border bg-code-bg p-4 font-mono text-xs leading-relaxed text-code-foreground">
-                  <code dangerouslySetInnerHTML={{ __html: highlightTsx(active.source) }} />
-                </pre>
               )}
             </section>
           </div>
