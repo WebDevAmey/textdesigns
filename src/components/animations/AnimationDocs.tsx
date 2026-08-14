@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import DocsNav from "@/components/animations/DocsNav";
 import DocsFooter from "@/components/animations/DocsFooter";
 import DocsSidebar from "@/components/animations/DocsSidebar";
-import type { AnimationDoc } from "@/lib/animations-docs";
+import type { DocGroup } from "@/lib/animations-docs";
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -33,10 +33,11 @@ function highlightTsx(code: string): string {
 }
 
 interface AnimationDocsProps {
-  docs: AnimationDoc[];
+  groups: DocGroup[];
 }
 
-export default function AnimationDocs({ docs }: AnimationDocsProps) {
+export default function AnimationDocs({ groups }: AnimationDocsProps) {
+  const docs = groups.flatMap((g) => g.docs);
   const [activeSlug, setActiveSlug] = useState(docs[0].slug);
   const [codeOpen, setCodeOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -71,7 +72,7 @@ export default function AnimationDocs({ docs }: AnimationDocsProps) {
 
       <main className="mx-auto flex w-full max-w-7xl flex-1 gap-10 px-4 py-10 md:px-8">
         <DocsSidebar
-          docs={docs}
+          groups={groups}
           activeSlug={active.slug}
           className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-56 shrink-0 self-start overflow-y-auto lg:block"
         />

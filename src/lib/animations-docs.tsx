@@ -4,6 +4,7 @@ import GravityText from "@/components/text/GravityText";
 import CollapseText from "@/components/text/CollapseText";
 import DecryptText from "@/components/text/DecryptText";
 import PixelMemoryText from "@/components/text/PixelMemoryText";
+import { animations } from "@/lib/animations";
 
 export interface DocPropRow {
   prop: string;
@@ -26,7 +27,90 @@ export interface AnimationDoc {
   source?: string;
 }
 
-export const animationDocs: AnimationDoc[] = [
+export type DocIcon = "type" | "reveal" | "hover" | "loop" | "scroll";
+
+export interface DocGroup {
+  label: string;
+  icon: DocIcon;
+  docs: AnimationDoc[];
+}
+
+const textProp: DocPropRow[] = [
+  {
+    prop: "text",
+    type: "string",
+    default: "—",
+    description: "Text rendered by the animation",
+  },
+];
+
+const SOURCE_FILES: Record<string, string> = {
+  gravity: "GravityText.tsx",
+  "character-blur": "CharacterBlur.tsx",
+  "3d-flip": "FlipText.tsx",
+  fade: "FadeText.tsx",
+  wave: "WaveText.tsx",
+  scramble: "ScrambleText.tsx",
+  glitch: "GlitchText.tsx",
+  rotate: "RotateText.tsx",
+  scale: "ScaleText.tsx",
+  "word-reveal": "WordReveal.tsx",
+  "character-reveal": "CharacterReveal.tsx",
+  blur: "BlurText.tsx",
+  "collapse-text": "CollapseText.tsx",
+  "text-tides": "TideText.tsx",
+  "line-reveal": "LineReveal.tsx",
+  decrypt: "DecryptText.tsx",
+  "stroke-draw": "StrokedrawText.tsx",
+  "letter-shuffle": "LetterShuffleText.tsx",
+  shuffle: "ShuffleText.tsx",
+  "cinematic-zoom": "CinematicZoomText.tsx",
+  "path-entrance": "PathEntranceText.tsx",
+  magnetic: "MagneticText.tsx",
+  "hover-distort": "HoverDistortText.tsx",
+  liquid: "LiquidText.tsx",
+  displacement: "DisplacementText.tsx",
+  "kinetic-drag": "KineticDragText.tsx",
+  "magnetic-shatter": "MagneticInkShatter.tsx",
+  typewriter: "TypewriterText.tsx",
+  "text-trail": "TextTrail.tsx",
+  "text-melt": "TextMelt.tsx",
+  typequake: "TypequakeText.tsx",
+  marquee: "MarqueeText.tsx",
+  shimmer: "ShimmerText.tsx",
+  "constellation-breathe": "ConstellationBreathe.tsx",
+  "circular-text": "CircularText.tsx",
+  "scroll-reveal": "ScrollReveal.tsx",
+  "scroll-skew": "ScrollSkewText.tsx",
+};
+
+const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string): AnimationDoc => ({
+  slug,
+  name,
+  description,
+  interactions: category === "hover" ? ["Move"] : [],
+  previewText: name,
+  component,
+  props: textProp,
+  sourceFile: SOURCE_FILES[slug],
+});
+
+const libraryGroups = (
+  [
+    ["reveal", "Reveals", "reveal"] as const,
+    ["hover", "Hover", "hover"] as const,
+    ["loop", "Loops", "loop"] as const,
+    ["scroll", "Scroll", "scroll"] as const,
+  ] as const
+).map(([key, label, icon]) => ({
+  label,
+  icon: icon as DocIcon,
+  docs: animations
+    .filter((a) => a.category === key)
+    .map((a) => fromLibrary(a.slug, a.component, a.name, a.description, a.category)),
+}));
+
+const experiments: AnimationDoc[] = [
   {
     slug: "living-typography",
     name: "Living Typography",
@@ -35,14 +119,7 @@ export const animationDocs: AnimationDoc[] = [
     interactions: [],
     previewText: "Living Typography",
     component: TypewriterText,
-    props: [
-      {
-        prop: "text",
-        type: "string",
-        default: "—",
-        description: "Text rendered by the animation",
-      },
-    ],
+    props: textProp,
     sourceFile: "TypewriterText.tsx",
   },
   {
@@ -53,14 +130,7 @@ export const animationDocs: AnimationDoc[] = [
     interactions: [],
     previewText: "Gravity",
     component: GravityText,
-    props: [
-      {
-        prop: "text",
-        type: "string",
-        default: "—",
-        description: "Text rendered by the animation",
-      },
-    ],
+    props: textProp,
     sourceFile: "GravityText.tsx",
   },
   {
@@ -71,14 +141,7 @@ export const animationDocs: AnimationDoc[] = [
     interactions: [],
     previewText: "Reconstruct",
     component: CollapseText,
-    props: [
-      {
-        prop: "text",
-        type: "string",
-        default: "—",
-        description: "Text rendered by the animation",
-      },
-    ],
+    props: textProp,
     sourceFile: "CollapseText.tsx",
   },
   {
@@ -90,12 +153,7 @@ export const animationDocs: AnimationDoc[] = [
     previewText: "NEURAL",
     component: DecryptText,
     props: [
-      {
-        prop: "text",
-        type: "string",
-        default: "—",
-        description: "Text rendered by the animation",
-      },
+      ...textProp,
       {
         prop: "duration",
         type: "number",
@@ -120,12 +178,7 @@ export const animationDocs: AnimationDoc[] = [
     previewText: "PIXEL",
     component: PixelMemoryText,
     props: [
-      {
-        prop: "text",
-        type: "string",
-        default: "—",
-        description: "Text rendered by the animation",
-      },
+      ...textProp,
       {
         prop: "particleSize",
         type: "number",
@@ -157,4 +210,9 @@ export const animationDocs: AnimationDoc[] = [
     component: null,
     props: [],
   },
+];
+
+export const docGroups: DocGroup[] = [
+  { label: "Text Animations", icon: "type", docs: experiments },
+  ...libraryGroups,
 ];
