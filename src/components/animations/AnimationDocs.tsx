@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Check, Copy, PictureInPicture2, SquareTerminal } from "lucide-react";
 import DocsNav from "@/components/animations/DocsNav";
 import DocsFooter from "@/components/animations/DocsFooter";
@@ -54,7 +55,6 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
   }, [docs]);
 
   const active = docs.find((d) => d.slug === activeSlug) ?? docs[0];
-  const activeIndex = docs.findIndex((d) => d.slug === active.slug);
 
   const copySource = async () => {
     if (!active.source) return;
@@ -93,26 +93,44 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                   <button
                     type="button"
                     onClick={() => setView("preview")}
-                    className={`inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 gap-2 px-3 py-1.5 text-sm h-8 font-medium ${
+                    className={`relative inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 gap-2 px-3 py-1.5 text-sm h-8 font-medium ${
                       view === "preview"
-                        ? "bg-white text-neutral-900 shadow-sm"
+                        ? "text-neutral-900"
                         : "hover:text-neutral-700"
                     }`}
                   >
-                    <PictureInPicture2 className="h-4 w-4" />
-                    Preview
+                    {view === "preview" && (
+                      <motion.span
+                        layoutId="docs-tab-pill"
+                        className="absolute inset-0 rounded-md bg-white shadow-sm"
+                        transition={{ type: "spring", bounce: 0.15, duration: 0.45 }}
+                      />
+                    )}
+                    <span className="relative z-10 inline-flex items-center gap-2">
+                      <PictureInPicture2 className="h-4 w-4" />
+                      Preview
+                    </span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setView("code")}
-                    className={`inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 gap-2 px-3 py-1.5 text-sm h-8 font-medium ${
+                    className={`relative inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 gap-2 px-3 py-1.5 text-sm h-8 font-medium ${
                       view === "code"
-                        ? "bg-white text-neutral-900 shadow-sm"
+                        ? "text-neutral-900"
                         : "hover:text-neutral-700"
                     }`}
                   >
-                    <SquareTerminal className="h-4 w-4" />
-                    Code
+                    {view === "code" && (
+                      <motion.span
+                        layoutId="docs-tab-pill"
+                        className="absolute inset-0 rounded-md bg-white shadow-sm"
+                        transition={{ type: "spring", bounce: 0.15, duration: 0.45 }}
+                      />
+                    )}
+                    <span className="relative z-10 inline-flex items-center gap-2">
+                      <SquareTerminal className="h-4 w-4" />
+                      Code
+                    </span>
                   </button>
                 </div>
                 {view === "code" && active.source && (
@@ -132,54 +150,68 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                 )}
               </div>
 
-              {view === "preview" ? (
-                <div className="relative mt-3 flex h-[420px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                  <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                    Interactive Preview
-                  </span>
-                  <span className="absolute right-3 top-3 z-10 font-mono text-[10px] text-muted-foreground/70">
-                    {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                    {String(docs.length).padStart(2, "0")}
-                  </span>
-                  {active.interactions.length > 0 && (
-                    <div className="absolute bottom-3 right-3 z-10 flex gap-1">
-                      {active.interactions.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-sm border border-border bg-background px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.15em] text-muted-foreground"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  <div className="flex max-w-full items-center justify-center px-6 text-foreground">
-                    {active.component ? (
-                      <active.component key={active.slug} text={active.previewText} />
-                    ) : (
-                      <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
-                        Under Construction
+              <AnimatePresence mode="wait" initial={false}>
+                {view === "preview" ? (
+                  <motion.div
+                    key="preview"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <div className="relative mt-3 flex h-[420px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                      <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                        Interactive Preview
                       </span>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                active.source && (
-                  <div className="mt-3 overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                    <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5">
-                      <span className="font-mono text-xs text-muted-foreground">
-                        {active.name.replace(/\s+/g, "-").toLowerCase()}.tsx
-                      </span>
+                      {active.interactions.length > 0 && (
+                        <div className="absolute bottom-3 right-3 z-10 flex gap-1">
+                          {active.interactions.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-sm border border-border bg-background px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.15em] text-muted-foreground"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex max-w-full items-center justify-center px-6 text-foreground">
+                        {active.component ? (
+                          <active.component key={active.slug} text={active.previewText} />
+                        ) : (
+                          <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                            Under Construction
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <pre className="max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed">
-                      <code
-                        className="text-[13px] leading-relaxed text-neutral-500"
-                        dangerouslySetInnerHTML={{ __html: highlightTsx(active.source) }}
-                      />
-                    </pre>
-                  </div>
-                )
-              )}
+                  </motion.div>
+                ) : (
+                  active.source && (
+                    <motion.div
+                      key="code"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    >
+                      <div className="mt-3 overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                        <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5">
+                          <span className="font-mono text-xs text-muted-foreground">
+                            {active.name.replace(/\s+/g, "-").toLowerCase()}.tsx
+                          </span>
+                        </div>
+                        <pre className="max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed">
+                          <code
+                            className="text-[13px] leading-relaxed text-neutral-500"
+                            dangerouslySetInnerHTML={{ __html: highlightTsx(active.source) }}
+                          />
+                        </pre>
+                      </div>
+                    </motion.div>
+                  )
+                )}
+              </AnimatePresence>
             </section>
 
             <section>
