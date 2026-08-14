@@ -4,27 +4,93 @@ import { memo, useCallback, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import type { DocGroup, DocIcon } from "@/lib/animations-docs";
 
-const TYPE_ICON = (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M4 7V5h16v2" />
-    <path d="M12 5v14" />
-    <path d="M9 19h6" />
-  </svg>
-);
+const ICONS: Record<DocIcon, React.ReactNode> = {
+  type: (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 7V5h16v2" />
+      <path d="M12 5v14" />
+      <path d="M9 19h6" />
+    </svg>
+  ),
+  reveal: (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  hover: (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 4l7.1 17 2.2-7.1 7.1-2.2z" />
+    </svg>
+  ),
+  loop: (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M21 12a9 9 0 1 1-2.6-6.4" />
+      <path d="M21 3v6h-6" />
+    </svg>
+  ),
+  scroll: (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="8" y="2" width="8" height="20" rx="4" />
+      <path d="M12 6v4" />
+    </svg>
+  ),
+};
 
 interface DocsSidebarProps {
-  docs: Array<{ slug: string; name: string }>;
+  groups: DocGroup[];
   activeSlug: string;
   className?: string;
 }
@@ -72,7 +138,50 @@ const SidebarItem = memo(function SidebarItem({
   );
 });
 
-export default function DocsSidebar({ docs, activeSlug, className }: DocsSidebarProps) {
+function SidebarGroup({
+  group,
+  activeSlug,
+  hoveredPath,
+  onHover,
+  numbered,
+}: {
+  group: DocGroup;
+  activeSlug: string;
+  hoveredPath: string | null;
+  onHover: (href: string) => void;
+  numbered: boolean;
+}) {
+  const hasActive = group.docs.some((doc) => doc.slug === activeSlug);
+
+  return (
+    <div className="flex flex-col">
+      <div
+        className={cn(
+          "flex items-center gap-2 px-2 py-2 text-xs font-semibold uppercase tracking-wider transition-colors",
+          hasActive ? "bg-secondary text-foreground" : "text-muted-foreground"
+        )}
+      >
+        {ICONS[group.icon]}
+        {group.label}
+      </div>
+
+      <div className="mt-1 ml-4 flex flex-col space-y-0.5 border-l border-border pl-2">
+        {group.docs.map((doc, i) => (
+          <SidebarItem
+            key={doc.slug}
+            href={`#${doc.slug}`}
+            name={numbered ? `${String(i + 1).padStart(2, "0")} ${doc.name}` : doc.name}
+            isActive={doc.slug === activeSlug}
+            isHovered={hoveredPath === `#${doc.slug}`}
+            onHover={onHover}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function DocsSidebar({ groups, activeSlug, className }: DocsSidebarProps) {
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   const handleHover = useCallback((href: string) => {
@@ -89,24 +198,16 @@ export default function DocsSidebar({ docs, activeSlug, className }: DocsSidebar
       className={cn("w-full space-y-6 pb-8", className)}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex flex-col">
-        <div className="flex items-center gap-2 px-2 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          {TYPE_ICON}
-          Text Animations
-        </div>
-        <div className="mt-1 ml-4 flex flex-col space-y-0.5 border-l border-border pl-2">
-          {docs.map((doc, i) => (
-            <SidebarItem
-              key={doc.slug}
-              href={`#${doc.slug}`}
-              name={`${String(i + 1).padStart(2, "0")} ${doc.name}`}
-              isActive={doc.slug === activeSlug}
-              isHovered={hoveredPath === `#${doc.slug}`}
-              onHover={handleHover}
-            />
-          ))}
-        </div>
-      </div>
+      {groups.map((group, i) => (
+        <SidebarGroup
+          key={group.label}
+          group={group}
+          activeSlug={activeSlug}
+          hoveredPath={hoveredPath}
+          onHover={handleHover}
+          numbered={i === 0}
+        />
+      ))}
     </nav>
   );
 }
