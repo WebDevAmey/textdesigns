@@ -151,16 +151,9 @@ function SidebarGroup({
   onHover: (href: string) => void;
   numbered: boolean;
 }) {
-  const hasActive = group.docs.some((doc) => doc.slug === activeSlug);
-
   return (
     <div className="flex flex-col">
-      <div
-        className={cn(
-          "flex items-center gap-2 px-2 py-2 text-xs font-semibold uppercase tracking-wider transition-colors",
-          hasActive ? "bg-secondary text-foreground" : "text-muted-foreground"
-        )}
-      >
+      <div className="flex items-center gap-2 px-2 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         {ICONS[group.icon]}
         {group.label}
       </div>
