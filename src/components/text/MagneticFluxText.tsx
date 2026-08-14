@@ -17,16 +17,10 @@ interface Needle {
   homeAngle: number;
 }
 
-interface Pulse {
-  x: number;
-  y: number;
-  start: number;
-}
-
 interface MagneticFluxTextProps {
   text: string;
   /** Which visual layer to render. */
-  layer?: "lines" | "glyphs" | "pulses";
+  layer?: "lines" | "glyphs";
   /** Grid spacing between needles, in px. Smaller = denser field. */
   particleSize?: number;
   /** Radius, in px, within which the cursor aligns nearby needles. */
@@ -34,15 +28,12 @@ interface MagneticFluxTextProps {
   fontSize?: number;
 }
 
-const PULSE_LIFETIME_MS = 900;
-
 /**
  * The word is a field of tiny magnetized needles. Each needle carries an
  * orientation, not just a position: near the cursor, needles rotate to
  * align tangent to the field lines circling it (like iron filings around
  * a magnet) and drift along that flow; away from it, they relax back to
- * their resting angle and position. Clicking sends a decaying ring pulse
- * that briefly re-aligns needles as it expands outward.
+ * their resting angle and position.
  */
 export default function MagneticFluxText({
   text,
@@ -58,7 +49,6 @@ export default function MagneticFluxText({
     y: -9999,
     active: false,
   });
-  const pulsesRef = useRef<Pulse[]>([]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -112,36 +102,9 @@ export default function MagneticFluxText({
       pointerRef.current.x = -9999;
       pointerRef.current.y = -9999;
     };
-    const spawnPulse = (x: number, y: number) => {
-      const pulses = pulsesRef.current;
-      pulses.push({ x, y, start: performance.now() });
-      if (pulses.length > 6) pulses.shift();
-    };
-
-    const handleDown = (event: PointerEvent) => {
-      const rect = container.getBoundingClientRect();
-      spawnPulse(event.clientX - rect.left, event.clientY - rect.top);
-    };
 
     container.addEventListener("pointermove", handleMove);
     container.addEventListener("pointerleave", handleLeave);
-    container.addEventListener("pointerdown", handleDown);
-
-    const autoOrigins: Array<[number, number]> = [
-      [0.5, 0.5],
-      [0.24, 0.5],
-      [0.76, 0.5],
-      [0.5, 0.32],
-      [0.5, 0.68],
-    ];
-    let autoIndex = 0;
-    const fireAutoPulse = () => {
-      const [fx, fy] = autoOrigins[autoIndex % autoOrigins.length];
-      autoIndex += 1;
-      spawnPulse(fx * width, fy * height);
-    };
-    const initialAutoPulse = window.setTimeout(fireAutoPulse, 600);
-    const autoInterval = window.setInterval(fireAutoPulse, 1600);
 
     let lastTime = performance.now();
 
@@ -152,15 +115,10 @@ export default function MagneticFluxText({
       const t = now / 1000;
 
       const pointer = pointerRef.current;
-      const pulses = pulsesRef.current.filter(
-        (p) => now - p.start < PULSE_LIFETIME_MS
-      );
-      pulsesRef.current = pulses;
 
       ctx.clearRect(0, 0, width, height);
 
       const drawDots = layer === "glyphs";
-      const drawRings = layer === "pulses";
 
       for (const needle of needles) {
         let influence = 0;
@@ -178,21 +136,6 @@ export default function MagneticFluxText({
               flowX = -dy / dist;
               flowY = dx / dist;
             }
-          }
-        }
-
-        for (const pulse of pulses) {
-          const age = (now - pulse.start) / PULSE_LIFETIME_MS;
-          const pulseRadius = interactionRadius * 1.6 * age;
-          const dx = needle.x - pulse.x;
-          const dy = needle.y - pulse.y;
-          const dist = Math.hypot(dx, dy) || 0.001;
-          const ring = 1 - clamp(Math.abs(dist - pulseRadius) / 40, 0, 1);
-          const local = ring * (1 - age);
-          if (local > influence) {
-            influence = local;
-            flowX = -dy / dist;
-            flowY = dx / dist;
           }
         }
 
@@ -227,7 +170,7 @@ export default function MagneticFluxText({
         needle.angularVelocity += angularForce * dt;
         needle.angle += needle.angularVelocity * dt;
 
-        const glow = drawRings ? 0.4 + influence * 0.4 : 0.75 + influence * 0.25;
+        const glow = 0.75 + influence * 0.25;
         ctx.strokeStyle = `rgba(0, 0, 0, ${glow})`;
         ctx.lineWidth = 1.4;
 
@@ -238,28 +181,14 @@ export default function MagneticFluxText({
         ctx.lineTo(needle.x + hx, needle.y + hy);
         ctx.stroke();
       }
-
-      if (drawRings) {
-        for (const pulse of pulses) {
-          const age = (now - pulse.start) / PULSE_LIFETIME_MS;
-          ctx.strokeStyle = `rgba(0, 0, 0, ${(1 - age) * 0.85})`;
-          ctx.lineWidth = 1.6;
-          ctx.beginPath();
-          ctx.arc(pulse.x, pulse.y, interactionRadius * 1.6 * age, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-      }
     };
 
     gsap.ticker.add(tick);
 
     return () => {
-      window.clearTimeout(initialAutoPulse);
-      window.clearInterval(autoInterval);
       gsap.ticker.remove(tick);
       container.removeEventListener("pointermove", handleMove);
       container.removeEventListener("pointerleave", handleLeave);
-      container.removeEventListener("pointerdown", handleDown);
     };
   }, [text, layer, particleSize, interactionRadius, fontSize]);
 
