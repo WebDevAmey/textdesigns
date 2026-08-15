@@ -20,6 +20,8 @@ export interface AnimationDoc {
   sourceFile?: string;
   /** Full source of the implementation, populated by the server page. */
   source?: string;
+  /** Whether the preview should be replayed on a loop. */
+  replays?: boolean;
 }
 
 export type DocIcon = "type" | "reveal" | "hover" | "loop" | "scroll";
@@ -79,7 +81,7 @@ const SOURCE_FILES: Record<string, string> = {
   "scroll-skew": "ScrollSkewText.tsx",
 };
 
-const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string): AnimationDoc => ({
+const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean): AnimationDoc => ({
   slug,
   name,
   description,
@@ -88,6 +90,7 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],
+  replays: !infinite,
 });
 
 const libraryGroups = (
@@ -102,7 +105,7 @@ const libraryGroups = (
   icon: icon as DocIcon,
   docs: animations
     .filter((a) => a.category === key)
-    .map((a) => fromLibrary(a.slug, a.component, a.name, a.description, a.category)),
+    .map((a) => fromLibrary(a.slug, a.component, a.name, a.description, a.category, a.infinite)),
 }));
 
 export const docGroups: DocGroup[] = [
