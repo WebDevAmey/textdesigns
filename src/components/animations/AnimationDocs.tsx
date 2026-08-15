@@ -192,6 +192,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                             <active.component
                               key={`${active.slug}-${previewIteration}`}
                               text={active.previewText}
+                              {...active.previewProps}
                             />
                           </div>
                         ) : (

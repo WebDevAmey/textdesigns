@@ -35,6 +35,7 @@ import MagneticInkShatter from "@/components/text/MagneticInkShatter";
 import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
+import MagneticFluxText from "@/components/text/MagneticFluxText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -253,6 +254,16 @@ export const animations = [
       "Letters repel from the cursor with a velocity-driven chromatic split, and shatter into shards on click.",
     component: MagneticInkShatter,
     code: `<MagneticInkShatter text="Shatter" />`,
+  },
+  {
+    name: "Flux Glyphs",
+    slug: "flux-glyphs",
+    category: "hover",
+    description:
+      "The letterforms made of flowing particles. Hover to sweep them, click to shove.",
+    component: MagneticFluxText,
+    code: `<MagneticFluxText text="GLYPHS" layer="glyphs" />`,
+    preview: { layer: "glyphs", fontSize: 100 },
   },
   {
     name: "Typewriter",
