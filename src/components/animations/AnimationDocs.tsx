@@ -43,6 +43,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
   const [activeSlug, setActiveSlug] = useState(docs[0].slug);
   const [view, setView] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
+  const [previewIteration, setPreviewIteration] = useState(0);
 
   useEffect(() => {
     const readHash = () => {
@@ -55,6 +56,15 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
   }, [docs]);
 
   const active = docs.find((d) => d.slug === activeSlug) ?? docs[0];
+
+  useEffect(() => {
+    if (view !== "preview" || !active.replays) return;
+    const timer = window.setTimeout(
+      () => setPreviewIteration((i) => i + 1),
+      4500
+    );
+    return () => window.clearTimeout(timer);
+  }, [view, active.slug, active.replays, previewIteration]);
 
   const copySource = async () => {
     if (!active.source) return;
@@ -179,7 +189,10 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                       <div className="flex max-w-full items-center justify-center px-6 text-foreground">
                         {active.component ? (
                           <div className="scale-150">
-                            <active.component key={active.slug} text={active.previewText} />
+                            <active.component
+                              key={`${active.slug}-${previewIteration}`}
+                              text={active.previewText}
+                            />
                           </div>
                         ) : (
                           <span className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
