@@ -75,6 +75,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
         <DocsSidebar
           groups={groups}
           activeSlug={active.slug}
+          onSelect={setActiveSlug}
           className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-56 shrink-0 self-start overflow-y-auto lg:block"
         />
 
@@ -159,7 +160,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <div className="relative mt-3 flex h-[420px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                    <div className="relative mt-3 flex h-[480px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
                       <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
                         Interactive Preview
                       </span>
@@ -177,7 +178,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                       )}
                       <div className="flex max-w-full items-center justify-center px-6 text-foreground">
                         {active.component ? (
-                          <div className="scale-125">
+                          <div className="scale-150">
                             <active.component key={active.slug} text={active.previewText} />
                           </div>
                         ) : (
