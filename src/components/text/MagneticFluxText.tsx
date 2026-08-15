@@ -94,8 +94,10 @@ export default function MagneticFluxText({
 
     const setPointer = (clientX: number, clientY: number) => {
       const rect = container.getBoundingClientRect();
-      pointerRef.current.x = clientX - rect.left;
-      pointerRef.current.y = clientY - rect.top;
+      const scaleX = rect.width / container.offsetWidth || 1;
+      const scaleY = rect.height / container.offsetHeight || 1;
+      pointerRef.current.x = (clientX - rect.left) / scaleX;
+      pointerRef.current.y = (clientY - rect.top) / scaleY;
       pointerRef.current.active = true;
     };
 

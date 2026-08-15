@@ -22,6 +22,8 @@ export interface AnimationDoc {
   source?: string;
   /** Whether the preview should be replayed on a loop. */
   replays?: boolean;
+  /** Extra props passed to the component in the preview. */
+  previewProps?: Record<string, unknown>;
 }
 
 export type DocIcon = "type" | "reveal" | "hover" | "loop" | "scroll";
@@ -69,6 +71,7 @@ const SOURCE_FILES: Record<string, string> = {
   displacement: "DisplacementText.tsx",
   "kinetic-drag": "KineticDragText.tsx",
   "magnetic-shatter": "MagneticInkShatter.tsx",
+  "flux-glyphs": "MagneticFluxText.tsx",
   typewriter: "TypewriterText.tsx",
   "text-trail": "TextTrail.tsx",
   "text-melt": "TextMelt.tsx",
@@ -81,16 +84,22 @@ const SOURCE_FILES: Record<string, string> = {
   "scroll-skew": "ScrollSkewText.tsx",
 };
 
-const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean): AnimationDoc => ({
+const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
   slug,
   name,
   description,
   interactions: category === "hover" ? ["Move"] : [],
-  previewText: slug === "stroke-draw" ? "Stroke" : name,
+  previewText:
+    slug === "stroke-draw"
+      ? "Stroke"
+      : slug === "flux-glyphs"
+        ? "GLYPHS"
+        : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],
   replays: !infinite,
+  previewProps,
 });
 
 const libraryGroups = (
@@ -105,7 +114,9 @@ const libraryGroups = (
   icon: icon as DocIcon,
   docs: animations
     .filter((a) => a.category === key)
-    .map((a) => fromLibrary(a.slug, a.component, a.name, a.description, a.category, a.infinite)),
+    .map((a) =>
+      fromLibrary(a.slug, a.component, a.name, a.description, a.category, a.infinite, a.preview)
+    ),
 }));
 
 export const docGroups: DocGroup[] = [
