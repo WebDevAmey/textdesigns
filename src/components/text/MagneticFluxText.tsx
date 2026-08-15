@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { sampleTextParticles } from "@/lib/text-physics/geometry";
 import { clamp, angleDelta } from "@/lib/text-physics/physics";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface Needle {
   homeX: number;
@@ -49,8 +50,10 @@ export default function MagneticFluxText({
     y: -9999,
     active: false,
   });
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
     const container = containerRef.current;
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
@@ -190,7 +193,15 @@ export default function MagneticFluxText({
       container.removeEventListener("pointermove", handleMove);
       container.removeEventListener("pointerleave", handleLeave);
     };
-  }, [text, layer, particleSize, interactionRadius, fontSize]);
+  }, [text, layer, particleSize, interactionRadius, fontSize, reducedMotion]);
+
+  if (reducedMotion) {
+    return (
+      <span className="inline-block font-bold" style={{ fontSize }}>
+        {text}
+      </span>
+    );
+  }
 
   return (
     <div ref={containerRef} className="relative inline-block touch-none">

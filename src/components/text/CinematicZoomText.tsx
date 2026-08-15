@@ -16,6 +16,11 @@ export default function CinematicZoomText({ text }: CinematicZoomTextProps) {
   useGSAP(() => {
     if (!textRef.current) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.from(textRef.current, { opacity: 0, duration: 0.3, ease: "power1.out" });
+      return;
+    }
+
     gsap.from(textRef.current, {
       scale: 3.2,
       opacity: 0,

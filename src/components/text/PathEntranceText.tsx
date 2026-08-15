@@ -24,6 +24,14 @@ export default function PathEntranceText({ text }: PathEntranceTextProps) {
 
     const chars = split.chars ?? [];
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(chars, { opacity: 0 });
+      gsap.to(chars, { opacity: 1, duration: 0.3, stagger: 0.02, ease: "power1.out" });
+      return () => {
+        split.revert();
+      };
+    }
+
     chars.forEach((char, i) => {
       const startX = gsap.utils.random(-200, 200);
       const startY = gsap.utils.random(-150, -60);

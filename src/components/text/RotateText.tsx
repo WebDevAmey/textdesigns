@@ -2,12 +2,15 @@
 
 import { useMemo } from "react";
 import RotatingText from "@/components/RotatingText/RotatingText";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface RotateTextProps {
   text: string;
 }
 
 export default function RotateText({ text }: RotateTextProps) {
+  const reducedMotion = usePrefersReducedMotion();
+
   const { staticWord, texts } = useMemo(() => {
     const words = text.split(/\s+/).filter(Boolean);
     if (words.length <= 1) {
@@ -19,7 +22,7 @@ export default function RotateText({ text }: RotateTextProps) {
   return (
     <span className="inline-flex items-baseline gap-2">
       <span>{staticWord}</span>
-      <RotatingText texts={texts} />
+      <RotatingText texts={texts} auto={!reducedMotion} />
     </span>
   );
 }
