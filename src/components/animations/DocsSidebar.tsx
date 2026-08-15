@@ -92,6 +92,7 @@ const ICONS: Record<DocIcon, React.ReactNode> = {
 interface DocsSidebarProps {
   groups: DocGroup[];
   activeSlug: string;
+  onSelect: (slug: string) => void;
   className?: string;
 }
 
@@ -101,12 +102,14 @@ const SidebarItem = memo(function SidebarItem({
   isActive,
   isHovered,
   onHover,
+  onSelect,
 }: {
   href: string;
   name: string;
   isActive: boolean;
   isHovered: boolean;
   onHover: (href: string) => void;
+  onSelect: () => void;
 }) {
   return (
     <div onMouseEnter={() => onHover(href)} className="relative">
@@ -124,6 +127,7 @@ const SidebarItem = memo(function SidebarItem({
       )}
       <Link
         href={href}
+        onClick={onSelect}
         aria-current={isActive ? "page" : undefined}
         className={cn(
           "relative z-10 flex w-full items-center rounded-md px-3 py-1.5 text-sm transition-colors",
@@ -150,11 +154,13 @@ function SidebarGroup({
   activeSlug,
   hoveredPath,
   onHover,
+  onSelect,
 }: {
   group: DocGroup;
   activeSlug: string;
   hoveredPath: string | null;
   onHover: (href: string) => void;
+  onSelect: (slug: string) => void;
 }) {
   return (
     <div className="flex flex-col">
@@ -172,6 +178,7 @@ function SidebarGroup({
             isActive={doc.slug === activeSlug}
             isHovered={hoveredPath === `#${doc.slug}`}
             onHover={onHover}
+            onSelect={() => onSelect(doc.slug)}
           />
         ))}
       </div>
@@ -179,7 +186,7 @@ function SidebarGroup({
   );
 }
 
-export default function DocsSidebar({ groups, activeSlug, className }: DocsSidebarProps) {
+export default function DocsSidebar({ groups, activeSlug, onSelect, className }: DocsSidebarProps) {
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   const handleHover = useCallback((href: string) => {
@@ -204,6 +211,7 @@ export default function DocsSidebar({ groups, activeSlug, className }: DocsSideb
             activeSlug={activeSlug}
             hoveredPath={hoveredPath}
             onHover={handleHover}
+            onSelect={onSelect}
           />
         ))}
       </div>
