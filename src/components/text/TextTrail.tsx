@@ -19,6 +19,7 @@ export default function TextTrail({
   useGSAP(
     () => {
       if (!textRef.current) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const split = new SplitType(textRef.current, {
         types: "chars",

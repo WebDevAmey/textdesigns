@@ -16,6 +16,7 @@ export default function ScrollSkewText({ text }: ScrollSkewTextProps) {
 
   useGSAP(() => {
     if (!textRef.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const skewTo = gsap.quickTo(textRef.current, "skewY", {
       duration: 0.4,

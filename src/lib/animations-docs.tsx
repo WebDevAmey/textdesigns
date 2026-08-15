@@ -84,7 +84,7 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
   name,
   description,
   interactions: category === "hover" ? ["Move"] : [],
-  previewText: name,
+  previewText: slug === "stroke-draw" ? "Stroke" : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],

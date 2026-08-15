@@ -69,7 +69,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <DocsNav />
+      <DocsNav groups={groups} onSelect={setActiveSlug} />
 
       <main className="mx-auto flex w-full max-w-7xl flex-1 gap-10 px-4 py-10 md:px-8">
         <DocsSidebar

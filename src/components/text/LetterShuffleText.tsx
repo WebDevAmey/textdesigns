@@ -24,6 +24,14 @@ export default function LetterShuffleText({ text }: LetterShuffleTextProps) {
 
     const chars = split.chars ?? [];
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(chars, { opacity: 0 });
+      gsap.to(chars, { opacity: 1, duration: 0.3, ease: "power1.out" });
+      return () => {
+        split.revert();
+      };
+    }
+
     gsap.set(chars, {
       x: () => gsap.utils.random(-120, 120),
       y: () => gsap.utils.random(-60, 60),

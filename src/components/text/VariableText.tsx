@@ -51,6 +51,8 @@ export default function VariableProximityText({
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const falloffFn = (t: number) =>
       falloff === "gaussian" ? Math.exp(-((t * 2.2) ** 2)) : Math.max(0, 1 - t);

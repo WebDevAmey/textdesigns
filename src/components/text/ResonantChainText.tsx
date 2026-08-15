@@ -58,6 +58,7 @@ export default function ResonantChainText({
     const container = containerRef.current;
     const textEl = textRef.current;
     if (!container || !textEl) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const split = new SplitType(textEl, { types: "chars" });
     const chars = split.chars ?? [];

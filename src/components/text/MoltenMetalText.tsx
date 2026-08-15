@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { sampleTextParticles } from "@/lib/text-physics/geometry";
 import { createNoiseField } from "@/lib/text-physics/noise";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface Blob {
   homeX: number;
@@ -50,8 +51,10 @@ export default function MoltenMetalText({
     down: false,
     active: false,
   });
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
     const container = containerRef.current;
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
@@ -177,7 +180,15 @@ export default function MoltenMetalText({
       window.removeEventListener("pointerup", handleUp);
       container.removeEventListener("pointerleave", handleLeave);
     };
-  }, [text, particleSize, interactionRadius, fontSize]);
+  }, [text, particleSize, interactionRadius, fontSize, reducedMotion]);
+
+  if (reducedMotion) {
+    return (
+      <span className="inline-block font-bold" style={{ fontSize }}>
+        {text}
+      </span>
+    );
+  }
 
   return (
     <div ref={containerRef} className="relative inline-block touch-none">
