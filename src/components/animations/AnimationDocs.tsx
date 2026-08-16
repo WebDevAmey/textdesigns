@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Copy, PictureInPicture2, SquareTerminal } from "lucide-react";
 import DocsNav from "@/components/animations/DocsNav";
-import DocsFooter from "@/components/animations/DocsFooter";
 import DocsSidebar from "@/components/animations/DocsSidebar";
 import type { DocGroup } from "@/lib/animations-docs";
 
@@ -273,8 +272,6 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
           </div>
         </article>
       </main>
-
-      <DocsFooter />
     </div>
   );
 }
