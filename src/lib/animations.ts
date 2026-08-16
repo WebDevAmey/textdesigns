@@ -27,6 +27,7 @@ import ShimmerText from "@/components/text/ShimmerText";
 import DecryptText from "@/components/text/DecryptText";
 import StrokeDrawText from "@/components/text/StrokedrawText";
 import ScrollSkewText from "@/components/text/ScrollSkewText";
+import LetterpressText from "@/components/text/LetterpressText";
 import LetterShuffleText from "@/components/text/LetterShuffleText";
 import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
@@ -387,5 +388,14 @@ export const animations = [
       "Text skews with scroll velocity and snaps back level when scrolling stops.",
     component: ScrollSkewText,
     code: `<ScrollSkewText text="Scroll Skew" />`,
+  },
+  {
+    name: "Letterpress",
+    slug: "letterpress",
+    category: "scroll",
+    description:
+      "Scrolling stamps each character with ink like a letterpress; scrolling back lifts it off again.",
+    component: LetterpressText,
+    code: `<LetterpressText text="Letterpress" />`,
   },
 ];
