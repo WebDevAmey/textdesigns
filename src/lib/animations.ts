@@ -31,6 +31,7 @@ import LetterShuffleText from "@/components/text/LetterShuffleText";
 import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
+import PressureWriteText from "@/components/text/PressureWriteText";
 import MagneticInkShatter from "@/components/text/MagneticInkShatter";
 import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
@@ -204,6 +205,15 @@ export const animations = [
       "Characters travel in along a curved motion path before settling into the final line.",
     component: PathEntranceText,
     code: `<PathEntranceText text="Path Entrance" />`,
+  },
+  {
+    name: "Pressure Write",
+    slug: "pressure-write",
+    category: "reveal",
+    description:
+      "Each character draws itself with a variable-width stroke that mimics pen pressure, bleeding softly into place.",
+    component: PressureWriteText,
+    code: `<PressureWriteText text="Pressure Write" fontSize={100} />`,
   },
   {
     name: "Magnetic",

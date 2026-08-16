@@ -65,6 +65,7 @@ const SOURCE_FILES: Record<string, string> = {
   shuffle: "ShuffleText.tsx",
   "cinematic-zoom": "CinematicZoomText.tsx",
   "path-entrance": "PathEntranceText.tsx",
+  "pressure-write": "PressureWriteText.tsx",
   magnetic: "MagneticText.tsx",
   "hover-distort": "HoverDistortText.tsx",
   liquid: "LiquidText.tsx",
