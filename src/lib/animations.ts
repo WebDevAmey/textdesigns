@@ -32,14 +32,11 @@ import LetterShuffleText from "@/components/text/LetterShuffleText";
 import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
-import PressureWriteText from "@/components/text/PressureWriteText";
 import MagneticInkShatter from "@/components/text/MagneticInkShatter";
 import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
-import GravityLensText from "@/components/text/GravityLensText";
-import TuningForkText from "@/components/text/TuningForkText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -210,15 +207,6 @@ export const animations = [
     code: `<PathEntranceText text="Path Entrance" />`,
   },
   {
-    name: "Pressure Write",
-    slug: "pressure-write",
-    category: "reveal",
-    description:
-      "Each character draws itself with a variable-width stroke that mimics pen pressure, bleeding softly into place.",
-    component: PressureWriteText,
-    code: `<PressureWriteText text="Pressure Write" fontSize={100} />`,
-  },
-  {
     name: "Magnetic",
     slug: "magnetic",
     category: "hover",
@@ -277,15 +265,6 @@ export const animations = [
     component: MagneticFluxText,
     code: `<MagneticFluxText text="GLYPHS" layer="glyphs" />`,
     preview: { layer: "glyphs", fontSize: 100 },
-  },
-  {
-    name: "Gravity Lens",
-    slug: "gravity-lens",
-    category: "hover",
-    description:
-      "Nearby letters bend inward and magnify near the cursor, with a thin chromatic fringe at the lens edge.",
-    component: GravityLensText,
-    code: `<GravityLensText text="Gravity Lens" />`,
   },
   {
     name: "Typewriter",
@@ -360,16 +339,6 @@ export const animations = [
     component: CircularText,
     infinite: true,
     code: `<CircularText text="Circular Text" />`,
-  },
-  {
-    name: "Tuning Fork",
-    slug: "tuning-fork",
-    category: "loop",
-    description:
-      "Letters idle on a standing wave that periodically rings like a struck tuning fork, traced by a small oscilloscope line.",
-    component: TuningForkText,
-    infinite: true,
-    code: `<TuningForkText text="Tuning Fork" />`,
   },
   {
     name: "Scroll Reveal",
