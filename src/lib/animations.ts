@@ -38,6 +38,7 @@ import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
 import GravityLensText from "@/components/text/GravityLensText";
+import TuningForkText from "@/components/text/TuningForkText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -358,6 +359,16 @@ export const animations = [
     component: CircularText,
     infinite: true,
     code: `<CircularText text="Circular Text" />`,
+  },
+  {
+    name: "Tuning Fork",
+    slug: "tuning-fork",
+    category: "loop",
+    description:
+      "Letters idle on a standing wave that periodically rings like a struck tuning fork, traced by a small oscilloscope line.",
+    component: TuningForkText,
+    infinite: true,
+    code: `<TuningForkText text="Tuning Fork" />`,
   },
   {
     name: "Scroll Reveal",
