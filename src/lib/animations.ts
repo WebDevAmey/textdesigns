@@ -37,6 +37,7 @@ import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
+import GravityLensText from "@/components/text/GravityLensText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -274,6 +275,15 @@ export const animations = [
     component: MagneticFluxText,
     code: `<MagneticFluxText text="GLYPHS" layer="glyphs" />`,
     preview: { layer: "glyphs", fontSize: 100 },
+  },
+  {
+    name: "Gravity Lens",
+    slug: "gravity-lens",
+    category: "hover",
+    description:
+      "Nearby letters bend inward and magnify near the cursor, with a thin chromatic fringe at the lens edge.",
+    component: GravityLensText,
+    code: `<GravityLensText text="Gravity Lens" />`,
   },
   {
     name: "Typewriter",
