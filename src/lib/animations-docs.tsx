@@ -73,6 +73,7 @@ const SOURCE_FILES: Record<string, string> = {
   "kinetic-drag": "KineticDragText.tsx",
   "magnetic-shatter": "MagneticInkShatter.tsx",
   "flux-glyphs": "MagneticFluxText.tsx",
+  "gravity-lens": "GravityLensText.tsx",
   typewriter: "TypewriterText.tsx",
   "text-trail": "TextTrail.tsx",
   "text-melt": "TextMelt.tsx",
