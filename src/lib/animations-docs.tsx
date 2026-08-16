@@ -82,6 +82,7 @@ const SOURCE_FILES: Record<string, string> = {
   shimmer: "ShimmerText.tsx",
   "constellation-breathe": "ConstellationBreathe.tsx",
   "circular-text": "CircularText.tsx",
+  "tuning-fork": "TuningForkText.tsx",
   "scroll-reveal": "ScrollReveal.tsx",
   "scroll-skew": "ScrollSkewText.tsx",
 };
