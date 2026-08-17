@@ -32,6 +32,7 @@ import LetterShuffleText from "@/components/text/LetterShuffleText";
 import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
+import ParticleText from "@/components/text/ParticleText";
 import MagneticInkShatter from "@/components/text/MagneticInkShatter";
 import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
@@ -205,6 +206,15 @@ export const animations = [
       "Characters travel in along a curved motion path before settling into the final line.",
     component: PathEntranceText,
     code: `<PathEntranceText text="Path Entrance" />`,
+  },
+  {
+    name: "Particle Text",
+    slug: "particle-text",
+    category: "reveal",
+    description:
+      "Particles scatter and converge into the shape of the text, then hover to nudge them out of place.",
+    component: ParticleText,
+    code: `<ParticleText text="Particle Text" />`,
   },
   {
     name: "Magnetic",
