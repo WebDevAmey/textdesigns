@@ -39,6 +39,9 @@ import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
 import GradientText from "@/components/text/GradientText";
+import ShinyText from "@/components/text/ShinyText";
+import MorphingText from "@/components/text/MorphingText";
+import HighlighterText from "@/components/text/HighlighterText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -219,6 +222,15 @@ export const animations = [
     preview: { fontSize: 80 },
   },
   {
+    name: "Highlighter",
+    slug: "highlighter",
+    category: "reveal",
+    description:
+      "A tilted marker stroke draws across the text from left to right, then fades away.",
+    component: HighlighterText,
+    code: `<HighlighterText text="Highlighter" />`,
+  },
+  {
     name: "Magnetic",
     slug: "magnetic",
     category: "hover",
@@ -342,6 +354,27 @@ export const animations = [
     component: GradientText,
     infinite: true,
     code: `<GradientText text="Gradient" />`,
+  },
+  {
+    name: "Shiny",
+    slug: "shiny",
+    category: "loop",
+    description:
+      "Chrome-metallic text with a bright specular highlight sweeping across on a loop.",
+    component: ShinyText,
+    infinite: true,
+    code: `<ShinyText text="Shiny" />`,
+  },
+  {
+    name: "Morphing",
+    slug: "morphing",
+    category: "loop",
+    description:
+      "Words cycle continuously, each one morphing into the next through a blurred crossfade.",
+    component: MorphingText,
+    infinite: true,
+    preview: { words: ["Morph", "Shift", "Flow", "Warp"] },
+    code: `<MorphingText text="Morph" words={["Morph", "Shift", "Flow", "Warp"]} />`,
   },
   {
     name: "Constellation",
