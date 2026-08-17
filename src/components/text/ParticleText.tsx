@@ -42,7 +42,7 @@ const DAMPING = 8;
  */
 export default function ParticleText({
   text,
-  particleSize = 6,
+  particleSize = 4,
   fontSize = 120,
   hoverRadius = 90,
   color = "#111113",
@@ -79,7 +79,7 @@ export default function ParticleText({
     canvas.style.height = `${canvasHeight}px`;
     ctx.scale(dpr, dpr);
 
-    const radius = particleSize * 0.35;
+    const radius = particleSize * 0.5;
 
     const particles: Particle[] = points.map((p) => {
       const homeX = p.x + MARGIN;

@@ -96,7 +96,9 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
       ? "Stroke"
       : slug === "flux-glyphs"
         ? "GLYPHS"
-        : name,
+        : slug === "particle-text"
+          ? "Particle"
+          : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],
