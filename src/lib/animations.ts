@@ -215,6 +215,7 @@ export const animations = [
       "Particles scatter and converge into the shape of the text, then hover to nudge them out of place.",
     component: ParticleText,
     code: `<ParticleText text="Particle Text" />`,
+    preview: { fontSize: 80 },
   },
   {
     name: "Magnetic",
