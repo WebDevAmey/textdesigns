@@ -182,7 +182,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                           ))}
                         </div>
                       )}
-                      <div className="flex max-w-full items-center justify-center px-6 text-foreground">
+                      <div className="flex max-w-full items-center justify-center px-6 text-6xl text-foreground">
                         {active.component ? (
                           <div className="scale-150">
                             <active.component
