@@ -5,7 +5,6 @@ import FadeText from "@/components/text/FadeText";
 import WaveText from "@/components/text/WaveText";
 import ScrambleText from "@/components/text/ScrambleText";
 import GlitchText from "@/components/text/GlitchText";
-import RotateText from "@/components/text/RotateText";
 import ScaleText from "@/components/text/ScaleText";
 import MagneticText from "@/components/text/MagneticText";
 import WordReveal from "@/components/text/WordReveal";
@@ -42,6 +41,8 @@ import GradientText from "@/components/text/GradientText";
 import ShinyText from "@/components/text/ShinyText";
 import MorphingText from "@/components/text/MorphingText";
 import HighlighterText from "@/components/text/HighlighterText";
+import BounceText from "@/components/text/BounceText";
+import NeonFlickerText from "@/components/text/NeonFlickerText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -94,13 +95,6 @@ export const animations = [
     category: "reveal",
     description: "A distorted glitch effect for expressive typography.",
     component: GlitchText,
-  },
-  {
-    name: "Rotate",
-    slug: "rotate",
-    category: "reveal",
-    description: "Characters rotate into their final position.",
-    component: RotateText,
   },
   {
     name: "Scale",
@@ -394,6 +388,26 @@ export const animations = [
     component: CircularText,
     infinite: true,
     code: `<CircularText text="Circular Text" />`,
+  },
+  {
+    name: "Bounce",
+    slug: "bounce",
+    category: "loop",
+    description:
+      "Characters bounce on the baseline with varied heights, stretching on the way up and squashing on landing.",
+    component: BounceText,
+    infinite: true,
+    code: `<BounceText text="Bounce" />`,
+  },
+  {
+    name: "Neon",
+    slug: "neon-flicker",
+    category: "loop",
+    description:
+      "A glowing neon tube that hums, flickers and occasionally stutters like a sign about to die.",
+    component: NeonFlickerText,
+    infinite: true,
+    code: `<NeonFlickerText text="Neon" glowColor="#22d3ee" />`,
   },
   {
     name: "Scroll Reveal",
