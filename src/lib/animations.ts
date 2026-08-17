@@ -38,6 +38,7 @@ import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
+import GradientText from "@/components/text/GradientText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -331,6 +332,16 @@ export const animations = [
       "A soft light gradient sweeps across the text on loop or hover.",
     component: ShimmerText,
     code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
+  },
+  {
+    name: "Gradient",
+    slug: "gradient",
+    category: "loop",
+    description:
+      "A flowing multicolor gradient continuously sweeps across the text.",
+    component: GradientText,
+    infinite: true,
+    code: `<GradientText text="Gradient" />`,
   },
   {
     name: "Constellation",

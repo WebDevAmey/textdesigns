@@ -170,9 +170,6 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
                     <div className="relative mt-3 flex h-[480px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                      <span className="absolute left-3 top-3 z-10 text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                        Interactive Preview
-                      </span>
                       {active.interactions.length > 0 && (
                         <div className="absolute bottom-3 right-3 z-10 flex gap-1">
                           {active.interactions.map((tag) => (
