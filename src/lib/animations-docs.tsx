@@ -79,6 +79,7 @@ const SOURCE_FILES: Record<string, string> = {
   typequake: "TypequakeText.tsx",
   marquee: "MarqueeText.tsx",
   shimmer: "ShimmerText.tsx",
+  gradient: "GradientText.tsx",
   "constellation-breathe": "ConstellationBreathe.tsx",
   "circular-text": "CircularText.tsx",
   "scroll-reveal": "ScrollReveal.tsx",
