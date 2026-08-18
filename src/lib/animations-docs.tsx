@@ -83,7 +83,6 @@ const SOURCE_FILES: Record<string, string> = {
   marquee: "MarqueeText.tsx",
   shimmer: "ShimmerText.tsx",
   gradient: "GradientText.tsx",
-  shiny: "ShinyText.tsx",
   morphing: "MorphingText.tsx",
   bounce: "BounceText.tsx",
   "neon-flicker": "NeonFlickerText.tsx",

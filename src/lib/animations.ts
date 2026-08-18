@@ -38,7 +38,6 @@ import CircularText from "@/components/text/CircularText";
 import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
 import GradientText from "@/components/text/GradientText";
-import ShinyText from "@/components/text/ShinyText";
 import MorphingText from "@/components/text/MorphingText";
 import HighlighterText from "@/components/text/HighlighterText";
 import BounceText from "@/components/text/BounceText";
@@ -239,11 +238,13 @@ export const animations = [
   {
     name: "Chromatic",
     slug: "chromatic",
-    category: "reveal",
+    category: "loop",
     description:
-      "Each character snaps sharp from a blur while its red and cyan color ghosts converge and vanish.",
+      "A rainbow trail sweeps across each word, leaving it settled in the foreground color before the next word reveals.",
     component: ChromaticText,
-    code: `<ChromaticText text="Chromatic" />`,
+    infinite: true,
+    preview: { words: ["Reveal", "Effect", "Sweep"] },
+    code: `<ChromaticText text="Chromatic" words={["Reveal", "Effect", "Sweep"]} />`,
   },
   {
     name: "Apple Hello",
@@ -378,16 +379,6 @@ export const animations = [
     component: GradientText,
     infinite: true,
     code: `<GradientText text="Gradient" />`,
-  },
-  {
-    name: "Shiny",
-    slug: "shiny",
-    category: "loop",
-    description:
-      "Chrome-metallic text with a bright specular highlight sweeping across on a loop.",
-    component: ShinyText,
-    infinite: true,
-    code: `<ShinyText text="Shiny" />`,
   },
   {
     name: "Morphing",
