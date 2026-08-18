@@ -8,63 +8,77 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
 
-/** Half-width of the chromatic trail, in percent of the word. */
-const BAND_HALF = 14;
+/** Half-width of the moving color band, in percent of the text. */
+const BAND_HALF = 17;
+const SWEEP_START = -BAND_HALF;
+const SWEEP_END = 100 + BAND_HALF;
 
-const DEFAULT_COLORS = ["#60a5fa", "#818cf8", "#c084fc", "#fb7185", "#fbbf24"];
+const DEFAULT_COLORS = ["#c679c4", "#fa3d1d", "#ffb005", "#e1e1fe", "#0358f7"];
 
 interface ChromaticTextProps {
-  /** Fixed prefix, shown in the foreground color. */
-  text: string;
-  /** Words revealed one after another after the prefix. */
-  words?: string[];
-  /** Colors used along the moving chromatic edge. */
+  /** Text to reveal. Pass multiple strings to rotate after each sweep. */
+  text: string | string[];
+  /** Colors sampled across the moving band. */
   colors?: string[];
-  /** Color the text settles into after the sweep passes. */
-  foregroundColor?: string;
-  /** Sweep duration in seconds. */
+  /** Color the text settles into once the band has passed. */
+  textColor?: string;
+  /** Duration of one sweep, in seconds. */
   duration?: number;
   /** Delay before the first sweep, in seconds. */
   delay?: number;
-  /** Rest after a word finishes revealing, in seconds. */
-  pauseDuration?: number;
-  /** Return to the first word after the final one. */
-  loop?: boolean;
+  /** Rest after a sweep completes before the next one, in seconds. */
+  repeatDelay?: number;
+  /** Advance through the text array after each sweep. */
+  repeat?: boolean;
   className?: string;
 }
 
-function buildGradient(colors: string[], foreground: string): string {
-  const n = colors.length;
-  const stops = colors
-    .map((color, i) => {
-      const offset = n === 1 ? 0 : -BAND_HALF + (i / (n - 1)) * BAND_HALF * 2;
-      const sign = offset < 0 ? "-" : "+";
-      return `${color} calc(var(--chromatic-sweep) ${sign} ${Math.abs(offset).toFixed(2)}%)`;
-    })
-    .join(", ");
+function buildSweepGradient(
+  pos: number,
+  colors: string[],
+  base: string
+): string {
+  const bandStart = pos - BAND_HALF;
+  const bandEnd = pos + BAND_HALF;
+  const stops: string[] = [];
 
-  return `linear-gradient(90deg, ${foreground} 0%, ${foreground} calc(var(--chromatic-sweep) - ${BAND_HALF}%), ${stops}, transparent calc(var(--chromatic-sweep) + ${BAND_HALF}%), transparent 100%)`;
+  if (bandStart > 0) {
+    stops.push(`${base} 0%`, `${base} ${bandStart.toFixed(2)}%`);
+  }
+
+  colors.forEach((color, i) => {
+    const pct =
+      colors.length === 1
+        ? pos
+        : bandStart + (i / (colors.length - 1)) * BAND_HALF * 2;
+    stops.push(`${color} ${pct.toFixed(2)}%`);
+  });
+
+  if (bandEnd < 100) {
+    stops.push(`transparent ${bandEnd.toFixed(2)}%`, "transparent 100%");
+  }
+
+  return `linear-gradient(90deg, ${stops.join(", ")})`;
 }
 
 export default function ChromaticText({
   text,
-  words = [],
   colors = DEFAULT_COLORS,
-  foregroundColor = "#000000",
-  duration = 1.2,
+  textColor = "#000000",
+  duration = 1.5,
   delay = 0,
-  pauseDuration = 1.1,
-  loop = true,
+  repeatDelay = 0.5,
+  repeat = Array.isArray(text) && text.length > 1,
   className,
 }: ChromaticTextProps) {
+  const texts = Array.isArray(text) ? text : [text];
   const rootRef = useRef<HTMLSpanElement>(null);
   const wordRef = useRef<HTMLSpanElement>(null);
   const reduceMotion = useReducedMotion();
   const [inView, setInView] = useState(false);
 
+  const longest = texts.reduce((a, b) => (b.length > a.length ? b : a), "");
   const palette = colors.length > 0 ? colors : DEFAULT_COLORS;
-  const gradient = buildGradient(palette, foregroundColor);
-  const longest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
 
   useEffect(() => {
     const el = rootRef.current;
@@ -73,7 +87,7 @@ export default function ChromaticText({
       ([entry]) => {
         if (entry.isIntersecting) setInView(true);
       },
-      { threshold: 0.4 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -81,91 +95,77 @@ export default function ChromaticText({
 
   useGSAP(() => {
     const wordEl = wordRef.current;
-    if (!wordEl || reduceMotion || words.length === 0 || !inView) return;
+    if (!wordEl || reduceMotion || !inView) return;
 
-    // The sweep is a single numeric cursor painted into the CSS
-    // variable that the gradient's calc() stops read.
-    const sweep = { value: -BAND_HALF };
+    // A single numeric cursor is painted into the gradient on every
+    // frame — no per-frame React renders.
+    const sweep = { value: SWEEP_START };
     const paint = () => {
-      wordEl.style.setProperty("--chromatic-sweep", `${sweep.value}%`);
+      wordEl.style.backgroundImage = buildSweepGradient(
+        sweep.value,
+        palette,
+        textColor
+      );
     };
 
-    const timeline = gsap.timeline({ repeat: loop ? -1 : 0, delay });
+    const timeline = gsap.timeline({
+      repeat: repeat && texts.length > 1 ? -1 : 0,
+      delay,
+    });
 
-    words.forEach((word) => {
+    texts.forEach((word) => {
       timeline.add(() => {
         wordEl.textContent = word;
-        gsap.set(wordEl, { opacity: 0.56, filter: "blur(6px)", y: 5 });
-        sweep.value = -BAND_HALF;
+        sweep.value = SWEEP_START;
         paint();
       });
-      timeline
-        .to(sweep, {
-          value: 100 + BAND_HALF,
-          duration,
-          ease: "power2.inOut",
-          onUpdate: paint,
-        })
-        .to(
-          wordEl,
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            y: 0,
-            duration: 0.36,
-            ease: "power2.out",
-          },
-          "<"
-        )
-        .to({}, { duration: pauseDuration });
+      timeline.to(sweep, {
+        value: SWEEP_END,
+        duration,
+        ease: "power3.inOut",
+        onUpdate: paint,
+      });
+      if (repeat && texts.length > 1) {
+        timeline.to({}, { duration: repeatDelay });
+      }
     });
 
     return () => {
       timeline.kill();
     };
-  }, [words, duration, delay, pauseDuration, loop, inView, reduceMotion]);
+  }, [texts, palette, textColor, duration, delay, repeatDelay, repeat, inView, reduceMotion]);
 
   if (reduceMotion) {
     return (
-      <span className={cn("inline-flex items-baseline", className)}>
-        <span className="whitespace-nowrap">{text}</span>
-        {words.length > 0 && (
-          <span className="whitespace-nowrap">&nbsp;{words[0]}</span>
-        )}
-      </span>
+      <span className={cn("inline-block", className)}>{texts[0]}</span>
     );
   }
 
   return (
-    <span ref={rootRef} className={cn("inline-flex items-baseline", className)}>
-      <span className="whitespace-nowrap">
-        {text}
-        {words.length > 0 ? "\u00A0" : null}
-      </span>
-      {words.length > 0 && (
-        <span className="relative inline-block select-none">
-          <span aria-hidden className="invisible whitespace-nowrap">
-            {longest}
-          </span>
-          <span
-            ref={wordRef}
-            aria-hidden
-            className="absolute inset-y-0 left-0 whitespace-nowrap bg-clip-text text-transparent"
-            style={
-              {
-                backgroundImage: gradient,
-                backgroundSize: "100% 100%",
-                backgroundRepeat: "no-repeat",
-                "--chromatic-sweep": `-${BAND_HALF}%`,
-                opacity: 0.56,
-                filter: "blur(6px)",
-                transform: "translateY(5px)",
-              } as CSSProperties
-            }
-          />
-          <span className="sr-only">{words.join(", ")}</span>
-        </span>
+    <span
+      ref={rootRef}
+      className={cn(
+        "relative inline-block select-none whitespace-nowrap align-bottom leading-[100%]",
+        className
       )}
+    >
+      <span aria-hidden className="invisible">
+        {longest}
+      </span>
+      <span
+        ref={wordRef}
+        aria-hidden
+        className="absolute inset-y-0 left-0 whitespace-nowrap bg-clip-text text-transparent"
+        style={
+          {
+            backgroundImage: buildSweepGradient(SWEEP_START, palette, textColor),
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            transform: "translateY(-2px)",
+          } as CSSProperties
+        }
+      />
+      <span className="sr-only">{texts.join(", ")}</span>
     </span>
   );
 }
