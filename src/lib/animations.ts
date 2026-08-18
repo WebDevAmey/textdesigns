@@ -240,11 +240,11 @@ export const animations = [
     slug: "chromatic",
     category: "loop",
     description:
-      "A rainbow trail sweeps across each word, leaving it settled in the foreground color before the next word reveals.",
+      "A color band sweeps across the text, revealing a gradient shine before settling on the base color.",
     component: ChromaticText,
     infinite: true,
-    preview: { words: ["Reveal", "Effect", "Sweep"] },
-    code: `<ChromaticText text="Chromatic" words={["Reveal", "Effect", "Sweep"]} />`,
+    preview: { text: ["Reveal", "Effect", "Sweep"] },
+    code: `<ChromaticText text={["Reveal", "Effect", "Sweep"]} />`,
   },
   {
     name: "Apple Hello",
