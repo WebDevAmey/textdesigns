@@ -43,7 +43,7 @@ import MorphingText from "@/components/text/MorphingText";
 import HighlighterText from "@/components/text/HighlighterText";
 import BounceText from "@/components/text/BounceText";
 import NeonFlickerText from "@/components/text/NeonFlickerText";
-import HandwriteText from "@/components/text/HandwriteText";
+import AppleHelloText from "@/components/text/AppleHelloText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -226,13 +226,13 @@ export const animations = [
     code: `<HighlighterText text="Highlighter" />`,
   },
   {
-    name: "Handwrite",
-    slug: "handwrite",
+    name: "Apple Hello",
+    slug: "apple-hello",
     category: "reveal",
     description:
-      "Text is sketched on screen with a marker, word by word, like a pen signing its name.",
-    component: HandwriteText,
-    code: `<HandwriteText text="Good Morning" />`,
+      "The official @ncdai/apple-hello-effect, installed via its shadcn registry — hand-drawn cursive strokes spelling \"Hello\", regardless of the text prop.",
+    component: AppleHelloText,
+    code: `<AppleHelloText text="Hello" />`,
   },
   {
     name: "Magnetic",
