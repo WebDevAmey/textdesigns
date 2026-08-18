@@ -66,6 +66,7 @@ const SOURCE_FILES: Record<string, string> = {
   "path-entrance": "PathEntranceText.tsx",
   "particle-text": "ParticleText.tsx",
   highlighter: "HighlighterText.tsx",
+  handwrite: "HandwriteText.tsx",
   magnetic: "MagneticText.tsx",
   "hover-distort": "HoverDistortText.tsx",
   liquid: "LiquidText.tsx",
@@ -99,11 +100,13 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
   previewText:
     slug === "stroke-draw"
       ? "Stroke"
-      : slug === "flux-glyphs"
-        ? "GLYPHS"
-        : slug === "particle-text"
-          ? "Particle"
-          : name,
+      : slug === "handwrite"
+        ? "Good Morning"
+        : slug === "flux-glyphs"
+          ? "GLYPHS"
+          : slug === "particle-text"
+            ? "Particle"
+            : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],

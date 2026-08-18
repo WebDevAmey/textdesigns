@@ -43,6 +43,7 @@ import MorphingText from "@/components/text/MorphingText";
 import HighlighterText from "@/components/text/HighlighterText";
 import BounceText from "@/components/text/BounceText";
 import NeonFlickerText from "@/components/text/NeonFlickerText";
+import HandwriteText from "@/components/text/HandwriteText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -223,6 +224,15 @@ export const animations = [
       "A tilted marker stroke draws across the text from left to right, then fades away.",
     component: HighlighterText,
     code: `<HighlighterText text="Highlighter" />`,
+  },
+  {
+    name: "Handwrite",
+    slug: "handwrite",
+    category: "reveal",
+    description:
+      "Text is sketched on screen with a marker, word by word, like a pen signing its name.",
+    component: HandwriteText,
+    code: `<HandwriteText text="Good Morning" />`,
   },
   {
     name: "Magnetic",
