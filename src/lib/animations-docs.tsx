@@ -66,6 +66,8 @@ const SOURCE_FILES: Record<string, string> = {
   "path-entrance": "PathEntranceText.tsx",
   "particle-text": "ParticleText.tsx",
   highlighter: "HighlighterText.tsx",
+  cascade: "CascadeText.tsx",
+  chromatic: "ChromaticText.tsx",
   "apple-hello": "AppleHelloText.tsx",
   magnetic: "MagneticText.tsx",
   "hover-distort": "HoverDistortText.tsx",
