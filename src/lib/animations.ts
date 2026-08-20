@@ -397,7 +397,7 @@ export const animations = [
     slug: "constellation-breathe",
     category: "loop",
     description:
-      "Letters scatter into a springy arranging, flash connector lines between them, and breathe with variable-font weight.",
+      "Letters scatter into a springy arranging and breathe with variable-font weight.",
     component: ConstellationBreathe,
     code: `<ConstellationBreathe text="Assemble" />`,
   },

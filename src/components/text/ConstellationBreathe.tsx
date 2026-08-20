@@ -17,37 +17,7 @@ export default function ConstellationBreathe({
 }: ConstellationBreatheProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const svgRef = useRef<SVGSVGElement>(null);
   const breathingRef = useRef<gsap.core.Tween[]>([]);
-
-  const drawConstellation = () => {
-    const letters = letterRefs.current.filter(Boolean) as HTMLSpanElement[];
-    const container = containerRef.current;
-    const svg = svgRef.current;
-    if (!container || !svg) return;
-
-    const rect = container.getBoundingClientRect();
-    svg.innerHTML = "";
-
-    for (let i = 0; i < letters.length - 1; i++) {
-      const a = letters[i].getBoundingClientRect();
-      const b = letters[i + 1].getBoundingClientRect();
-      const line = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "line"
-      );
-      line.setAttribute("x1", String(a.left + a.width / 2 - rect.left));
-      line.setAttribute("y1", String(a.top + a.height / 2 - rect.top));
-      line.setAttribute("x2", String(b.left + b.width / 2 - rect.left));
-      line.setAttribute("y2", String(b.top + b.height / 2 - rect.top));
-      line.setAttribute("stroke", "currentColor");
-      line.setAttribute("stroke-width", "1");
-      line.style.opacity = "0";
-      svg.appendChild(line);
-      gsap.to(line, { opacity: 0.5, duration: 0.2, delay: i * 0.05 });
-      gsap.to(line, { opacity: 0, duration: 0.6, delay: i * 0.05 + 0.8 });
-    }
-  };
 
   // Idle weight-breathing. Tweens a plain JS number because gsap cannot
   // interpolate inside fontVariationSettings directly — onUpdate writes
@@ -77,7 +47,6 @@ export default function ConstellationBreathe({
 
     const tl = gsap.timeline({
       onComplete: () => {
-        drawConstellation();
         startBreathing();
       },
     });
@@ -159,15 +128,6 @@ export default function ConstellationBreathe({
         display: "inline-block",
       }}
     >
-      <svg
-        ref={svgRef}
-        style={{
-          position: "absolute",
-          inset: 0,
-          overflow: "visible",
-          pointerEvents: "none",
-        }}
-      />
       {text.split("").map((char, i) => (
         <span
           key={i}
