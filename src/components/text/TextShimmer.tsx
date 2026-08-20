@@ -28,10 +28,9 @@ export default function TextShimmer({
   return (
     <MotionComponent
       className={cn(
-        "relative inline-block bg-[length:250%_100%,auto] bg-clip-text",
+        "relative inline-block bg-clip-text",
         "text-transparent [--base-color:#a1a1aa] [--base-gradient-color:#000]",
-        "[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--base-gradient-color),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]",
-        "dark:[--base-color:#71717a] dark:[--base-gradient-color:#ffffff] dark:[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--base-gradient-color),#0000_calc(50%+var(--spread)))]",
+        "dark:[--base-color:#71717a] dark:[--base-gradient-color:#ffffff]",
         className
       )}
       initial={{ backgroundPosition: "100% center" }}
@@ -44,7 +43,9 @@ export default function TextShimmer({
       style={
         {
           "--spread": `${dynamicSpread}px`,
-          backgroundImage: `var(--bg), linear-gradient(var(--base-color), var(--base-color))`,
+          backgroundImage: `linear-gradient(90deg, #0000 calc(50% - var(--spread)), var(--base-gradient-color), #0000 calc(50% + var(--spread))), linear-gradient(var(--base-color), var(--base-color))`,
+          backgroundSize: "250% 100%, auto",
+          backgroundRepeat: "no-repeat, padding-box",
         } as React.CSSProperties
       }
     >
