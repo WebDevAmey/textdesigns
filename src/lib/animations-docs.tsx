@@ -92,6 +92,7 @@ const SOURCE_FILES: Record<string, string> = {
   "scroll-skew": "ScrollSkewText.tsx",
   letterpress: "LetterpressText.tsx",
   gooey: "GooeyText.tsx",
+  "shimmer-sweep": "TextShimmer.tsx",
 };
 
 const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({

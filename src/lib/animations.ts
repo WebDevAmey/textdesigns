@@ -46,6 +46,7 @@ import AppleHelloText from "@/components/text/AppleHelloText";
 import CascadeText from "@/components/text/CascadeText";
 import ChromaticText from "@/components/text/ChromaticText";
 import GooeyText from "@/components/text/GooeyText";
+import TextShimmer from "@/components/text/TextShimmer";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -370,6 +371,17 @@ export const animations = [
       "A soft light gradient sweeps across the text on loop or hover.",
     component: ShimmerText,
     code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
+  },
+  {
+    name: "Shimmer Sweep",
+    slug: "shimmer-sweep",
+    category: "loop",
+    description:
+      "A bright gradient band sweeps continuously across the text.",
+    component: TextShimmer,
+    infinite: true,
+    preview: { text: "Crafting words…" },
+    code: `<TextShimmer text="Crafting words…" duration={2} />`,
   },
   {
     name: "Gradient",
