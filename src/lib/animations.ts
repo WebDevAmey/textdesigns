@@ -45,6 +45,7 @@ import NeonFlickerText from "@/components/text/NeonFlickerText";
 import AppleHelloText from "@/components/text/AppleHelloText";
 import CascadeText from "@/components/text/CascadeText";
 import ChromaticText from "@/components/text/ChromaticText";
+import GooeyText from "@/components/text/GooeyText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -419,6 +420,16 @@ export const animations = [
     component: BounceText,
     infinite: true,
     code: `<BounceText text="Bounce" />`,
+  },
+  {
+    name: "Gooey",
+    slug: "gooey",
+    category: "loop",
+    description:
+      "Letters melt into a single gooey blob, wobble, then snap back into place.",
+    component: GooeyText,
+    infinite: true,
+    code: `<GooeyText text="GOOEY" />`,
   },
   {
     name: "Neon",

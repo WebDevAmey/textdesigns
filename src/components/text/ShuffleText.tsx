@@ -94,8 +94,8 @@ export default function ShuffleText({ text }: { text: string }) {
   return (
     <div
       ref={containerRef}
-      className="relative inline-block"
-      style={{ width: `${text.length * CHAR_W_EM}em` }}
+      className="relative inline-block leading-none"
+      style={{ width: `${text.length * CHAR_W_EM}em`, height: "1em" }}
     >
       <span className="sr-only">{text}</span>
       {text.split("").map((ch, i) => (
