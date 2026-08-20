@@ -47,6 +47,7 @@ import CascadeText from "@/components/text/CascadeText";
 import ChromaticText from "@/components/text/ChromaticText";
 import GooeyText from "@/components/text/GooeyText";
 import TextShimmer from "@/components/text/TextShimmer";
+import VaporizeText from "@/components/text/VaporizeText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -442,6 +443,21 @@ export const animations = [
     component: GooeyText,
     infinite: true,
     code: `<GooeyText text="GOOEY" />`,
+  },
+  {
+    name: "Vaporize",
+    slug: "vaporize",
+    category: "loop",
+    description:
+      "The text dissolves into particles swept away by a vaporizing wave, then the next word condenses back into focus.",
+    component: VaporizeText,
+    infinite: true,
+    preview: {
+      texts: ["Vaporize", "Dissolve", "Reform"],
+      width: 480,
+      height: 140,
+    },
+    code: `<VaporizeText texts={["Vaporize", "Dissolve", "Reform"]} />`,
   },
   {
     name: "Neon",

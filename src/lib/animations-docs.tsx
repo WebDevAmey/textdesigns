@@ -92,6 +92,7 @@ const SOURCE_FILES: Record<string, string> = {
   "scroll-skew": "ScrollSkewText.tsx",
   letterpress: "LetterpressText.tsx",
   gooey: "GooeyText.tsx",
+  vaporize: "VaporizeText.tsx",
   "shimmer-sweep": "TextShimmer.tsx",
 };
 
