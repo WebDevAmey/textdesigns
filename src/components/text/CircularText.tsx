@@ -118,8 +118,12 @@ export default function CircularText({
         const transform = `rotateZ(${rotationDeg}deg) translate3d(${x}px, ${y}px, 0)`;
 
         return (
-          <span key={i} style={{ transform, WebkitTransform: transform }}>
-            {letter}
+          <span
+            key={i}
+            className={letter === " " ? "circular-text__dot" : undefined}
+            style={{ transform, WebkitTransform: transform }}
+          >
+            {letter === " " ? "•" : letter}
           </span>
         );
       })}
