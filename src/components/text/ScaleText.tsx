@@ -9,9 +9,11 @@ gsap.registerPlugin(useGSAP);
 
 interface ScaleTextProps {
   text: string;
+  /** Stagger interval (default: 0.05s) */
+  stagger?: number;
 }
 
-export default function ScaleText({ text }: ScaleTextProps) {
+export default function ScaleText({ text, stagger = 0.05 }: ScaleTextProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
@@ -24,9 +26,9 @@ export default function ScaleText({ text }: ScaleTextProps) {
     gsap.from(split.chars, {
       scale: 0,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.05,
-      ease: "back.out(1.7)",
+      duration: 0.8,     /* duration-slow */
+      stagger: stagger,  /* stagger-normal */
+      ease: "back.out(1.7)", /* ease-spring */
     });
 
     return () => {

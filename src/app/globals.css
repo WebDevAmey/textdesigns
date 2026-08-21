@@ -121,6 +121,124 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   MATHEMATICAL DESIGN TOKENS
+   Base unit: 4px
+   Typography ratio: 1.25 (Major Third)
+   Spacing: 4px base, scaled by ratio
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Spacing Unit ─── */
+  --unit: 4px;
+
+  /* ─── Spacing Scale (4px base × 1.25 ratio) ─── */
+  --space-0: 0px;
+  --space-px: 1px;
+  --space-0-5: 2px;        /* 0.5 × unit */
+  --space-1: 4px;          /* 1 × unit */
+  --space-1-5: 6px;        /* 1.5 × unit */
+  --space-2: 8px;          /* 2 × unit */
+  --space-2-5: 10px;       /* 2.5 × unit */
+  --space-3: 12px;         /* 3 × unit */
+  --space-3-5: 14px;       /* 3.5 × unit */
+  --space-4: 16px;         /* 4 × unit */
+  --space-5: 20px;         /* 5 × unit */
+  --space-6: 24px;         /* 6 × unit */
+  --space-7: 28px;         /* 7 × unit */
+  --space-8: 32px;         /* 8 × unit */
+  --space-9: 36px;         /* 9 × unit */
+  --space-10: 40px;        /* 10 × unit */
+  --space-12: 48px;        /* 12 × unit */
+  --space-14: 56px;        /* 14 × unit */
+  --space-16: 64px;        /* 16 × unit */
+  --space-20: 80px;        /* 20 × unit */
+  --space-24: 96px;        /* 24 × unit */
+  --space-28: 112px;       /* 28 × unit */
+  --space-32: 128px;       /* 32 × unit */
+  --space-40: 160px;       /* 40 × unit */
+  --space-48: 192px;       /* 48 × unit */
+  --space-56: 224px;       /* 56 × unit */
+  --space-64: 256px;       /* 64 × unit */
+
+  /* ─── Typography Scale (Major Third: 1.25) ─── */
+  /* Base: 16px */
+  --text-xs: 0.64rem;      /* 10.24px — 16 × 1.25^(-2) */
+  --text-sm: 0.8rem;       /* 12.8px  — 16 × 1.25^(-1) */
+  --text-base: 1rem;       /* 16px    — base */
+  --text-lg: 1.25rem;      /* 20px    — 16 × 1.25 */
+  --text-xl: 1.563rem;     /* 25px    — 16 × 1.25^2 */
+  --text-2xl: 1.953rem;    /* 31.25px — 16 × 1.25^3 */
+  --text-3xl: 2.441rem;    /* 39.06px — 16 × 1.25^4 */
+  --text-4xl: 3.052rem;    /* 48.83px — 16 × 1.25^5 */
+  --text-5xl: 3.815rem;    /* 61.04px — 16 × 1.25^6 */
+  --text-6xl: 4.768rem;    /* 76.29px — 16 × 1.25^7 */
+  --text-7xl: 5.96rem;     /* 95.37px — 16 × 1.25^8 */
+  --text-8xl: 7.451rem;    /* 119.22px — 16 × 1.25^9 */
+
+  /* ─── Line Height Scale ─── */
+  --leading-none: 1;
+  --leading-tight: 1.15;   /* Headings */
+  --leading-snug: 1.3;     /* Subheadings */
+  --leading-normal: 1.5;   /* Body text */
+  --leading-relaxed: 1.625; /* Reading text */
+  --leading-loose: 2;      /* Spacious */
+
+  /* ─── Letter Spacing Scale ─── */
+  --tracking-tighter: -0.05em;  /* Hero/display */
+  --tracking-tight: -0.025em;   /* Headings */
+  --tracking-normal: 0em;       /* Body */
+  --tracking-wide: 0.025em;     /* Labels */
+  --tracking-wider: 0.05em;     /* Small caps */
+  --tracking-widest: 0.1em;     /* Eyebrows */
+
+  /* ─── Animation Timing Scale ─── */
+  --duration-instant: 0ms;
+  --duration-micro: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-moderate: 500ms;
+  --duration-slow: 750ms;
+  --duration-dramatic: 1000ms;
+  --duration-cinematic: 1500ms;
+
+  /* ─── Stagger Scale ─── */
+  --stagger-micro: 10ms;
+  --stagger-fast: 25ms;
+  --stagger-normal: 40ms;
+  --stagger-moderate: 60ms;
+  --stagger-slow: 80ms;
+  --stagger-dramatic: 100ms;
+
+  /* ─── Easing Functions ─── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-back: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─── Border Radius Scale ─── */
+  --radius-none: 0;
+  --radius-xs: 0.25rem;    /* 4px */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.625rem;   /* 10px — base */
+  --radius-xl: 0.875rem;   /* 14px */
+  --radius-2xl: 1.125rem;  /* 18px */
+  --radius-3xl: 1.375rem;  /* 22px */
+  --radius-full: 9999px;
+
+  /* ─── Golden Ratio ─── */
+  --phi: 1.618;
+
+  /* ─── Container Widths ─── */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -133,11 +251,10 @@
   }
 }
 
-
 .char {
   display: inline-block;
 }
 
-body{
+body {
   margin: 0;
 }

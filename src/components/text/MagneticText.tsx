@@ -9,10 +9,16 @@ gsap.registerPlugin(useGSAP);
 
 interface MagneticTextProps {
   text: string;
+  /** Interaction radius in pixels (default: 150px) */
+  radius?: number;
+  /** Strength multiplier (default: 0.25) */
+  strength?: number;
 }
 
 export default function MagneticText({
   text,
+  radius = 150,
+  strength = 0.25,
 }: MagneticTextProps) {
   const textRef = useRef<HTMLSpanElement>(null);
 
@@ -25,17 +31,19 @@ export default function MagneticText({
 
     const chars = split.chars ?? [];
 
+    // Quick-to functions for smooth cursor following
+    // duration: 0.4s = duration-moderate
     const quickToX = chars.map((char) =>
       gsap.quickTo(char, "x", {
-        duration: 0.4,
-        ease: "power3.out",
+        duration: 0.4,  /* duration-moderate */
+        ease: "power3.out", /* ease-out-quart */
       })
     );
 
     const quickToY = chars.map((char) =>
       gsap.quickTo(char, "y", {
-        duration: 0.4,
-        ease: "power3.out",
+        duration: 0.4,  /* duration-moderate */
+        ease: "power3.out", /* ease-out-quart */
       })
     );
 
@@ -53,10 +61,11 @@ export default function MagneticText({
           distanceX ** 2 + distanceY ** 2
         );
 
-        const strength = Math.max(0, 1 - distance / 150);
+        // Strength decreases with distance (inverse relationship)
+        const strengthFactor = Math.max(0, 1 - distance / radius);
 
-        quickToX[index](distanceX * strength * 0.25);
-        quickToY[index](distanceY * strength * 0.25);
+        quickToX[index](distanceX * strengthFactor * strength);
+        quickToY[index](distanceY * strengthFactor * strength);
       });
     };
 

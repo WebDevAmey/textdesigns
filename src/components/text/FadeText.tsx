@@ -8,20 +8,29 @@ gsap.registerPlugin(useGSAP);
 
 interface FadeTextProps {
   text: string;
-  duration?: number; // Optional prop, falls back to a default
-  delay?: number;    // Optional prop, defaults to 0
+  /** Animation duration in seconds (default: 1.5s = duration-cinematic) */
+  duration?: number;
+  /** Delay before animation starts (default: 0s) */
+  delay?: number;
+  /** Vertical offset for entrance (default: 50px = 12.5 × unit) */
+  y?: number;
 }
 
-export default function FadeText({ text, duration = 2, delay = 0 }: FadeTextProps) {
+export default function FadeText({
+  text,
+  duration = 1.5,
+  delay = 0,
+  y = 50,
+}: FadeTextProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
     gsap.from(textRef.current, {
       opacity: 0,
-      y: 50,
-      duration: duration, // Uses your prop value
-      delay: delay,       // Uses your prop value
-      ease: "back.out", // back.out , power3.out power2.out power4.out elastic.out bounce.out 
+      y: y,               /* Default: 50px ≈ 12.5 × unit */
+      duration: duration, /* Default: 1.5s = duration-cinematic */
+      delay: delay,
+      ease: "back.out",   /* ease-out-back */
     });
   });
 
