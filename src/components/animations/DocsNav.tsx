@@ -44,7 +44,11 @@ export default function DocsNav({ groups, onSelect }: DocsNavProps) {
         keywords: [doc.slug, doc.name, group.label],
         onSelect: () => {
           onSelect(doc.slug);
-          window.location.hash = doc.slug;
+          // Scroll to the animation section
+          const element = document.getElementById(doc.slug);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
         },
       }))
     );

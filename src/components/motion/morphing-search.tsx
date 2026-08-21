@@ -130,7 +130,7 @@ export function MorphingSearch({
 			// Center the search panel in the viewport
 			const panelWidth = Math.min(448, window.innerWidth - 32);
 			setAnchorRect({
-				top: window.innerHeight * 0.3, // 30% from top for visual balance
+				top: Math.max(100, window.innerHeight * 0.3), // 30% from top, min 100px
 				left: (window.innerWidth - panelWidth) / 2,
 				width: panelWidth,
 			});
@@ -233,13 +233,13 @@ export function MorphingSearch({
 				return;
 			}
 
+			// Support Cmd+K (macOS) and Ctrl+K (Windows/Linux)
 			if (
 				!open &&
 				shortcut &&
 				event.key.toLowerCase() === shortcut.toLowerCase() &&
 				!event.repeat &&
-				!event.metaKey &&
-				!event.ctrlKey &&
+				(event.metaKey || event.ctrlKey) &&
 				!event.altKey &&
 				!event.shiftKey &&
 				!isEditableTarget(event.target)
@@ -393,7 +393,7 @@ export function MorphingSearch({
 								<button
 									type="button"
 									aria-label="Close search"
-									className="pointer-events-auto fixed inset-0 cursor-default bg-transparent"
+									className="pointer-events-auto fixed inset-0 cursor-default bg-black/20 backdrop-blur-sm"
 									onClick={closeSearch}
 								/>
 
