@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { FlaskConical, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MorphingSearch, type MorphingSearchItem } from "@/components/motion/morphing-search";
 import type { DocGroup } from "@/lib/animations-docs";
 
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -34,47 +34,21 @@ interface DocsNavProps {
 
 export default function DocsNav({ groups, onSelect }: DocsNavProps) {
   const pathname = usePathname();
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setSearchOpen((o) => !o);
-      } else if (e.key === "Escape") {
-        setSearchOpen(false);
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    if (searchOpen) {
-      inputRef.current?.focus();
-      setQuery("");
-    }
-  }, [searchOpen]);
-
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    return groups
-      .flatMap((group) =>
-        group.docs
-          .filter((d) => `${d.name} ${d.slug}`.toLowerCase().includes(q))
-          .map((d) => ({ doc: d, group: group.label }))
-      )
-      .slice(0, 8);
-  }, [groups, query]);
-
-  const select = (slug: string) => {
-    onSelect(slug);
-    window.location.hash = slug;
-    setSearchOpen(false);
-  };
+  const searchItems: MorphingSearchItem[] = useMemo(() => {
+    return groups.flatMap((group) =>
+      group.docs.map((doc) => ({
+        id: doc.slug,
+        title: doc.name,
+        description: group.label,
+        keywords: [doc.slug, doc.name, group.label],
+        onSelect: () => {
+          onSelect(doc.slug);
+          window.location.hash = doc.slug;
+        },
+      }))
+    );
+  }, [groups, onSelect]);
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -116,109 +90,16 @@ export default function DocsNav({ groups, onSelect }: DocsNavProps) {
         </nav>
 
         <div className="flex items-center justify-self-end gap-3">
-          <button
-            type="button"
-            onClick={() => setSearchOpen(true)}
-            className="hidden items-center gap-2 border border-border bg-secondary/50 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground sm:flex"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <span>Search</span>
-            <kbd className="ml-2 border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-              ⌘K
-            </kbd>
-          </button>
+          <MorphingSearch
+            items={searchItems}
+            placeholder="Search animations…"
+            shortcut="k"
+            emptyMessage="No results found."
+            centered
+            className="hidden sm:flex"
+          />
         </div>
       </div>
-
-      <AnimatePresence>
-        {searchOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-50 flex items-start justify-center bg-foreground/10 px-4 pt-24 backdrop-blur-sm"
-            onClick={() => setSearchOpen(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98, y: -8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: -8 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              className="w-full max-w-lg overflow-hidden rounded-xl border border-border bg-background shadow-xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="shrink-0 text-muted-foreground"
-                  aria-hidden="true"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && results[0] && select(results[0].doc.slug)}
-                  placeholder="Search animations…"
-                  className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
-                />
-                <kbd className="border border-border bg-secondary px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-                  esc
-                </kbd>
-              </div>
-
-              <div className="max-h-80 overflow-y-auto p-2">
-                {query.trim() === "" ? (
-                  <p className="px-3 py-6 text-center text-sm text-muted-foreground">
-                    Type to search animations
-                  </p>
-                ) : results.length === 0 ? (
-                  <p className="px-3 py-6 text-center text-sm text-muted-foreground">
-                    No results for “{query}”
-                  </p>
-                ) : (
-                  results.map(({ doc, group }) => (
-                    <button
-                      key={doc.slug}
-                      type="button"
-                      onClick={() => select(doc.slug)}
-                      className="flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-secondary"
-                    >
-                      <span className="font-medium text-foreground">{doc.name}</span>
-                      <span className="shrink-0 text-xs uppercase tracking-wider text-muted-foreground">
-                        {group}
-                      </span>
-                    </button>
-                  ))
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
