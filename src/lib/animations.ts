@@ -49,6 +49,7 @@ import GooeyText from "@/components/text/GooeyText";
 import TextShimmer from "@/components/text/TextShimmer";
 import VaporizeText from "@/components/text/VaporizeText";
 import TextDisperse from "@/components/text/TextDisperse";
+import TextRoll from "@/components/text/TextRoll";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -477,6 +478,15 @@ export const animations = [
       "Characters scatter and disperse on hover with rotation and translation, then reform when the cursor leaves.",
     component: TextDisperse,
     code: `<TextDisperse text="Disperse" />`,
+  },
+  {
+    name: "Text Roll",
+    slug: "text-roll",
+    category: "reveal",
+    description:
+      "Each character flips in 3D along the X-axis, creating a rolling reveal effect.",
+    component: TextRoll,
+    code: `<TextRoll text="Follow your Gut" />`,
   },
   {
     name: "Scroll Reveal",
