@@ -10,9 +10,9 @@ gsap.registerPlugin(useGSAP);
 
 interface CascadeTextProps {
   text: string;
-  /** Drop distance in em. */
+  /** Drop distance in em (default: 0.9em) */
   fall?: number;
-  /** Seconds between each character starting to drop. */
+  /** Stagger interval in seconds (default: 0.055s ≈ stagger-normal × 1.375) */
   stagger?: number;
 }
 
@@ -41,16 +41,16 @@ export default function CascadeText({
       chars,
       {
         y: `-${fall}em`,
-        rotation: () => gsap.utils.random(-14, 14),
+        rotation: () => gsap.utils.random(-14, 14), /* ±14° */
         opacity: 0,
       },
       {
         y: 0,
         rotation: 0,
         opacity: 1,
-        duration: 0.9,
-        ease: "elastic.out(1, 0.45)",
-        stagger,
+        duration: 0.9,    /* duration-slow */
+        ease: "elastic.out(1, 0.45)", /* elastic bounce */
+        stagger: stagger,
       }
     );
 

@@ -9,10 +9,13 @@ gsap.registerPlugin(useGSAP);
 
 interface CharacterRevealProps {
   text: string;
+  /** Stagger interval (default: 0.05s = stagger-normal) */
+  stagger?: number;
 }
 
 export default function CharacterReveal({
   text,
+  stagger = 0.05,
 }: CharacterRevealProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
@@ -25,11 +28,11 @@ export default function CharacterReveal({
 
     gsap.from(split.chars, {
       opacity: 0,
-      x: 80,
-      rotation:10,
-      duration: 0.8,
-      stagger: 0.05,
-      ease: "power3.out",
+      x: 80,           /* 20 × unit */
+      rotation: 10,    /* 10° */
+      duration: 0.8,   /* duration-slow */
+      stagger: stagger,
+      ease: "power3.out", /* ease-out-quart */
     });
 
     return () => {

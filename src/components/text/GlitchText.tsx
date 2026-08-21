@@ -9,9 +9,11 @@ gsap.registerPlugin(useGSAP);
 
 interface GlitchTextProps {
   text: string;
+  /** Glitch interval in ms (default: 1200ms) */
+  interval?: number;
 }
 
-export default function GlitchText({ text }: GlitchTextProps) {
+export default function GlitchText({ text, interval = 1200 }: GlitchTextProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
@@ -24,31 +26,34 @@ export default function GlitchText({ text }: GlitchTextProps) {
     const chars = split.chars;
 
     const glitch = () => {
+      // Glitch burst: 0.08s (duration-micro)
       gsap.to(chars, {
-        x: () => gsap.utils.random(-4, 4),
-        y: () => gsap.utils.random(-3, 3),
-        skewX: () => gsap.utils.random(-15, 15),
+        x: () => gsap.utils.random(-4, 4),    /* ±1 × unit */
+        y: () => gsap.utils.random(-3, 3),    /* ±0.75 × unit */
+        skewX: () => gsap.utils.random(-15, 15), /* ±15° */
         opacity: () => gsap.utils.random(0.5, 1),
-        duration: 0.08,
-        stagger: 0.01,
+        duration: 0.08,  /* duration-micro */
+        stagger: 0.01,   /* stagger-micro */
         ease: "none",
         onComplete: () => {
+          // Recovery: 0.08s (duration-micro)
           gsap.to(chars, {
             x: 0,
             y: 0,
             skewX: 0,
             opacity: 1,
-            duration: 0.08,
-            stagger: 0.01,
+            duration: 0.08,  /* duration-micro */
+            stagger: 0.01,   /* stagger-micro */
           });
         },
       });
     };
 
-    const interval = setInterval(glitch, 1200);
+    // Interval: 1200ms (duration-dramatic × 1.6)
+    const timer = setInterval(glitch, interval);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(timer);
       split.revert();
     };
   });

@@ -10,6 +10,11 @@ interface Transform {
 	rotationZ: number;
 }
 
+/**
+ * Disperse transforms for up to 13 characters.
+ * Values are in em units relative to font size.
+ * Rotation values in degrees.
+ */
 const transforms: Transform[] = [
 	{ x: -0.8, y: -0.6, rotationZ: -29 },
 	{ x: -0.2, y: -0.4, rotationZ: -6 },
@@ -32,6 +37,17 @@ type TextDisperseProps = ComponentProps<'div'> & {
 	onHover?: (isActive: boolean) => void;
 };
 
+/**
+ * Easing function: cubic-bezier(0.33, 1, 0.68, 1)
+ * This is ease-out-back — creates a slight overshoot effect.
+ */
+const EASE_OUT_BACK = [0.33, 1, 0.68, 1] as const;
+
+/**
+ * Duration: 0.75s (duration-slow)
+ */
+const DURATION = 0.75;
+
 export function TextDisperse({
 	children,
 	onHover,
@@ -51,14 +67,20 @@ export function TextDisperse({
 							x: transforms[i].x + 'em',
 							y: transforms[i].y + 'em',
 							rotateZ: transforms[i].rotationZ,
-							transition: { duration: 0.75, ease: [0.33, 1, 0.68, 1] },
+							transition: {
+								duration: DURATION,
+								ease: EASE_OUT_BACK,
+							},
 							zIndex: 1,
 						}),
 						closed: {
 							x: 0,
 							y: 0,
 							rotateZ: 0,
-							transition: { duration: 0.75, ease: [0.33, 1, 0.68, 1] },
+							transition: {
+								duration: DURATION,
+								ease: EASE_OUT_BACK,
+							},
 							zIndex: 0,
 						},
 					}}

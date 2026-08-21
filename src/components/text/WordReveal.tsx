@@ -9,9 +9,11 @@ gsap.registerPlugin(useGSAP);
 
 interface WordRevealProps {
   text: string;
+  /** Stagger interval (default: 0.12s = stagger-dramatic) */
+  stagger?: number;
 }
 
-export default function WordReveal({ text }: WordRevealProps) {
+export default function WordReveal({ text, stagger = 0.12 }: WordRevealProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
@@ -23,10 +25,10 @@ export default function WordReveal({ text }: WordRevealProps) {
 
     gsap.from(split.words, {
       opacity: 0,
-      y: 40,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: "power3.out",
+      y: 40,            /* 10 × unit */
+      duration: 0.8,    /* duration-slow */
+      stagger: stagger,
+      ease: "power3.out", /* ease-out-quart */
     });
 
     return () => {
