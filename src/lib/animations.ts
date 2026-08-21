@@ -374,15 +374,14 @@ export const animations = [
     code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
   },
   {
-    name: "Shimmer Sweep",
-    slug: "shimmer-sweep",
-    category: "loop",
+    name: "Shimmer Hover",
+    slug: "shimmer-hover",
+    category: "hover",
     description:
-      "A bright gradient band sweeps continuously across the text.",
+      "The text sits quietly until you hover — then a bright gradient band sweeps across it.",
     component: TextShimmer,
-    infinite: true,
-    preview: { text: "Crafting words…" },
-    code: `<TextShimmer text="Crafting words…" duration={2} />`,
+    preview: { text: "Hover Me", trigger: "hover" },
+    code: `<TextShimmer text="Hover Me" trigger="hover" />`,
   },
   {
     name: "Gradient",
@@ -437,12 +436,12 @@ export const animations = [
   {
     name: "Gooey",
     slug: "gooey",
-    category: "loop",
+    category: "hover",
     description:
-      "Letters melt into a single gooey blob, wobble, then snap back into place.",
+      "On hover, the word melts into a gooey blob and reforms as another word.",
     component: GooeyText,
-    infinite: true,
-    code: `<GooeyText text="GOOEY" />`,
+    preview: { text: "GOOEY", text2: "LIQUID" },
+    code: `<GooeyText text="GOOEY" text2="LIQUID" />`,
   },
   {
     name: "Vaporize",

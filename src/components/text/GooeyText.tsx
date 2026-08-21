@@ -7,106 +7,146 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP);
 
 interface GooeyTextProps {
-  text?: string;
-  /** Seconds between blob cycles. */
-  interval?: number;
+  text: string;
+  /** The word the text melts into on hover. */
+  text2?: string;
 }
 
 /**
- * Letters melt together into a single gooey blob, wobble,
- * then snap back into place — on a continuous loop.
+ * Two stacked SVG text layers under a goo filter (blur → alpha-boosted
+ * color matrix → crisp source composited on top). On hover the blur
+ * pulses 0 → 1 → 0 while the layers crossfade, so the first word melts
+ * into the second like a single drop of liquid. Based on the Codrops
+ * Gooey Text Hover Effect.
  */
-export default function GooeyText({ text = "GOOEY", interval = 2.4 }: GooeyTextProps) {
-  const containerRef = useRef<HTMLSpanElement>(null);
-  const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
+export default function GooeyText({ text, text2 = "LIQUID" }: GooeyTextProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<SVGGElement>(null);
+  const blurRef = useRef<SVGFEGaussianBlurElement>(null);
+  const text1Ref = useRef<SVGTextElement>(null);
+  const text2Ref = useRef<SVGTextElement>(null);
   const rawId = useId();
-  const filterId = "gooey" + rawId.replace(/[^a-zA-Z0-9]/g, "");
+  const filterId = "gooey-hover" + rawId.replace(/[^a-zA-Z0-9]/g, "");
+
+  const fontSize = 100;
+  const maxDeviation = fontSize / 16;
+  const charWidth = 0.62 * fontSize;
+  const viewWidth = Math.max(text.length, text2.length) * charWidth;
+  const viewHeight = fontSize * 1.3;
 
   useGSAP(
     () => {
-      const chars = charRefs.current.filter(
-        (el): el is HTMLSpanElement => el !== null
-      );
-      if (chars.length < 2) return;
-
-      const center = (chars.length - 1) / 2;
-
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: interval });
-
-      // Melt toward the centre — neighbours overlap and fuse into one blob.
-      tl.to(chars, {
-        x: (i) => `${(center - i) * 0.55}em`,
-        scaleY: 1.55,
-        scaleX: 0.88,
-        duration: 0.7,
-        ease: "power4.inOut",
-        stagger: { each: 0.035, from: "center" },
+      const prim = { stdDeviation: 0 };
+      const tl = gsap.timeline({
+        paused: true,
+        onUpdate: () =>
+          blurRef.current?.setAttribute(
+            "stdDeviation",
+            String(prim.stdDeviation)
+          ),
+        onComplete: () => {
+          if (groupRef.current) groupRef.current.style.filter = "none";
+        },
+        onReverseComplete: () => {
+          if (groupRef.current) groupRef.current.style.filter = "none";
+        },
       });
+      tl.to(
+          prim,
+          { stdDeviation: maxDeviation, duration: 0.8, ease: "none" },
+          0
+        )
+        .to(
+          prim,
+          { stdDeviation: 0, duration: 0.8, ease: "none" },
+          0.8
+        )
+        .to(text1Ref.current, { opacity: 0, duration: 1.6, ease: "none" }, 0)
+        .fromTo(
+          text2Ref.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 1.6, ease: "none" },
+          0
+        );
 
-      // The blob wobbles while merged.
-      tl.to(chars, {
-        scaleY: 1.3,
-        scaleX: 0.96,
-        duration: 0.22,
-        ease: "sine.inOut",
-        stagger: 0.012,
-      });
-      tl.to(chars, {
-        scaleY: 1.5,
-        scaleX: 0.9,
-        duration: 0.18,
-        ease: "sine.inOut",
-        stagger: 0.012,
-      });
+      const enter = () => {
+        if (groupRef.current) {
+          groupRef.current.style.filter = `url(#${filterId})`;
+        }
+        tl.play();
+      };
+      const leave = () => {
+        if (groupRef.current) {
+          groupRef.current.style.filter = `url(#${filterId})`;
+        }
+        tl.reverse();
+      };
 
-      // Snap back apart with a springy release.
-      tl.to(chars, {
-        x: 0,
-        scaleY: 1,
-        scaleX: 1,
-        duration: 0.9,
-        ease: "elastic.out(1, 0.45)",
-        stagger: { each: 0.05, from: "edges" },
-      });
-
+      wrapperRef.current?.addEventListener("mouseenter", enter);
+      wrapperRef.current?.addEventListener("mouseleave", leave);
       return () => {
+        wrapperRef.current?.removeEventListener("mouseenter", enter);
+        wrapperRef.current?.removeEventListener("mouseleave", leave);
         tl.kill();
       };
     },
-    { scope: containerRef }
+    { scope: wrapperRef }
   );
 
   return (
-    <span
-      ref={containerRef}
-      className="relative inline-block select-none leading-none"
-      style={{ filter: "url(#" + filterId + ")" }}
-      aria-label={text}
+    <div
+      ref={wrapperRef}
+      className="inline-block select-none leading-none"
+      style={{ cursor: "pointer" }}
     >
-      <svg aria-hidden className="pointer-events-none absolute h-0 w-0">
+      <svg
+        viewBox={`0 0 ${viewWidth} ${viewHeight}`}
+        preserveAspectRatio="xMinYMid meet"
+        style={{
+          width: `${viewWidth / fontSize}em`,
+          height: "1.3em",
+          display: "block",
+          overflow: "visible",
+          fill: "currentColor",
+          fontSize: `${fontSize}px`,
+        }}
+      >
         <defs>
-          <filter id={filterId} x="-40%" y="-80%" width="180%" height="260%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+          <filter id={filterId}>
+            <feGaussianBlur
+              ref={blurRef}
+              in="SourceGraphic"
+              stdDeviation="0"
+              result="blur"
+            />
             <feColorMatrix
               in="blur"
               mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -13"
+              values="1 0 0 0 0  0 1 0 0 0  1 0 1 0 0  0 0 0 15 -8"
+              result="goo"
             />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
         </defs>
+        <g ref={groupRef}>
+          <text
+            ref={text1Ref}
+            x="0"
+            y={fontSize * 1.05}
+            style={{ fontWeight: 800 }}
+          >
+            {text}
+          </text>
+          <text
+            ref={text2Ref}
+            x="0"
+            y={fontSize * 1.05}
+            style={{ fontWeight: 800, opacity: 0 }}
+          >
+            {text2}
+          </text>
+        </g>
       </svg>
-      {text.split("").map((ch, i) => (
-        <span
-          key={`${ch}-${i}`}
-          ref={(el) => {
-            charRefs.current[i] = el;
-          }}
-          className="inline-block will-change-transform"
-          style={{ transformOrigin: "50% 50%" }}
-        >
-          {ch}
-        </span>
-      ))}
-    </span>
+    </div>
   );
 }
