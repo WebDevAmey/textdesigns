@@ -10,6 +10,7 @@ interface TextShimmerProps {
   className?: string;
   duration?: number;
   spread?: number;
+  trigger?: "auto" | "hover";
 }
 
 export default function TextShimmer({
@@ -18,6 +19,7 @@ export default function TextShimmer({
   className,
   duration = 2,
   spread = 2,
+  trigger = "auto",
 }: TextShimmerProps) {
   const MotionComponent = motion(Component as keyof JSX.IntrinsicElements);
 
@@ -29,21 +31,25 @@ export default function TextShimmer({
     <MotionComponent
       className={cn(
         "relative inline-block bg-clip-text",
-        "text-transparent [--base-color:#a1a1aa] [--base-gradient-color:#000]",
-        "dark:[--base-color:#71717a] dark:[--base-gradient-color:#ffffff]",
+        "text-transparent dark:[--base-color:#1d4ed8] dark:[--base-gradient-color:#60a5fa]",
         className
       )}
       initial={{ backgroundPosition: "100% center" }}
-      animate={{ backgroundPosition: "0% center" }}
+      animate={
+        trigger === "auto" ? { backgroundPosition: "0% center" } : undefined
+      }
+      whileHover={
+        trigger === "hover" ? { backgroundPosition: "0% center" } : undefined
+      }
       transition={{
-        repeat: Infinity,
+        repeat: trigger === "auto" ? Infinity : 0,
         duration,
         ease: "linear",
       }}
       style={
         {
           "--spread": `${dynamicSpread}px`,
-          backgroundImage: `linear-gradient(90deg, #0000 calc(50% - var(--spread)), var(--base-gradient-color), #0000 calc(50% + var(--spread))), linear-gradient(var(--base-color), var(--base-color))`,
+          backgroundImage: `linear-gradient(90deg, #0000 calc(50% - var(--spread)), var(--base-gradient-color, #bfdbfe), #0000 calc(50% + var(--spread))), linear-gradient(var(--base-color, #2563eb), var(--base-color, #2563eb))`,
           backgroundSize: "250% 100%, auto",
           backgroundRepeat: "no-repeat, padding-box",
         } as React.CSSProperties
