@@ -51,10 +51,7 @@ import VaporizeText from "@/components/text/VaporizeText";
 import TextDisperse from "@/components/text/TextDisperse";
 import TextRoll from "@/components/text/TextRoll";
 import TextRevealHover from "@/components/text/TextRevealHover";
-import AnimatedTextHoverWrapper from "@/components/text/AnimatedTextHoverWrapper";
-
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
-
 export const animations = [
   {
     name: "Gravity",
@@ -489,15 +486,6 @@ export const animations = [
       "Characters cascade upward on hover with staggered delays, then return on mouse leave.",
     component: TextRevealHover,
     code: `<TextRevealHover text="Hover me" />`,
-  },
-  {
-    name: "Weight Hover",
-    slug: "weight-hover",
-    category: "hover",
-    description:
-      "Variable font weight animates from thin to bold on hover, staggered from the center outward.",
-    component: AnimatedTextHoverWrapper,
-    code: `<AnimatedTextHover text="Hover me" />`,
   },
   {
     name: "Text Roll",
