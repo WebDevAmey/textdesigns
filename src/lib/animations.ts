@@ -50,6 +50,7 @@ import TextShimmer from "@/components/text/TextShimmer";
 import VaporizeText from "@/components/text/VaporizeText";
 import TextDisperse from "@/components/text/TextDisperse";
 import TextRoll from "@/components/text/TextRoll";
+import TextRevealHover from "@/components/text/TextRevealHover";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 
@@ -478,6 +479,15 @@ export const animations = [
       "Characters scatter and disperse on hover with rotation and translation, then reform when the cursor leaves.",
     component: TextDisperse,
     code: `<TextDisperse text="Disperse" />`,
+  },
+  {
+    name: "Cascade Hover",
+    slug: "cascade-hover",
+    category: "hover",
+    description:
+      "Characters cascade upward on hover with staggered delays, then return on mouse leave.",
+    component: TextRevealHover,
+    code: `<TextRevealHover text="Hover me" />`,
   },
   {
     name: "Text Roll",
