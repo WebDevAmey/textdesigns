@@ -111,7 +111,9 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
             ? "Particle"
             : slug === "text-roll"
               ? "Follow your Gut"
-              : name,
+              : slug === "text-disperse"
+                ? "Disperse"
+                : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],
