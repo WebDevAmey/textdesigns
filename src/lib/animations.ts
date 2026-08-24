@@ -12,7 +12,6 @@ import CharacterReveal from "@/components/text/CharacterReveal";
 import BlurText from "@/components/text/BlurText";
 import HoverDistortText from "@/components/text/HoverDistortText";
 import CollapseText from "@/components/text/CollapseText";
-import TideText from "@/components/text/TideText";
 import TypewriterText from "@/components/text/TypewriterText";
 import LineReveal from "@/components/text/LineReveal";
 import TextTrail from "@/components/text/TextTrail";
@@ -51,6 +50,8 @@ import VaporizeText from "@/components/text/VaporizeText";
 import TextDisperse from "@/components/text/TextDisperse";
 import TextRoll from "@/components/text/TextRoll";
 import TextRevealHover from "@/components/text/TextRevealHover";
+import AnimatedTextWrapper from "@/components/text/AnimatedTextWrapper";
+
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 export const animations = [
   {
@@ -138,15 +139,6 @@ export const animations = [
       "Characters collapse towards a single point before reconstructing themselves.",
     component: CollapseText,
     code: `<CollapseText text="Collapse Text" />`,
-  },
-  {
-    name: "Text Tides",
-    slug: "text-tides",
-    category: "reveal",
-    description:
-      "A continuous wave travels through each character like a moving surface.",
-    component: TideText,
-    code: `<TideText text="Text Tides" />`,
   },
   {
     name: "Line Reveal",
@@ -458,6 +450,16 @@ export const animations = [
     component: NeonFlickerText,
     infinite: true,
     code: `<NeonFlickerText text="Neon" glowColor="#22d3ee" />`,
+  },
+  {
+    name: "Font Breath",
+    slug: "font-breath",
+    category: "loop",
+    description:
+      "Variable font weight breathes between thin and bold, staggered from the center outward.",
+    component: AnimatedTextWrapper,
+    infinite: true,
+    code: `<AnimatedText text="Font Design" fontSize={100} />`,
   },
   {
     name: "Text Disperse",

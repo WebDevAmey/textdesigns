@@ -9,7 +9,6 @@ interface AnimatedTextProps {
   maxWeight?: number
   animationDuration?: number
   delayMultiplier?: number
-  className?: string
 }
 
 /**
@@ -28,7 +27,6 @@ export function AnimatedText({
   maxWeight = 840,
   animationDuration = 1.5,
   delayMultiplier = 0.25,
-  className = "",
 }: AnimatedTextProps) {
   const containerRef = useRef<HTMLParagraphElement>(null)
 
@@ -40,7 +38,7 @@ export function AnimatedText({
 
     spans.forEach((span, i) => {
       const mappedIndex = i - numLetters / 2
-      span.style.animationDelay = mappedIndex * delayMultiplier + "s"
+      ;(span as HTMLElement).style.animationDelay = mappedIndex * delayMultiplier + "s"
     })
   }, [text, delayMultiplier])
 
@@ -63,7 +61,7 @@ export function AnimatedText({
       <p
         ref={containerRef}
         aria-label={text}
-        className={`font-sans m-0 ${className}`}
+        className="font-sans m-0"
         style={{
           fontSize: `${fontSize}px`,
           fontFeatureSettings: '"wght"',
