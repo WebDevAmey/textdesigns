@@ -235,7 +235,7 @@ const ICONS: Record<DocIcon, React.ReactNode> = {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -252,7 +252,7 @@ const ICONS: Record<DocIcon, React.ReactNode> = {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -268,7 +268,7 @@ const ICONS: Record<DocIcon, React.ReactNode> = {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -283,7 +283,7 @@ const ICONS: Record<DocIcon, React.ReactNode> = {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -299,7 +299,7 @@ const ICONS: Record<DocIcon, React.ReactNode> = {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -357,59 +357,27 @@ const SidebarItem = memo(function SidebarItem({
               mass: 0.5,
             }}
             className={cn(
-              "absolute inset-0 rounded-lg",
-              isActive
-                ? "bg-foreground/[0.055]"
-                : "bg-foreground/[0.035]"
+              "absolute inset-0 rounded-md",
+              "bg-neutral-100"
             )}
           />
         )}
       </AnimatePresence>
-
-      {/* Active vertical indicator */}
-      {isActive && (
-        <motion.div
-          layoutId="vengeance-sidebar-indicator"
-          transition={{
-            type: "spring",
-            stiffness: 600,
-            damping: 40,
-            mass: 0.4,
-          }}
-          className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-full bg-foreground"
-        />
-      )}
 
       <Link
         href={href}
         onClick={onSelect}
         aria-current={isActive ? "page" : undefined}
         className={cn(
-          "relative z-10 flex h-8 w-full items-center",
-          "rounded-lg px-3 text-[15px]",
-          "transition-colors duration-150",
-          isActive
-            ? "text-foreground"
-            : "text-muted-foreground"
+          "relative z-10 flex w-full items-center justify-between rounded-md px-3 py-1.5 text-base transition-colors",
+          "text-neutral-500 hover:text-neutral-900"
         )}
       >
-        <motion.span
-          animate={{
-            x: isHovered ? 3 : 0,
-            scale: isHovered ? 1.01 : 1,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 500,
-            damping: 30,
-            mass: 0.4,
-          }}
-          className="flex items-center"
-        >
+        <span className="flex items-center">
           <span className="truncate">
             {name}
           </span>
-        </motion.span>
+        </span>
       </Link>
     </div>
   );
@@ -439,14 +407,14 @@ function SidebarGroup({
         className="
           flex
           items-center
-          gap-2
+          gap-2.5
+          rounded-md
           px-2
           py-2
-          text-[10px]
-          font-medium
-          uppercase
-          tracking-[0.16em]
-          text-muted-foreground/70
+          text-base
+          font-semibold
+          text-neutral-700
+          dark:text-zinc-300
         "
       >
         <motion.span
@@ -463,19 +431,7 @@ function SidebarGroup({
       </motion.div>
 
       {/* Items */}
-      <div className="relative ml-2 flex flex-col gap-0.5 pl-3">
-        {/* Vertical guide line */}
-        <div
-          className="
-            absolute
-            bottom-1
-            left-0
-            top-1
-            w-px
-            bg-border/50
-          "
-        />
-
+      <div className="relative ml-4 flex flex-col border-l border-neutral-200 pl-2 space-y-0.5">
         {group.docs.map((doc) => {
           const href = `#${doc.slug}`;
 
