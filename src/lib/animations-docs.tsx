@@ -56,7 +56,6 @@ const SOURCE_FILES: Record<string, string> = {
   "character-reveal": "CharacterReveal.tsx",
   blur: "BlurText.tsx",
   "collapse-text": "CollapseText.tsx",
-  "text-tides": "TideText.tsx",
   "line-reveal": "LineReveal.tsx",
   decrypt: "DecryptText.tsx",
   "stroke-draw": "StrokedrawText.tsx",
@@ -95,6 +94,7 @@ const SOURCE_FILES: Record<string, string> = {
   vaporize: "VaporizeText.tsx",
   "text-roll": "TextRoll.tsx",
   "cascade-hover": "TextRevealHover.tsx",
+  "font-breath": "AnimatedTextWrapper.tsx",
 };
 
 const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
@@ -113,7 +113,9 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
               ? "Follow your Gut"
               : slug === "text-disperse"
                 ? "Disperse"
-                : name,
+                : slug === "cinematic-zoom"
+                  ? "Cinematic"
+                  : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],
