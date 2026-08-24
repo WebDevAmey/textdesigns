@@ -50,7 +50,6 @@ import VaporizeText from "@/components/text/VaporizeText";
 import TextDisperse from "@/components/text/TextDisperse";
 import TextRoll from "@/components/text/TextRoll";
 import TextRevealHover from "@/components/text/TextRevealHover";
-import AnimatedTextWrapper from "@/components/text/AnimatedTextWrapper";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 export const animations = [
@@ -450,16 +449,6 @@ export const animations = [
     component: NeonFlickerText,
     infinite: true,
     code: `<NeonFlickerText text="Neon" glowColor="#22d3ee" />`,
-  },
-  {
-    name: "Font Breath",
-    slug: "font-breath",
-    category: "loop",
-    description:
-      "Variable font weight breathes between thin and bold, staggered from the center outward.",
-    component: AnimatedTextWrapper,
-    infinite: true,
-    code: `<AnimatedText text="Font Design" fontSize={100} />`,
   },
   {
     name: "Text Disperse",

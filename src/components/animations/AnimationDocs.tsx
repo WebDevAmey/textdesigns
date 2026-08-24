@@ -85,7 +85,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
           groups={groups}
           activeSlug={active.slug}
           onSelect={setActiveSlug}
-          className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-56 shrink-0 self-start overflow-y-auto lg:block"
+          className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-56 shrink-0 self-start overflow-y-auto hide-scrollbar lg:block"
         />
 
         <article className="min-w-0 max-w-3xl flex-1">
