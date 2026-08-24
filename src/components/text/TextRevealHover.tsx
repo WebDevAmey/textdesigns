@@ -22,8 +22,6 @@ export default function TextRevealHover({ text = "Hover me" }: TextRevealHoverPr
         staggerDelay={25}       /* stagger-fast */
         duration={250}          /* duration-fast × 1.67 */
         easing="ease-in-out"
-        color="inherit"
-        hoverColor="#b2c73a"
         direction="up"
       />
     </div>

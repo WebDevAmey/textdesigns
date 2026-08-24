@@ -375,16 +375,6 @@ export const animations = [
     code: `<ShimmerText text="Shimmer" loop trigger="auto" />`,
   },
   {
-    name: "Shimmer Hover",
-    slug: "shimmer-hover",
-    category: "hover",
-    description:
-      "The text sits quietly until you hover — then a bright gradient band sweeps across it.",
-    component: TextShimmer,
-    preview: { text: "Hover Me", trigger: "hover" },
-    code: `<TextShimmer text="Hover Me" trigger="hover" />`,
-  },
-  {
     name: "Gradient",
     slug: "gradient",
     category: "loop",

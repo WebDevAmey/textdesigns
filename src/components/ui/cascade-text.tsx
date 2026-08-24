@@ -17,10 +17,6 @@ export interface TextRevealProps {
   duration?: number;
   /** Easing function (default: ease-in-out) */
   easing?: string;
-  /** Default text color */
-  color?: string;
-  /** Text color on hover */
-  hoverColor?: string;
   /** Slide direction (default: up) */
   direction?: "up" | "down";
   onClick?: (e: React.MouseEvent) => void;
@@ -49,8 +45,6 @@ const TextReveal = React.memo(function TextReveal({
   staggerDelay = 25,    /* stagger-fast */
   duration = 250,       /* duration-fast × 1.67 */
   easing = "ease-in-out",
-  color = "inherit",
-  hoverColor = "#b2c73a",
   direction = "up",
   onClick,
 }: TextRevealProps) {
@@ -70,8 +64,6 @@ const TextReveal = React.memo(function TextReveal({
     className: `inline-block relative no-underline font-extrabold uppercase tracking-tight overflow-hidden cursor-pointer select-none ${className}`.trim(),
     style: {
       fontSize,
-      color: hovered ? hoverColor : color,
-      transition: "color 0.35s ease",
       padding: "0.15em 0.4em",
       lineHeight: 1,
       ...style,
