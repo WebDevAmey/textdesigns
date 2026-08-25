@@ -26,7 +26,6 @@ import DecryptText from "@/components/text/DecryptText";
 import StrokeDrawText from "@/components/text/StrokedrawText";
 import ScrollSkewText from "@/components/text/ScrollSkewText";
 import LetterpressText from "@/components/text/LetterpressText";
-import LetterShuffleText from "@/components/text/LetterShuffleText";
 import KineticDragText from "@/components/text/KineticDragText";
 import CinematicZoomText from "@/components/text/CinematicZoomText";
 import PathEntranceText from "@/components/text/PathEntranceText";
@@ -34,7 +33,6 @@ import ParticleText from "@/components/text/ParticleText";
 import MagneticInkShatter from "@/components/text/MagneticInkShatter";
 import ConstellationBreathe from "@/components/text/ConstellationBreathe";
 import CircularText from "@/components/text/CircularText";
-import ShuffleText from "@/components/text/ShuffleText";
 import MagneticFluxText from "@/components/text/MagneticFluxText";
 import GradientText from "@/components/text/GradientText";
 import MorphingText from "@/components/text/MorphingText";
@@ -165,24 +163,6 @@ export const animations = [
       "An SVG text outline draws itself using an animated stroke.",
     component: StrokeDrawText,
     code: `<StrokeDrawText text="Stroke Draw" fontSize={120} />`,
-  },
-  {
-    name: "Letter Shuffle",
-    slug: "letter-shuffle",
-    category: "reveal",
-    description:
-      "Characters shuffle from randomized positions into their correct reading order.",
-    component: LetterShuffleText,
-    code: `<LetterShuffleText text="Letter Shuffle" />`,
-  },
-  {
-    name: "Shuffle",
-    slug: "shuffle",
-    category: "reveal",
-    description:
-      "Characters start shuffled and swap places two at a time, sorting themselves into the correct word.",
-    component: ShuffleText,
-    code: `<ShuffleText text="Shuffle" />`,
   },
   {
     name: "Cinematic Zoom",
