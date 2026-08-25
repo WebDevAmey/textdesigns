@@ -59,8 +59,6 @@ const SOURCE_FILES: Record<string, string> = {
   "line-reveal": "LineReveal.tsx",
   decrypt: "DecryptText.tsx",
   "stroke-draw": "StrokedrawText.tsx",
-  "letter-shuffle": "LetterShuffleText.tsx",
-  shuffle: "ShuffleText.tsx",
   "cinematic-zoom": "CinematicZoomText.tsx",
   "path-entrance": "PathEntranceText.tsx",
   "particle-text": "ParticleText.tsx",
@@ -114,7 +112,9 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
                 ? "Disperse"
                 : slug === "cinematic-zoom"
                   ? "Cinematic"
-                  : name,
+                  : slug === "magnetic-shatter"
+                    ? "Shatter"
+                    : name,
   component,
   props: textProp,
   sourceFile: SOURCE_FILES[slug],
