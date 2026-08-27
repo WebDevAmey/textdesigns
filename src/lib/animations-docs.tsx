@@ -94,6 +94,7 @@ const SOURCE_FILES: Record<string, string> = {
   "cascade-hover": "TextRevealHover.tsx",
   "text-marquee": "TextMarqueeWrapper.tsx",
   "text-split": "TextSplitWrapper.tsx",
+  "text-loop": "TextLoopWrapper.tsx",
 };
 
 const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
