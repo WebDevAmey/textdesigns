@@ -48,6 +48,7 @@ import VaporizeText from "@/components/text/VaporizeText";
 import TextDisperse from "@/components/text/TextDisperse";
 import TextRoll from "@/components/text/TextRoll";
 import TextRevealHover from "@/components/text/TextRevealHover";
+import TextMarqueeWrapper from "@/components/text/TextMarqueeWrapper";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 export const animations = [
@@ -429,6 +430,16 @@ export const animations = [
     component: NeonFlickerText,
     infinite: true,
     code: `<NeonFlickerText text="Neon" glowColor="#22d3ee" />`,
+  },
+  {
+    name: "Text Marquee",
+    slug: "text-marquee",
+    category: "loop",
+    description:
+      "Words scroll vertically in a continuous loop, creating a marquee effect.",
+    component: TextMarqueeWrapper,
+    infinite: true,
+    code: `<TextMarquee text="Text Marquee" />`,
   },
   {
     name: "Text Disperse",
