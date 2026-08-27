@@ -49,6 +49,7 @@ import TextDisperse from "@/components/text/TextDisperse";
 import TextRoll from "@/components/text/TextRoll";
 import TextRevealHover from "@/components/text/TextRevealHover";
 import TextMarqueeWrapper from "@/components/text/TextMarqueeWrapper";
+import TextSplitWrapper from "@/components/text/TextSplitWrapper";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 export const animations = [
@@ -440,6 +441,15 @@ export const animations = [
     component: TextMarqueeWrapper,
     infinite: true,
     code: `<TextMarquee text="Text Marquee" />`,
+  },
+  {
+    name: "Text Split",
+    slug: "text-split",
+    category: "hover",
+    description:
+      "On hover, each character splits vertically with the top half moving up and the bottom half moving down, creating a dramatic split effect.",
+    component: TextSplitWrapper,
+    code: `<TextSplit text="Split Text" />`,
   },
   {
     name: "Text Disperse",
