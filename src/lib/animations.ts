@@ -50,6 +50,7 @@ import TextRoll from "@/components/text/TextRoll";
 import TextRevealHover from "@/components/text/TextRevealHover";
 import TextMarqueeWrapper from "@/components/text/TextMarqueeWrapper";
 import TextSplitWrapper from "@/components/text/TextSplitWrapper";
+import TextLoopWrapper from "@/components/text/TextLoopWrapper";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 export const animations = [
@@ -450,6 +451,16 @@ export const animations = [
       "On hover, each character splits vertically with the top half moving up and the bottom half moving down, creating a dramatic split effect.",
     component: TextSplitWrapper,
     code: `<TextSplit text="Split Text" />`,
+  },
+  {
+    name: "Text Loop",
+    slug: "text-loop",
+    category: "loop",
+    description:
+      "Text flows along an SVG path in a continuous loop, with configurable shapes like wave, circle, infinity, and arch.",
+    component: TextLoopWrapper,
+    infinite: true,
+    code: `<TextLoop text="Text Loop" shape="wave" />`,
   },
   {
     name: "Text Disperse",
