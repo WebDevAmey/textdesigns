@@ -92,6 +92,7 @@ const SOURCE_FILES: Record<string, string> = {
   vaporize: "VaporizeText.tsx",
   "text-roll": "TextRoll.tsx",
   "cascade-hover": "TextRevealHover.tsx",
+  "text-marquee": "TextMarqueeWrapper.tsx",
 };
 
 const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
