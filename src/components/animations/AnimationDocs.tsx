@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Copy, PictureInPicture2, SquareTerminal } from "lucide-react";
 import DocsNav from "@/components/animations/DocsNav";
@@ -43,6 +43,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
   const [view, setView] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
   const [previewIteration, setPreviewIteration] = useState(0);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const readHash = () => {
@@ -55,6 +56,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
   }, [docs]);
 
   const active = docs.find((d) => d.slug === activeSlug) ?? docs[0];
+  const isScrollAnimation = active?.category === "scroll";
 
   useEffect(() => {
     if (view !== "preview" || !active.replays) return;
@@ -80,15 +82,15 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <DocsNav groups={groups} onSelect={setActiveSlug} />
 
-      <main className="mx-auto flex w-full max-w-7xl flex-1 gap-10 px-4 py-10 md:px-8">
+      <main className="ml-auto mr-0 flex w-full max-w-7xl flex-1 gap-10 px-4 py-10 md:px-8">
         <DocsSidebar
           groups={groups}
           activeSlug={active.slug}
           onSelect={setActiveSlug}
-          className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-56 shrink-0 self-start overflow-y-auto hide-scrollbar lg:block"
+          className="sticky top-24 hidden max-h-[calc(100vh-7rem)] -ml-20 w-56 shrink-0 self-start overflow-y-auto hide-scrollbar lg:block"
         />
 
-        <article className="min-w-0 max-w-3xl flex-1">
+        <article className="min-w-0 max-w-3xl flex-1 pl-10">
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             {active.name}
           </h1>
@@ -169,26 +171,20 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <div className="relative mt-3 flex h-[480px] w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                      {active.interactions.length > 0 && (
-                        <div className="absolute bottom-3 right-3 z-10 flex gap-1">
-                          {active.interactions.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-sm border border-border bg-background px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.15em] text-muted-foreground"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      <div className="flex max-w-full items-center justify-center px-6 text-6xl text-foreground">
+                    <div 
+                      ref={previewContainerRef}
+                      className={`relative mt-3 flex h-[480px] w-full min-w-0 items-center justify-center rounded-xl border border-neutral-200 bg-white ${
+                        isScrollAnimation ? 'overflow-y-auto preview-scrollbar' : 'overflow-hidden'
+                      }`}
+                    >
+                      <div className={`flex max-w-full items-center justify-center px-6 text-6xl text-foreground ${isScrollAnimation ? 'py-[200px]' : ''}`}>
                         {active.component ? (
                           <div className="scale-150">
                             <active.component
                               key={`${active.slug}-${previewIteration}`}
                               text={active.previewText}
                               {...active.previewProps}
+                              containerRef={isScrollAnimation ? previewContainerRef : undefined}
                             />
                           </div>
                         ) : (

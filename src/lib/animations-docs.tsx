@@ -14,7 +14,7 @@ export interface AnimationDoc {
   description: string;
   interactions: string[];
   previewText: string;
-  component: ComponentType<{ text: string }> | null;
+  component: ComponentType<{ text: string; containerRef?: React.RefObject<HTMLDivElement | null> }> | null;
   props: DocPropRow[];
   /** File (relative to src/components/text/) whose source is shown. */
   sourceFile?: string;
@@ -24,6 +24,8 @@ export interface AnimationDoc {
   replays?: boolean;
   /** Extra props passed to the component in the preview. */
   previewProps?: Record<string, unknown>;
+  /** Animation category. */
+  category?: string;
 }
 
 export type DocIcon = "type" | "reveal" | "hover" | "loop" | "scroll";
@@ -97,7 +99,7 @@ const SOURCE_FILES: Record<string, string> = {
   "text-loop": "TextLoopWrapper.tsx",
 };
 
-const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
+const fromLibrary = (slug: string, component: ComponentType<{ text: string; containerRef?: React.RefObject<HTMLDivElement | null> }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
   slug,
   name,
   description,
@@ -123,6 +125,7 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string }>, n
   sourceFile: SOURCE_FILES[slug],
   replays: !infinite,
   previewProps,
+  category,
 });
 
 const libraryGroups = (

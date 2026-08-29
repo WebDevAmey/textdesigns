@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,6 +15,8 @@ interface LetterpressTextProps {
   ghostOpacity?: number;
   /** Multiplier on the stamp impact's squash/overshoot, 0-2ish. */
   impactStrength?: number;
+  /** Container element for scroll-based animations. */
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -31,6 +33,7 @@ export default function LetterpressText({
   inkColor = "currentColor",
   ghostOpacity = 0.28,
   impactStrength = 1,
+  containerRef,
 }: LetterpressTextProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
@@ -53,6 +56,7 @@ export default function LetterpressText({
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: textEl,
+        scroller: containerRef?.current || undefined,
         start: "top 85%",
         end: "bottom 45%",
         scrub: 0.4,
@@ -91,7 +95,7 @@ export default function LetterpressText({
     return () => {
       split.revert();
     };
-  }, [text, inkColor, ghostOpacity, impactStrength]);
+  }, [text, inkColor, ghostOpacity, impactStrength, containerRef]);
 
   return (
     <h1 ref={textRef} className="inline-block">

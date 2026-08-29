@@ -263,6 +263,20 @@
   display: none;
 }
 
+.preview-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.preview-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.preview-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.preview-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
 body {
   margin: 0;
 }

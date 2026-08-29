@@ -9,9 +9,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface ScrollSkewTextProps {
   text: string;
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-export default function ScrollSkewText({ text }: ScrollSkewTextProps) {
+export default function ScrollSkewText({ text, containerRef }: ScrollSkewTextProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
@@ -25,6 +26,7 @@ export default function ScrollSkewText({ text }: ScrollSkewTextProps) {
     const clampSkew = gsap.utils.clamp(-16, 16);
 
     const trigger = ScrollTrigger.create({
+      scroller: containerRef?.current || undefined,
       onUpdate: (self) => skewTo(clampSkew(self.getVelocity() / -300)),
     });
 
@@ -35,7 +37,7 @@ export default function ScrollSkewText({ text }: ScrollSkewTextProps) {
       trigger.kill();
       ScrollTrigger.removeEventListener("scrollEnd", resetSkew);
     };
-  });
+  }, [containerRef]);
 
   return (
     <h1 ref={textRef} className="inline-block will-change-transform">
