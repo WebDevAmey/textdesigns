@@ -11,11 +11,13 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 interface ScrollRevealProps {
   text: string;
   splitBy?: "lines" | "words";
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export default function ScrollReveal({
   text,
   splitBy = "lines",
+  containerRef,
 }: ScrollRevealProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
@@ -36,13 +38,14 @@ export default function ScrollReveal({
       ease: "power3.out",
       scrollTrigger: {
         trigger: textRef.current,
+        scroller: containerRef?.current || undefined,
         start: "top 80%",
         toggleActions: "play none none reverse",
       },
     });
 
     return () => split.revert();
-  }, [text, splitBy]);
+  }, [text, splitBy, containerRef]);
 
   return (
     <h1 ref={textRef} className="inline-block">

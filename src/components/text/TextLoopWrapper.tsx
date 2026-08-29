@@ -24,7 +24,7 @@ export default function TextLoopWrapper({
         color="url(#gradient)"
         ribbon={false}
         ribbonWidth={0}
-        pauseOnHover={true}
+        pauseOnHover={false}
       />
       <svg width="0" height="0" className="absolute">
         <defs>
