@@ -51,6 +51,7 @@ import TextRevealHover from "@/components/text/TextRevealHover";
 import TextMarqueeWrapper from "@/components/text/TextMarqueeWrapper";
 import TextSplitWrapper from "@/components/text/TextSplitWrapper";
 import TextLoopWrapper from "@/components/text/TextLoopWrapper";
+import StaggerFadeText from "@/components/text/StaggerFadeText";
 
 export type AnimationCategory = "reveal" | "hover" | "loop" | "scroll";
 export const animations = [
@@ -515,5 +516,14 @@ export const animations = [
       "Scrolling stamps each character with ink like a letterpress; scrolling back lifts it off again.",
     component: LetterpressText,
     code: `<LetterpressText text="Letterpress" />`,
+  },
+  {
+    name: "Stagger Fade",
+    slug: "stagger-fade",
+    category: "reveal",
+    description:
+      "Characters slide in from the left with staggered delays, fading into place one by one.",
+    component: StaggerFadeText,
+    code: `<StaggerFade text="Stagger Fade" />`,
   },
 ];

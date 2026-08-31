@@ -97,6 +97,7 @@ const SOURCE_FILES: Record<string, string> = {
   "text-marquee": "TextMarqueeWrapper.tsx",
   "text-split": "TextSplitWrapper.tsx",
   "text-loop": "TextLoopWrapper.tsx",
+  "stagger-fade": "StaggerFadeText.tsx",
 };
 
 const fromLibrary = (slug: string, component: ComponentType<{ text: string; containerRef?: React.RefObject<HTMLDivElement | null> }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({

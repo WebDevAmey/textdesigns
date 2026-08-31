@@ -52,7 +52,7 @@ export default function AnimationCard({
           Live preview
         </span>
 
-        <div className="relative whitespace-nowrap text-center text-2xl font-medium leading-none tracking-tight text-black/90">
+        <div className="relative whitespace-nowrap text-center text-lg font-medium leading-none tracking-tight text-black/90">
           <Animation
             key={iteration}
             text={name}
