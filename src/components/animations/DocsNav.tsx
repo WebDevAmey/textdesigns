@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FlaskConical, Home } from "lucide-react";
+import { Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MorphingSearch, type MorphingSearchItem } from "@/components/motion/morphing-search";
 import type { DocGroup } from "@/lib/animations-docs";
@@ -23,7 +23,6 @@ const GithubIcon = ({ className }: { className?: string }) => (
 
 const navigationMenuItems = [
   { title: "Home", href: "/", icon: Home },
-  { title: "Experiments", href: "/experiments", icon: FlaskConical },
   { title: "GitHub", href: "https://github.com/WebDevAmey/textdesigns", icon: GithubIcon, external: true },
 ];
 

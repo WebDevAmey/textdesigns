@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 
 const PRODUCT_LINKS = [
   { href: "/animations", label: "Animations" },
-  { href: "/experiments", label: "Experiments" },
   { href: "/", label: "Home" },
 ];
 
