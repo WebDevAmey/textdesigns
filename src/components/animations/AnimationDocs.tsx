@@ -177,9 +177,9 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                         isScrollAnimation ? 'overflow-y-auto preview-scrollbar' : 'overflow-hidden'
                       }`}
                     >
-                      <div className={`flex max-w-full items-center justify-center px-6 text-6xl text-foreground ${isScrollAnimation ? 'py-[200px]' : ''}`}>
+                      <div className={`flex max-w-full items-center justify-center px-6 text-4xl text-foreground ${isScrollAnimation ? 'py-[200px]' : ''}`}>
                         {active.component ? (
-                          <div className="scale-150">
+                          <div>
                             <active.component
                               key={`${active.slug}-${previewIteration}`}
                               text={active.previewText}
