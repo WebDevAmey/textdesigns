@@ -14,6 +14,7 @@ export const components: Record<string, AnyComponent> = {
   "char-reveal": dynamic(() => import("@registry/textlab/char-reveal/char-reveal")),
   "wipe-reveal": dynamic(() => import("@registry/textlab/wipe-reveal/wipe-reveal")),
   "in-view-title": dynamic(() => import("@registry/textlab/in-view-title/in-view-title")),
+  "split-text": dynamic(() => import("@registry/textlab/split-text/split-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */

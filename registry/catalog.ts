@@ -5,6 +5,7 @@ import { meta as lineReveal } from "./textlab/line-reveal/meta";
 import { meta as charReveal } from "./textlab/char-reveal/meta";
 import { meta as wipeReveal } from "./textlab/wipe-reveal/meta";
 import { meta as inViewTitle } from "./textlab/in-view-title/meta";
+import { meta as splitText } from "./textlab/split-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [blurReveal];
