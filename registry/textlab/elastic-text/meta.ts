@@ -1,0 +1,31 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "elastic-text",
+  title: "Elastic text",
+  description: "Drag a letter and the word stretches like rubber.",
+  category: "physics",
+  exportName: "ElasticText",
+  dependencies: [],
+  variants: ["band", "sling"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"band" | "sling"', default: '"band"', description: "Stretch and ease back, or snap back hard and overshoot." },
+    { name: "reach", type: "number", default: "3", description: "How many neighbours follow a pulled letter." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ElasticText as="h2" text="Pull me" variant="sling" />`,
+  whenToUse: ["Toy-like hero moments and interactive posters.", "Touch devices, where dragging feels natural."],
+  whenNotToUse: ["Text inside scrolling lists; dragging captures the pointer.", "Anything people should select and copy."],
+  accessibility: ["Letters are aria-hidden; the word is read once.", "Dragging is decorative; nothing depends on it."],
+  motion: ["Pull resistance grows with distance, like rubber.", "Neighbours follow with exponential falloff; release springs them home."],
+  reducedMotion: "Plain text; dragging does nothing.",
+  performance: ["Springs update only while something is moving."],
+  related: ["jelly-text", "scroll-stretch", "letter-drop"],
+  keywords: ["elastic", "rubber band", "drag", "stretch", "spring", "physics"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["band", "sling"] }, { prop: "reach", kind: "range", min: 1, max: 8, step: 1 }],
+  preset: { text: "Pull me" },
+  added: "2026-10-18",
+};
