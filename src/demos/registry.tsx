@@ -72,6 +72,7 @@ export const components: Record<string, AnyComponent> = {
   "dither-text": dynamic(() => import("@registry/textlab/dither-text/dither-text")),
   "pixel-sort": dynamic(() => import("@registry/textlab/pixel-sort/pixel-sort")),
   "particle-text": dynamic(() => import("@registry/textlab/particle-text/particle-text")),
+  "shader-ripple": dynamic(() => import("@registry/textlab/shader-ripple/shader-ripple")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -103,6 +104,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "dither-text": dynamic(() => import("./dither-text")),
   "pixel-sort": dynamic(() => import("./pixel-sort")),
   "particle-text": dynamic(() => import("./particle-text")),
+  "shader-ripple": dynamic(() => import("./shader-ripple")),
 };
 
 export interface DemoProps {

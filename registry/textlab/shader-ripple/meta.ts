@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "shader-ripple",
+  title: "Shader ripple",
+  description: "A WebGL ripple bends the title under the pointer.",
+  category: "pixel",
+  exportName: "ShaderRipple",
+  dependencies: [],
+  files: ["gl.ts"],
+  variants: ["ripple", "lens"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"ripple" | "lens"', default: '"ripple"', description: "Rings travelling out from the pointer, or a magnifying circle under it." },
+    { name: "strength", type: "number", default: "1", description: "Effect strength, 0 to 2." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ShaderRipple as="h1" text="Surface tension" />`,
+  whenToUse: ["Signature hero moments that should feel physical.", "Large display words people will hover."],
+  whenNotToUse: ["Several on one page; each needs a WebGL context.", "Small text."],
+  accessibility: ["The canvas is decorative; the text is read from a hidden copy.", "Without WebGL, or before it loads, the real text shows in place."],
+  motion: ["Rings travel outward and fade with distance; the effect eases in and out with hover."],
+  reducedMotion: "Plain text; the shader never loads.",
+  performance: ["The shader module is imported only when the title enters the viewport.", "Draws only while hovered; one texture upload per resize."],
+  related: ["noise-dissolve", "liquid-text", "particle-text"],
+  keywords: ["webgl", "shader", "ripple", "lens", "distortion", "glsl"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["ripple", "lens"] }, { prop: "strength", kind: "range", min: 0, max: 2, step: 0.1 }],
+  preset: { text: "Surface" },
+  heavy: true,
+  added: "2026-10-18",
+};
