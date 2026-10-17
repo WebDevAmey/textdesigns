@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { srOnly } from "../lib/a11y";
 import { drawProps } from "../lib/draw";
 import { hashString } from "../lib/math";
+import { ease } from "../lib/motion-tokens";
 import { roughStrike, roughStrikeScribble } from "../lib/rough";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 import { useTrigger, type Trigger } from "../lib/use-trigger";
@@ -59,7 +60,7 @@ export function StrikeThrough({ text, variant = "line", replacement, color = "va
             style={{ position: "absolute", left: "50%", bottom: "78%", x: "-50%", whiteSpace: "nowrap", color, fontSize: "0.62em", fontStyle: "italic", rotate: -3 }}
             initial={reduced ? false : { opacity: 0, y: "0.3em", filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.5, delay: reduced ? 0 : delay + duration + 0.1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, delay: reduced ? 0 : delay + duration + 0.1, ease: [...ease.enter] }}
           >
             {replacement}
           </motion.span>

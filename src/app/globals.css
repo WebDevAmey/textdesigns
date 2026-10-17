@@ -23,6 +23,8 @@
   --ease-enter: var(--tl-ease-enter);
   --ease-exit: var(--tl-ease-exit);
   --ease-standard: var(--tl-ease-standard);
+  /* Every transition without an explicit curve uses the strong ease-out. */
+  --default-transition-timing-function: var(--tl-ease-enter);
 }
 
 :root {

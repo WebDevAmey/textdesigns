@@ -3,6 +3,7 @@
 import { useEffect, useState, type CSSProperties, type ElementType } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { srOnly } from "../lib/a11y";
+import { ease } from "../lib/motion-tokens";
 import { splitWords } from "../lib/split";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 import { useTrigger } from "../lib/use-trigger";
@@ -75,7 +76,7 @@ export function WordSequence({ text, variant = "stack", interval = 0.45, hold = 
       ) : (
         <>
           {/* The full sentence holds the space and appears at the end of the sequence. */}
-          <motion.span aria-hidden="true" style={{ gridArea: "1 / 1", textAlign: "center" }} initial={false} animate={{ opacity: finished ? 1 : 0, scale: finished ? 1 : 0.96 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.span aria-hidden="true" style={{ gridArea: "1 / 1", textAlign: "center" }} initial={false} animate={{ opacity: finished ? 1 : 0, scale: finished ? 1 : 0.96 }} transition={{ duration: 0.35, ease: [...ease.enter] }}>
             {text}
           </motion.span>
           <AnimatePresence mode="popLayout">
@@ -87,7 +88,7 @@ export function WordSequence({ text, variant = "stack", interval = 0.45, hold = 
                 initial={variant === "cut" ? { opacity: 1, scale: CUT_SCALES[current % CUT_SCALES.length] } : { opacity: 0, scale: 0.85, filter: "blur(8px)" }}
                 animate={{ opacity: 1, scale: variant === "cut" ? CUT_SCALES[current % CUT_SCALES.length] : 1, filter: "blur(0px)" }}
                 exit={variant === "cut" ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, scale: 1.1, filter: "blur(8px)", transition: { duration: 0.15 } }}
-                transition={variant === "cut" ? { duration: 0 } : { duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                transition={variant === "cut" ? { duration: 0 } : { duration: 0.25, ease: [...ease.enter] }}
               >
                 {words[current]}
               </motion.span>

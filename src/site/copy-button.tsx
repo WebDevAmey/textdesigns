@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import { easeOut } from "./motion";
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -27,10 +28,10 @@ export function CopyButton({ value, label = "Copy", className = "" }: { value: s
       type="button"
       onClick={copy}
       aria-label={copied ? "Copied" : label}
-      className={`relative inline-flex size-8 items-center justify-center rounded-md text-secondary transition-[color,background-color,transform] duration-150 hover:bg-surface-2 hover:text-foreground active:scale-[0.94] ${className}`}
+      className={`relative inline-flex size-8 items-center justify-center rounded-md text-secondary transition-[color,background-color,transform] duration-150 hover:bg-surface-2 hover:text-foreground active:scale-[0.95] ${className}`}
     >
       <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span key={copied ? "check" : "copy"} {...swap} transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }} className="inline-flex">
+        <motion.span key={copied ? "check" : "copy"} {...swap} transition={{ duration: 0.16, ease: easeOut }} className="inline-flex">
           {copied ? <Check className="size-4" strokeWidth={2} /> : <Copy className="size-4" strokeWidth={1.75} />}
         </motion.span>
       </AnimatePresence>

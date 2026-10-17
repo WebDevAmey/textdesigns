@@ -4,6 +4,7 @@ import { useState, type CSSProperties, type ElementType } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { RollingNumber } from "../rolling-number/rolling-number";
 import { formatNumber } from "../lib/format";
+import { ease } from "../lib/motion-tokens";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 
 export type PriceTickerVariant = "currency" | "percent" | "compact";
@@ -71,7 +72,7 @@ export function PriceTicker({
         key={change?.id ?? 0}
         initial={reduced || !change ? false : { color: tint }}
         animate={{ color: "currentColor" }}
-        transition={{ duration: 1.2, ease: [0.4, 0, 0.6, 1], delay: 0.25 }}
+        transition={{ duration: 1.2, ease: [...ease.standard], delay: 0.25 }}
         style={{ display: "inline-block" }}
       >
         <RollingNumber value={value} format={format} locale={locale} reducedMotion={reducedMotion} variant={up ? "up" : "down"} />

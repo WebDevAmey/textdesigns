@@ -3,6 +3,7 @@
 import { useState, type CSSProperties, type ElementType } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { srOnly } from "../lib/a11y";
+import { ease } from "../lib/motion-tokens";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 
 export type EchoTextVariant = "trail" | "ghost";
@@ -59,13 +60,13 @@ export function EchoText({ text, variant = "trail", echoes = 4, live = true, as:
               key={`${entry.id}-${k}`}
               aria-hidden="true"
               style={{ gridArea: "1 / 1", whiteSpace: "nowrap", pointerEvents: "none" }}
-              initial={{ opacity: variant === "trail" ? 0.5 - k * 0.08 : 0.7, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
+              initial={variant === "trail" ? { opacity: 0.5 - k * 0.08, transform: "translate(0em, 0em)" } : { opacity: 0.7, transform: "scale(1)", filter: "blur(0px)" }}
               animate={
                 variant === "trail"
-                  ? { opacity: 0, x: `${(k + 1) * 0.06}em`, y: `${(k + 1) * 0.1}em` }
-                  : { opacity: 0, scale: 1.35, filter: "blur(6px)" }
+                  ? { opacity: 0, transform: `translate(${(k + 1) * 0.06}em, ${(k + 1) * 0.1}em)` }
+                  : { opacity: 0, transform: "scale(1.35)", filter: "blur(6px)" }
               }
-              transition={{ duration: 0.7 + k * 0.12, delay: k * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7 + k * 0.12, delay: k * 0.05, ease: [...ease.enter] }}
               onAnimationComplete={() => {
                 if (k === 0) setHistory((h) => h.filter((e) => e.id !== entry.id));
               }}
@@ -81,7 +82,7 @@ export function EchoText({ text, variant = "trail", echoes = 4, live = true, as:
         style={{ gridArea: "1 / 1", whiteSpace: "nowrap", position: "relative" }}
         initial={count === 0 ? false : { opacity: 0, filter: "blur(4px)" }}
         animate={{ opacity: 1, filter: "blur(0px)" }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.3, ease: [...ease.enter] }}
       >
         {text}
       </motion.span>

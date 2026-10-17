@@ -32,9 +32,9 @@
   --tl-leading-tight: 1.05;
   --tl-tracking-tight: -0.02em;
 
-  --tl-ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
-  --tl-ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
-  --tl-ease-standard: cubic-bezier(0.65, 0, 0.35, 1);
+  --tl-ease-enter: cubic-bezier(0.23, 1, 0.32, 1);
+  --tl-ease-exit: cubic-bezier(0.23, 1, 0.32, 1);
+  --tl-ease-standard: cubic-bezier(0.77, 0, 0.175, 1);
   --tl-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
   --tl-duration-fast: 160ms;
   --tl-duration-base: 240ms;

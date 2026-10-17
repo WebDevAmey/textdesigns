@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import { easeOut } from "./motion";
 import { useId, useState, type ReactNode } from "react";
 
 /** Preview and Code tabs. Panels crossfade quickly; the indicator slides. */
@@ -50,7 +51,7 @@ export function Tabs({ tabs }: { tabs: { id: string; label: string; content: Rea
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, transition: { duration: 0.1 } }}
-          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.18, ease: easeOut }}
         >
           {current.content}
         </motion.div>

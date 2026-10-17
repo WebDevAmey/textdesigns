@@ -5,12 +5,12 @@
 export type Bezier = readonly [number, number, number, number];
 
 export const ease = {
-  /** Entrances. Fast start, long soft landing. */
-  enter: [0.22, 1, 0.36, 1],
-  /** Exits. Quick and quiet. */
-  exit: [0.4, 0, 0.6, 1],
-  /** Things that move while already on screen. */
-  standard: [0.65, 0, 0.35, 1],
+  /** Entrances. A strong ease-out: fast start, long soft landing. */
+  enter: [0.23, 1, 0.32, 1],
+  /** Exits also use ease-out, so the response starts the instant it is asked for. Keep exits short instead. */
+  exit: [0.23, 1, 0.32, 1],
+  /** Things that move while already on screen. A strong ease-in-out. */
+  standard: [0.77, 0, 0.175, 1],
   /** Hero moments that need a longer tail. */
   emphasized: [0.16, 1, 0.3, 1],
   linear: [0, 0, 1, 1],
@@ -34,7 +34,7 @@ export const spring = {
   /** Settling into place. */
   smooth: { type: "spring", visualDuration: 0.4, bounce: 0.1 },
   /** Letters landing. A little life. */
-  bouncy: { type: "spring", visualDuration: 0.5, bounce: 0.35 },
+  bouncy: { type: "spring", visualDuration: 0.5, bounce: 0.3 },
   /** Slow ambient drift. */
   gentle: { type: "spring", visualDuration: 0.8, bounce: 0.1 },
 } as const;

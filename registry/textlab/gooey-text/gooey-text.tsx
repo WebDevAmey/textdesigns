@@ -3,6 +3,7 @@
 import { useEffect, useState, type CSSProperties, type ElementType } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { srOnly } from "../lib/a11y";
+import { ease } from "../lib/motion-tokens";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 import { useSvgId } from "../lib/use-svg-id";
 
@@ -73,8 +74,8 @@ export function GooeyText({ words, variant = "blob", interval = 2.2, duration = 
             style={{ gridArea: "1 / 1", textAlign: "center", transformOrigin: "50% 0%" }}
             initial={{ opacity: 0, filter: "blur(12px)", y: variant === "drip" ? "-0.25em" : 0 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0, scaleY: 1 }}
-            exit={{ ...exit, transition: { duration: duration * 0.9, ease: [0.4, 0, 0.6, 1] } }}
-            transition={{ duration, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ ...exit, transition: { duration: duration * 0.9, ease: [...ease.standard] } }}
+            transition={{ duration, ease: [...ease.enter] }}
           >
             {words[index]}
           </motion.span>

@@ -133,9 +133,9 @@ Digits use `font-variant-numeric: tabular-nums` in every number component so val
 
 | Group | Tokens |
 | --- | --- |
-| ease | `enter` `[0.22, 1, 0.36, 1]` (ease-out, entrances) · `exit` `[0.4, 0, 0.6, 1]` · `standard` `[0.65, 0, 0.35, 1]` (moves on screen) · `emphasized` `[0.16, 1, 0.3, 1]` · `linear` |
+| ease | `enter` `[0.23, 1, 0.32, 1]` (strong ease-out, entrances) · `exit` `[0.23, 1, 0.32, 1]` (exits are ease-out too, just shorter) · `standard` `[0.77, 0, 0.175, 1]` (strong ease-in-out, moves on screen) · `emphasized` `[0.16, 1, 0.3, 1]` · `linear` |
 | duration (s) | `instant 0.1` · `fast 0.16` · `base 0.24` · `slow 0.4` · `reveal 0.8` · `ambient 2.4` |
-| spring | `snappy { visualDuration 0.25, bounce 0 }` (presses) · `smooth { 0.4, 0.1 }` (settle) · `bouncy { 0.5, 0.35 }` (letters landing) · `gentle { 0.8, 0.1 }` (ambient) |
+| spring | `snappy { visualDuration 0.25, bounce 0 }` (presses) · `smooth { 0.4, 0.1 }` (settle) · `bouncy { 0.5, 0.3 }` (letters landing) · `gentle { 0.8, 0.1 }` (ambient) |
 | stagger (s) | `char 0.02` · `word 0.06` · `line 0.1` |
 
 UI chrome (tabs, copy feedback, menus) stays under 300 ms. Text entrances may take longer (`reveal`) because reading is the point, but text must be readable before the motion fully settles: opacity leads, blur clears next, transform settles last.

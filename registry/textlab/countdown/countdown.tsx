@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { RollingNumber } from "../rolling-number/rolling-number";
 import { SplitFlap } from "../split-flap/split-flap";
 import { srOnly } from "../lib/a11y";
+import { ease } from "../lib/motion-tokens";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 
 export type CountdownVariant = "flip" | "roll" | "plain";
@@ -50,7 +51,7 @@ function PlainDigits({ value }: { value: string }) {
           initial={{ opacity: 0, filter: "blur(4px)" }}
           animate={{ opacity: 1, filter: "blur(0px)" }}
           exit={{ opacity: 0, filter: "blur(4px)" }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.35, ease: [...ease.enter] }}
         >
           {value}
         </motion.span>
