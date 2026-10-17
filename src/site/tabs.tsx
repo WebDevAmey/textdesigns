@@ -8,10 +8,13 @@ import { useId, useState, type ReactNode } from "react";
 export function Tabs({ tabs }: { tabs: { id: string; label: string; content: ReactNode }[] }) {
   const id = useId();
   const [active, setActive] = useState(tabs[0].id);
+  // Keyboard switching is instant; animating it would make arrowing through tabs feel slow.
+  const [keyboard, setKeyboard] = useState(false);
   const onKeyDown = (event: React.KeyboardEvent) => {
     const i = tabs.findIndex((t) => t.id === active);
     if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
     event.preventDefault();
+    setKeyboard(true);
     const next = tabs[(i + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
     setActive(next.id);
     document.getElementById(`${id}-tab-${next.id}`)?.focus();
@@ -19,7 +22,7 @@ export function Tabs({ tabs }: { tabs: { id: string; label: string; content: Rea
   const current = tabs.find((t) => t.id === active) ?? tabs[0];
   return (
     <div>
-      <div role="tablist" aria-label="View" onKeyDown={onKeyDown} className="mb-3 flex gap-4 border-b">
+      <div role="tablist" aria-label="View" onKeyDown={onKeyDown} onPointerDown={() => setKeyboard(false)} className="mb-3 flex gap-4 border-b">
         {tabs.map((tab) => {
           const selected = tab.id === active;
           return (
@@ -36,7 +39,11 @@ export function Tabs({ tabs }: { tabs: { id: string; label: string; content: Rea
             >
               {tab.label}
               {selected && (
-                <motion.span layoutId={`${id}-underline`} className="absolute inset-x-0 -bottom-px h-px bg-foreground" transition={{ type: "spring", visualDuration: 0.25, bounce: 0 }} />
+                <motion.span
+                  layoutId={`${id}-underline`}
+                  className="absolute inset-x-0 -bottom-px h-px bg-foreground"
+                  transition={keyboard ? { duration: 0 } : { type: "spring", visualDuration: 0.25, bounce: 0 }}
+                />
               )}
             </button>
           );
@@ -48,9 +55,9 @@ export function Tabs({ tabs }: { tabs: { id: string; label: string; content: Rea
           id={`${id}-panel`}
           role="tabpanel"
           aria-labelledby={`${id}-tab-${current.id}`}
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, transition: { duration: 0.1 } }}
+          initial={keyboard ? false : { opacity: 0, transform: "translateY(4px)" }}
+          animate={{ opacity: 1, transform: "translateY(0px)" }}
+          exit={{ opacity: 0, transition: { duration: keyboard ? 0 : 0.1 } }}
           transition={{ duration: 0.18, ease: easeOut }}
         >
           {current.content}
