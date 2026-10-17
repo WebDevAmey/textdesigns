@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "aurora-text",
+  title: "Aurora text",
+  description: "Northern lights drift inside the letters.",
+  category: "light",
+  exportName: "AuroraText",
+  dependencies: [],
+  variants: ["polar", "ember", "mint"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"polar" | "ember" | "mint"', default: '"polar"', description: "Palette." },
+    { name: "colors", type: "string[]", description: "Three or four custom colors; overrides the variant." },
+    { name: "speed", type: "number", default: "14", description: "Seconds for one drift cycle." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<AuroraText as="h1" text="Northern lights" />`,
+  whenToUse: ["Large display headlines on dark or very light pages.", "Atmospheric brand moments."],
+  whenNotToUse: ["Small text; the bands need room to read.", "Next to another gradient effect."],
+  accessibility: ["Plain text clipped to color. Check contrast of the darkest band against the background."],
+  motion: ["A 14 s ease-in-out drift; slow enough to feel like weather, not an animation."],
+  reducedMotion: "A still aurora frame.",
+  performance: ["Four background layers moved by one CSS animation."],
+  related: ["gradient-text", "holo-text", "neon-text"],
+  keywords: ["aurora", "northern lights", "gradient", "mesh gradient", "ambient"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["polar", "ember", "mint"] }, { prop: "speed", kind: "range", min: 4, max: 30, step: 1 }],
+  preset: { text: "Northern lights" },
+  added: "2026-10-17",
+};
