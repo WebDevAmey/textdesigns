@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "word-sequence",
+  title: "Word sequence",
+  description: "A sentence choreographed word by word.",
+  category: "kinetic",
+  exportName: "WordSequence",
+  dependencies: ["motion"],
+  variants: ["stack", "stage", "cut"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"stack" | "stage" | "cut"', default: '"stack"', description: "Build the sentence, spotlight each word, or hard-cut between scales." },
+    { name: "interval", type: "number", default: "0.45", description: "Seconds per word." },
+    { name: "hold", type: "number", default: "2", description: "Seconds the finished sentence holds before looping." },
+    { name: "loop", type: "boolean", default: "true", description: "Replay after the hold." },
+    { ...commonProps.as, default: '"div"' },
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<WordSequence text="Every word gets its moment" variant="stage" />`,
+  whenToUse: ["Manifestos and intro sequences.", "Title cards for video-like landing pages."],
+  whenNotToUse: ["Navigation or interface copy.", "Sentences over about ten words."],
+  accessibility: ["The whole sentence is read once from a hidden copy.", "Every sequence ends on the full sentence, readable at rest."],
+  motion: ["Stack springs each word into place; stage blurs words in and out; cut uses hard cuts with no tween."],
+  reducedMotion: "The sentence appears whole and still.",
+  performance: ["One timer; one or a handful of animated spans."],
+  related: ["kinetic-beat", "word-reveal", "read-along"],
+  keywords: ["kinetic typography", "sequence", "title card", "storytelling", "word by word"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["stack", "stage", "cut"] }, { prop: "interval", kind: "range", min: 0.15, max: 1.2, step: 0.05 }],
+  preset: { text: "Every word gets its moment" },
+  added: "2026-10-18",
+};
