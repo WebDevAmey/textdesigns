@@ -51,6 +51,7 @@ import { meta as magneticText } from "./textlab/magnetic-text/meta";
 import { meta as variableProximity } from "./textlab/variable-proximity/meta";
 import { meta as cursorTrail } from "./textlab/cursor-trail/meta";
 import { meta as flipRoll } from "./textlab/flip-roll/meta";
+import { meta as tiltText } from "./textlab/tilt-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -106,6 +107,7 @@ export const catalog: ComponentMeta[] = [
   variableProximity,
   cursorTrail,
   flipRoll,
+  tiltText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

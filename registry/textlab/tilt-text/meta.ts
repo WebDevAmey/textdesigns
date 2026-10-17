@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "tilt-text",
+  title: "Tilt text",
+  description: "Extruded type tilts toward the pointer.",
+  category: "cursor",
+  exportName: "TiltText",
+  dependencies: [],
+  variants: ["extrude", "float", "shadow"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"extrude" | "float" | "shadow"', default: '"extrude"', description: "Solid depth, floating above a ground shadow, or a long pointer-driven shadow." },
+    { name: "tilt", type: "number", default: "18", description: "Largest tilt in degrees." },
+    { name: "depth", type: "number", default: "12", description: "Extrusion layers." },
+    { name: "sideColor", type: "string", default: "a darker mix of the text color", description: "Color of the extruded sides." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<TiltText as="h1" text="Depth" />`,
+  whenToUse: ["Bold single words in hero sections.", "Product names and numbers with a physical feel."],
+  whenNotToUse: ["Long or wrapping text.", "Dense layouts; the tilt needs breathing room."],
+  accessibility: ["Depth layers are aria-hidden copies; the word is read once.", "At rest the text faces forward and reads normally."],
+  motion: ["The tilt eases toward the pointer and back to center when it leaves."],
+  reducedMotion: "Still, front-facing text with its depth intact.",
+  performance: ["Transforms on one 3D group; layers are static inside it."],
+  related: ["extrude-text", "depth-layers", "glass-text"],
+  keywords: ["3d text", "tilt", "extrude", "perspective", "parallax", "hover"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["extrude", "float", "shadow"] }, { prop: "tilt", kind: "range", min: 4, max: 40, step: 1 }],
+  preset: { text: "Depth" },
+  added: "2026-10-18",
+};
