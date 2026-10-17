@@ -46,6 +46,7 @@ export const components: Record<string, AnyComponent> = {
   "glitch-text": dynamic(() => import("@registry/textlab/glitch-text/glitch-text")),
   "heat-haze": dynamic(() => import("@registry/textlab/heat-haze/heat-haze")),
   "scroll-fill": dynamic(() => import("@registry/textlab/scroll-fill/scroll-fill")),
+  "scroll-skew": dynamic(() => import("@registry/textlab/scroll-skew/scroll-skew")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -60,6 +61,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "holo-text": dynamic(() => import("./holo-text")),
   "glass-text": dynamic(() => import("./glass-text")),
   "scroll-fill": dynamic(() => import("./scroll-fill")),
+  "scroll-skew": dynamic(() => import("./scroll-skew")),
 };
 
 export interface DemoProps {

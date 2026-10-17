@@ -37,6 +37,7 @@ import { meta as chromaticText } from "./textlab/chromatic-text/meta";
 import { meta as glitchText } from "./textlab/glitch-text/meta";
 import { meta as heatHaze } from "./textlab/heat-haze/meta";
 import { meta as scrollFill } from "./textlab/scroll-fill/meta";
+import { meta as scrollSkew } from "./textlab/scroll-skew/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -78,6 +79,7 @@ export const catalog: ComponentMeta[] = [
   glitchText,
   heatHaze,
   scrollFill,
+  scrollSkew,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

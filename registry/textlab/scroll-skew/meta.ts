@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "scroll-skew",
+  title: "Scroll skew",
+  description: "Type leans with the speed of your scroll.",
+  category: "scroll",
+  exportName: "ScrollSkew",
+  dependencies: ["motion"],
+  variants: ["skew", "stretch"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"skew" | "stretch"', default: '"skew"', description: "Lean with scroll speed, or squash and stretch." },
+    { name: "max", type: "number", default: "12 (skew), 0.35 (stretch)", description: "Largest lean in degrees, or stretch above 1." },
+    { name: "container", type: "RefObject<HTMLElement>", description: "Scrollable ancestor. Defaults to the window." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ScrollSkew as="h2" text="Keep scrolling" />`,
+  whenToUse: ["Big section titles on long, energetic pages.", "Portfolios with a lot of momentum."],
+  whenNotToUse: ["Reading-heavy pages; motion during scroll can distract.", "Small text."],
+  accessibility: ["The text is never split; it reads normally.", "Motion only happens while the user is scrolling."],
+  motion: ["Velocity passes through a spring, so the lean rises and settles smoothly.", "Stretch preserves area, narrowing as it grows taller."],
+  reducedMotion: "Upright, still text.",
+  performance: ["Transform only, driven by motion values; no React renders on scroll."],
+  related: ["scroll-stretch", "velocity-marquee", "scroll-fill"],
+  keywords: ["scroll velocity", "skew on scroll", "momentum", "stretch", "scroll effect"],
+  controls: [{ prop: "variant", kind: "select", options: ["skew", "stretch"] }],
+  preset: { text: "Keep scrolling" },
+  scroll: true,
+  added: "2026-10-17",
+};
