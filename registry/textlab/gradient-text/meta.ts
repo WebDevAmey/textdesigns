@@ -1,0 +1,36 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "gradient-text",
+  title: "Gradient text",
+  description: "Color flows slowly through the letters.",
+  category: "light",
+  exportName: "GradientText",
+  dependencies: [],
+  variants: ["flow", "conic", "spectrum"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"flow" | "conic" | "spectrum"', default: '"flow"', description: "Drifting linear gradient, a turning color wheel, or a hue cycle." },
+    { name: "colors", type: "string[]", default: "spectrum tokens", description: "Gradient stops." },
+    { name: "speed", type: "number", default: "8", description: "Seconds per full cycle." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<GradientText as="h1" text="Color in motion" variant="conic" />`,
+  whenToUse: ["One accent word or short headline per screen.", "Brand moments that should feel alive but calm."],
+  whenNotToUse: ["Body text or long headlines; contrast varies along the gradient.", "Several gradients competing on one page."],
+  accessibility: ["The text is never split; it reads, selects and wraps normally.", "Pick stops that all pass contrast against the background."],
+  motion: ["A full cycle takes 8 seconds by default, slow enough to read as ambient.", "Conic uses a registered angle property for a smooth rotation."],
+  reducedMotion: "The gradient stays still.",
+  performance: ["Background position and a registered property; no JavaScript animation."],
+  related: ["shimmer-text", "aurora-text", "holo-text"],
+  keywords: ["gradient", "animated gradient", "rainbow", "conic", "background clip text"],
+  controls: [
+    { prop: "text", kind: "text" },
+    { prop: "variant", kind: "select", options: ["flow", "conic", "spectrum"] },
+    { prop: "speed", kind: "range", min: 2, max: 20, step: 1 },
+  ],
+  preset: { text: "Color in motion" },
+  added: "2026-10-17",
+};
