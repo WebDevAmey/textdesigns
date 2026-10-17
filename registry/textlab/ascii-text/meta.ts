@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "ascii-text",
+  title: "ASCII text",
+  description: "The title rendered in ASCII glyphs that ripple.",
+  category: "pixel",
+  exportName: "AsciiText",
+  dependencies: [],
+  variants: ["classic", "blocks", "braille"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"classic" | "blocks" | "braille"', default: '"classic"', description: "Character ramp: .:-=+*#%@, shade blocks, or braille dots for fine detail." },
+    { name: "density", type: "number", default: "0.1", description: "Cell size as a share of the font size." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<AsciiText as="h1" text="TERMINAL" className="font-black text-8xl" />`,
+  whenToUse: ["Developer tools, retro computing and terminal aesthetics.", "Large, heavy display words; thin type has too little to sample."],
+  whenNotToUse: ["Small text; cells need room.", "When the word must be crisp; it is deliberately coarse."],
+  accessibility: ["The canvas is decorative; screen readers read the hidden text.", "A hidden copy sizes the box, so layout matches the real text."],
+  motion: ["Glyphs resolve in a scattered order over 0.9 s when the title scrolls in.", "The pointer sends a decaying ripple through the character ramp."],
+  reducedMotion: "Shows the plain text instead of the canvas.",
+  performance: ["Rasterises once per resize; draws only while revealing or while the pointer is over it.", "Device pixel ratio capped at 2."],
+  related: ["dither-text", "pixel-sort", "matrix-decode"],
+  keywords: ["ascii", "ascii art", "braille", "terminal", "canvas text", "retro"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["classic", "blocks", "braille"] }, { prop: "density", kind: "range", min: 0.06, max: 0.3, step: 0.01 }],
+  preset: { text: "ASCII" },
+  heavy: true,
+  added: "2026-10-18",
+};

@@ -68,6 +68,7 @@ export const components: Record<string, AnyComponent> = {
   "wave-text": dynamic(() => import("@registry/textlab/wave-text/wave-text")),
   "breathing-text": dynamic(() => import("@registry/textlab/breathing-text/breathing-text")),
   "path-text": dynamic(() => import("@registry/textlab/path-text/path-text")),
+  "ascii-text": dynamic(() => import("@registry/textlab/ascii-text/ascii-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -95,6 +96,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "tilt-text": dynamic(() => import("./tilt-text")),
   "extrude-text": dynamic(() => import("./extrude-text")),
   "path-text": dynamic(() => import("./path-text")),
+  "ascii-text": dynamic(() => import("./ascii-text")),
 };
 
 export interface DemoProps {
