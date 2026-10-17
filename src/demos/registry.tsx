@@ -50,6 +50,7 @@ export const components: Record<string, AnyComponent> = {
   "velocity-marquee": dynamic(() => import("@registry/textlab/velocity-marquee/velocity-marquee")),
   "scroll-stretch": dynamic(() => import("@registry/textlab/scroll-stretch/scroll-stretch")),
   "depth-layers": dynamic(() => import("@registry/textlab/depth-layers/depth-layers")),
+  "outline-draw": dynamic(() => import("@registry/textlab/outline-draw/outline-draw")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
