@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "read-along",
+  title: "Read along",
+  description: "A highlight follows the reading, word by word.",
+  category: "kinetic",
+  exportName: "ReadAlong",
+  dependencies: ["motion"],
+  variants: ["highlight", "karaoke"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"highlight" | "karaoke"', default: '"highlight"', description: "A selection box that hops word to word, or a color fill through each word." },
+    { name: "wpm", type: "number", default: "220", description: "Reading pace in words per minute." },
+    { name: "color", type: "string", default: "var(--tl-accent)", description: "Highlight or fill color." },
+    { name: "loop", type: "boolean", default: "true", description: "Start over after a pause at the end." },
+    { ...commonProps.as, default: '"p"' },
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ReadAlong text="Reading is easier when something keeps your place." variant="karaoke" />`,
+  whenToUse: ["Audio and text-to-speech products.", "Language learning, lyrics and accessibility demos."],
+  whenNotToUse: ["Long articles; the pace is fixed.", "As a substitute for real synced captions."],
+  accessibility: ["The paragraph is read once from a hidden copy.", "The highlight pauses when the paragraph leaves the viewport."],
+  motion: ["The selection box moves on the snappy spring between words.", "Longer words and punctuation get extra time, like natural reading."],
+  reducedMotion: "Plain paragraph, no highlight.",
+  performance: ["One timer and one moving box; word boxes are read once per step."],
+  related: ["scroll-fill", "caret-morph", "marker-highlight"],
+  keywords: ["karaoke", "read along", "highlight", "text to speech", "captions", "follow along"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["highlight", "karaoke"] }, { prop: "wpm", kind: "range", min: 80, max: 400, step: 10 }],
+  preset: { text: "Reading is easier when something gently keeps your place, one word at a time." },
+  added: "2026-10-18",
+};

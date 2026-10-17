@@ -76,6 +76,7 @@ export const components: Record<string, AnyComponent> = {
   "noise-dissolve": dynamic(() => import("@registry/textlab/noise-dissolve/noise-dissolve")),
   "kinetic-beat": dynamic(() => import("@registry/textlab/kinetic-beat/kinetic-beat")),
   "word-sequence": dynamic(() => import("@registry/textlab/word-sequence/word-sequence")),
+  "read-along": dynamic(() => import("@registry/textlab/read-along/read-along")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
