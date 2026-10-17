@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "pixel-sort",
+  title: "Pixel sort",
+  description: "Rows sort into place like a glitch artwork.",
+  category: "pixel",
+  exportName: "PixelSort",
+  dependencies: [],
+  variants: ["smear", "sort"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"smear" | "sort"', default: '"smear"', description: "Retracting streaks, or bands of rows sliding into register." },
+    { ...commonProps.duration, default: "1.4" },
+    { name: "hover", type: "boolean", default: "true", description: "Tear the image again briefly on hover." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<PixelSort as="h1" text="Corrupted" />`,
+  whenToUse: ["Music, art and experimental brands.", "Heavy display words on dark or light flat backgrounds."],
+  whenNotToUse: ["Small text; rows are too few to read as bands.", "Gradients behind the text; the canvas is flat color."],
+  accessibility: ["Decorative canvas; the text is read from a hidden copy.", "Settles into clean type; nothing keeps flashing."],
+  motion: ["Settles from full glitch to clean in about 1.4 s after it enters view.", "Hover re-tears to 45% and settles again."],
+  reducedMotion: "Plain text instead of the canvas.",
+  performance: ["Per-pixel work runs only while settling; device pixel ratio capped at 1.5 for this effect."],
+  related: ["glitch-text", "dither-text", "slice-reveal"],
+  keywords: ["pixel sort", "glitch art", "datamosh", "smear", "canvas", "experimental"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["smear", "sort"] }],
+  preset: { text: "Corrupted" },
+  heavy: true,
+  added: "2026-10-18",
+};
