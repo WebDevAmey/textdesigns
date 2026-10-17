@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "glass-text",
+  title: "Glass text",
+  description: "Glass letters that bend the scene behind them.",
+  category: "light",
+  exportName: "GlassText",
+  dependencies: [],
+  variants: ["clear", "frost", "tinted"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"clear" | "frost" | "tinted"', default: '"clear"', description: "Strong refraction, milky soft glass, or glass tinted with the accent." },
+    { name: "backdrop", type: "string", default: "a soft color field", description: "The scene behind the glass, as a CSS background image. The letters refract it." },
+    { name: "tint", type: "string", default: "var(--tl-accent)", description: "Tint for the tinted variant." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<GlassText text="Clarity" backdrop="url(/photo.jpg)" />`,
+  whenToUse: ["Display words over photography or rich color fields.", "Premium, Apple-like hero moments."],
+  whenNotToUse: ["Plain backgrounds; there is nothing for the glass to bend.", "Small sizes; the rim and highlight need room."],
+  accessibility: ["The text is read from a hidden copy; the glass layers are decorative.", "Use a backdrop that keeps the letters distinguishable, or pick frost."],
+  motion: ["The refraction and highlight follow the pointer with damping.", "Nothing moves without a pointer, so it costs nothing at rest."],
+  reducedMotion: "Glass stays still; no pointer tracking.",
+  performance: ["Three text layers with background clip; CSS variables update only while the pointer settles."],
+  related: ["holo-text", "spotlight-text", "tilt-text"],
+  keywords: ["glass", "glassmorphism", "frosted", "refraction", "liquid glass", "translucent"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["clear", "frost", "tinted"] }],
+  preset: { text: "Clarity" },
+  added: "2026-10-17",
+};

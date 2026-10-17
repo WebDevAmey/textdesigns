@@ -37,6 +37,7 @@ export const components: Record<string, AnyComponent> = {
   "aurora-text": dynamic(() => import("@registry/textlab/aurora-text/aurora-text")),
   "holo-text": dynamic(() => import("@registry/textlab/holo-text/holo-text")),
   "spotlight-text": dynamic(() => import("@registry/textlab/spotlight-text/spotlight-text")),
+  "glass-text": dynamic(() => import("@registry/textlab/glass-text/glass-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -49,6 +50,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "text-morph": dynamic(() => import("./text-morph")),
   "word-rotator": dynamic(() => import("./word-rotator")),
   "holo-text": dynamic(() => import("./holo-text")),
+  "glass-text": dynamic(() => import("./glass-text")),
 };
 
 export interface DemoProps {
