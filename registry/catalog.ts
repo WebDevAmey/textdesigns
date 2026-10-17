@@ -10,6 +10,7 @@ import { meta as trackingReveal } from "./textlab/tracking-reveal/meta";
 import { meta as sliceReveal } from "./textlab/slice-reveal/meta";
 import { meta as focusPull } from "./textlab/focus-pull/meta";
 import { meta as rollingNumber } from "./textlab/rolling-number/meta";
+import { meta as odometer } from "./textlab/odometer/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -24,6 +25,7 @@ export const catalog: ComponentMeta[] = [
   sliceReveal,
   focusPull,
   rollingNumber,
+  odometer,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
