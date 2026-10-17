@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type ElementType } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ElementType, type PointerEvent as ReactPointerEvent } from "react";
 import { srOnly } from "../lib/a11y";
 import { damp } from "../lib/math";
 import { useFrame } from "../lib/use-frame";
@@ -28,16 +28,20 @@ export interface ChromaticTextProps {
  */
 export function ChromaticText({ text, variant = "hover", amount = 0.06, colors = ["oklch(0.65 0.25 25)", "oklch(0.75 0.15 210)"], as: Tag = "span", reducedMotion = "user", className, style }: ChromaticTextProps) {
   const root = useRef<HTMLElement | null>(null);
+  const warm = useRef<HTMLSpanElement | null>(null);
+  const cool = useRef<HTMLSpanElement | null>(null);
   const reduced = useReduced(reducedMotion);
   const [hover, setHover] = useState(false);
   const target = useRef(0);
   const current = useRef(0);
   const angle = useRef(0);
   const last = useRef<{ x: number; y: number; t: number } | null>(null);
+  const resting = useRef(true);
 
   useEffect(() => {
     if (reduced || variant !== "velocity") return;
     const move = (event: PointerEvent) => {
+      if (event.pointerType === "touch") return;
       const now = performance.now();
       const prev = last.current;
       last.current = { x: event.clientX, y: event.clientY, t: now };
@@ -64,10 +68,17 @@ export function ChromaticText({ text, variant = "hover", amount = 0.06, colors =
       }
       if (variant === "velocity") target.current = damp(target.current, 0, 3, dt);
       current.current = damp(current.current, target.current, variant === "pulse" ? 30 : 12, dt);
+      // Nothing to write once the channels are back together; idle text costs nothing.
+      const still = current.current < 0.0005 && target.current === 0;
+      if (still && resting.current) return;
+      resting.current = still;
       const a = angle.current;
       const r = current.current * amount;
-      node.style.setProperty("--tl-cx", `${(Math.cos(a) * r).toFixed(4)}em`);
-      node.style.setProperty("--tl-cy", `${(Math.sin(a) * r * 0.5).toFixed(4)}em`);
+      const x = (Math.cos(a) * r).toFixed(4);
+      const y = (Math.sin(a) * r * 0.5).toFixed(4);
+      // Transforms go straight onto each fringe; a variable on the parent would restyle every child.
+      if (warm.current) warm.current.style.transform = `translate(${x}em, ${y}em)`;
+      if (cool.current) cool.current.style.transform = `translate(${-x}em, ${-y}em)`;
     },
     { ref: root, enabled: !reduced },
   );
@@ -80,13 +91,11 @@ export function ChromaticText({ text, variant = "hover", amount = 0.06, colors =
     );
   }
 
-  const fringe = (color: string, sign: 1 | -1): CSSProperties => ({
+  const fringe = (color: string): CSSProperties => ({
     position: "absolute",
     inset: 0,
     color,
-    mixBlendMode: "normal",
     opacity: 0.85,
-    transform: `translate(calc(var(--tl-cx, 0em) * ${sign}), calc(var(--tl-cy, 0em) * ${sign}))`,
     pointerEvents: "none",
   });
 
@@ -95,14 +104,14 @@ export function ChromaticText({ text, variant = "hover", amount = 0.06, colors =
       ref={root}
       className={className}
       style={{ position: "relative", display: "inline-block", isolation: "isolate", ...style }}
-      onPointerEnter={() => setHover(true)}
-      onPointerLeave={() => setHover(false)}
+      onPointerEnter={(event: ReactPointerEvent) => event.pointerType !== "touch" && setHover(true)}
+      onPointerLeave={(event: ReactPointerEvent) => event.pointerType !== "touch" && setHover(false)}
     >
       <span style={srOnly}>{text}</span>
-      <span aria-hidden="true" style={fringe(colors[0], 1)}>
+      <span ref={warm} aria-hidden="true" style={fringe(colors[0])}>
         {text}
       </span>
-      <span aria-hidden="true" style={fringe(colors[1], -1)}>
+      <span ref={cool} aria-hidden="true" style={fringe(colors[1])}>
         {text}
       </span>
       <span aria-hidden="true" style={{ position: "relative" }}>

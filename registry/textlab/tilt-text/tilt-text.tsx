@@ -2,7 +2,9 @@
 
 import { useRef, type CSSProperties, type ElementType } from "react";
 import { srOnly } from "../lib/a11y";
-import { usePointerVars } from "../lib/use-pointer-vars";
+import { damp } from "../lib/math";
+import { useFrame } from "../lib/use-frame";
+import { usePointer } from "../lib/use-pointer";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 
 export type TiltTextVariant = "extrude" | "float" | "shadow";
@@ -23,23 +25,42 @@ export interface TiltTextProps {
   style?: CSSProperties;
 }
 
+// Rest slightly turned, so the depth reads even before anyone points at it.
+const REST = { x: 0.7, y: 0.3 };
+
 /**
  * Extruded type tilts toward the pointer. The extrusion is built from stacked copies pushed back in
  * real 3D space, so the sides turn with the face like a solid object.
  */
 export function TiltText({ text, variant = "extrude", tilt = 18, depth = 12, sideColor = "color-mix(in oklab, currentColor 45%, var(--tl-background, #000))", as: Tag = "span", reducedMotion = "user", className, style }: TiltTextProps) {
-  const ref = useRef<HTMLElement | null>(null);
+  const root = useRef<HTMLElement | null>(null);
+  const group = useRef<HTMLSpanElement | null>(null);
+  const shadow = useRef<HTMLSpanElement | null>(null);
   const reduced = useReduced(reducedMotion);
-  // Rest slightly turned, so the depth reads even before anyone points at it.
-  usePointerVars(ref, { enabled: !reduced, rate: 7, rest: [0.7, 0.3] });
+  const pointer = usePointer(root, { enabled: !reduced });
+  const pos = useRef({ ...REST });
 
-  const rotate = reduced ? "none" : `rotateX(calc((var(--tl-py, 0.3) - 0.5) * ${-tilt}deg)) rotateY(calc((var(--tl-px, 0.7) - 0.5) * ${tilt * 1.4}deg))`;
-  const face: CSSProperties = { position: "relative", display: "block", transform: "translateZ(0.5px)" };
+  const rotate = (x: number, y: number) => `rotateX(${((y - 0.5) * -tilt).toFixed(2)}deg) rotateY(${((x - 0.5) * tilt * 1.4).toFixed(2)}deg)`;
+
+  useFrame(
+    (_, dt) => {
+      const p = pointer.current;
+      const tx = p.active && p.inside ? p.nx : REST.x;
+      const ty = p.active && p.inside ? p.ny : REST.y;
+      const before = pos.current;
+      if (Math.abs(before.x - tx) < 0.0005 && Math.abs(before.y - ty) < 0.0005) return;
+      pos.current = { x: damp(before.x, tx, 7, dt), y: damp(before.y, ty, 7, dt) };
+      // Transforms are written to the elements themselves, never through inherited variables.
+      if (group.current) group.current.style.transform = rotate(pos.current.x, pos.current.y);
+      if (shadow.current) shadow.current.style.transform = `translate(${((0.5 - pos.current.x) * 0.4).toFixed(3)}em, ${((0.5 - pos.current.y) * 0.4 + 0.06).toFixed(3)}em) translateZ(-0.3em)`;
+    },
+    { ref: root, enabled: !reduced },
+  );
 
   return (
-    <Tag ref={ref} className={className} style={{ position: "relative", display: "inline-block", perspective: "8em", padding: "0.2em 0.3em", ...style }}>
+    <Tag ref={root} className={className} style={{ position: "relative", display: "inline-block", perspective: "8em", padding: "0.2em 0.3em", ...style }}>
       <span style={srOnly}>{text}</span>
-      <span aria-hidden="true" style={{ position: "relative", display: "inline-block", transformStyle: "preserve-3d", transform: rotate, transition: "transform 80ms linear" }}>
+      <span ref={group} aria-hidden="true" style={{ position: "relative", display: "inline-block", transformStyle: "preserve-3d", transform: reduced ? "none" : rotate(REST.x, REST.y) }}>
         {variant === "extrude" &&
           Array.from({ length: depth }, (_, i) => (
             <span
@@ -53,19 +74,11 @@ export function TiltText({ text, variant = "extrude", tilt = 18, depth = 12, sid
           <span style={{ position: "absolute", inset: 0, color: "oklch(0 0 0 / 0.4)", filter: "blur(0.08em)", transform: "translateZ(-0.6em) translateY(0.25em) scale(0.98)" }}>{text}</span>
         )}
         {variant === "shadow" && (
-          <span
-            style={{
-              position: "absolute",
-              inset: 0,
-              color: "oklch(0 0 0 / 0.35)",
-              filter: "blur(0.04em)",
-              transform: `translate(calc((0.5 - var(--tl-px, 0.5)) * 0.4em), calc((0.5 - var(--tl-py, 0.5)) * 0.4em + 0.06em)) translateZ(-0.3em)`,
-            }}
-          >
+          <span ref={shadow} style={{ position: "absolute", inset: 0, color: "oklch(0 0 0 / 0.35)", filter: "blur(0.04em)", transform: "translate(-0.08em, -0.02em) translateZ(-0.3em)" }}>
             {text}
           </span>
         )}
-        <span style={face}>{text}</span>
+        <span style={{ position: "relative", display: "block", transform: "translateZ(0.5px)" }}>{text}</span>
       </span>
     </Tag>
   );
