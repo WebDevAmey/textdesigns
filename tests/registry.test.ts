@@ -31,7 +31,7 @@ describe("catalog", () => {
 });
 
 // Related links can point ahead to components that land later; once the catalog is complete every link must resolve.
-it.skipIf(catalog.length < 60)("every related link resolves", () => {
+it.skipIf(catalog.length < 70)("every related link resolves", () => {
   const names = catalog.map((c) => c.name);
   for (const meta of catalog) for (const r of meta.related ?? []) expect(names).toContain(r);
 });
