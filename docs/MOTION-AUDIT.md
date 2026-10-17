@@ -55,3 +55,37 @@ These are not missing motion; they are motion that runs but is off. Recorded her
 ## Part 4: Verdict
 
 The docs UI is already close: tabs, the segmented control, the copy button and the theme icon all move with purpose and inside budget. The real gaps are three instant swaps (Browse menu, install command, code file switch) and one flat first impression (the components index). The highest-leverage change is not an opportunity at all but the step 3 work in the shared reveal engine: moving its transforms to full transform strings improves dozens of components at once. Next: `animate` on rows 1 to 5, with row 6 landing in the design pass.
+
+## Step 3: improve-animations and the review-animations gate
+
+`improve-animations` ran across the whole codebase (recon, then the eight categories in its playbook). Per the brief, every finding was fixed rather than written up as a plan. `review-animations` then ran as a strict gate; its second pass raised five more findings, which were fixed, and the third pass came back clean.
+
+### Findings and fixes
+
+| # | Severity | Category | Location | Finding | Fix |
+| --- | --- | --- | --- | --- | --- |
+| 1 | HIGH | Performance | `lib/reveal.tsx` and 10 reveal components | Entrances ran on motion's `x`/`y`/`scale` shorthands while the page loads. | The engine converts every pose to a full transform string with a matching rest string (`poses()`), so motion can hand them to the compositor. |
+| 2 | HIGH | Easing | `lib/motion-tokens.ts`, `tokens.css`, 9 files with hand-typed curves | Exits used a symmetric in-out curve; the in-out and ease-out tokens were weak near-duplicates of the strong curves. | `enter` and `exit` are now `cubic-bezier(0.23, 1, 0.32, 1)`, `standard` is `cubic-bezier(0.77, 0, 0.175, 1)`. Every hand-typed curve now reads a token, and Tailwind's default transition curve points at `--tl-ease-enter`. |
+| 3 | HIGH | Accessibility | `lib/use-trigger.ts`, `flip-roll`, `hover-scramble`, `chromatic-text`, `extrude-text` | Hover motion fired on touch taps and stuck on. | Hover ignores touch pointers in JS; CSS hover sits behind `@media (hover: hover) and (pointer: fine)`. Keyboard focus still triggers. |
+| 4 | HIGH | Purpose and frequency | `src/site/tabs.tsx`, `src/site/segmented.tsx` | Arrow-key switching animated the indicator and panel. | Keyboard changes are instant; pointer changes keep the 250 ms slide and 180 ms crossfade. |
+| 5 | MEDIUM | Performance | `tilt-text`, `chromatic-text` | A CSS variable on the parent drove child transforms. | Transforms are written straight onto the elements that move; both loops now idle when still. |
+| 6 | MEDIUM | Performance | `caret-morph`, `read-along` | The caret and highlight animated `width` and `height`. | A fixed-width box is moved and stretched with one transform (`translate() scaleX()`), gliding in 200 ms. |
+| 7 | MEDIUM | Performance | `slice-reveal`, `word-rotator`, `echo-text`, `matrix-decode`, `ember-text`, `word-sequence`, `strike-through`, `price-ticker`, `gooey-text`, `signature` | Remaining entrances used shorthands or animated SVG geometry. | Full transform strings everywhere; the signature mask slides with `translateX` instead of growing its width. |
+| 8 | MEDIUM | Physicality | `char-reveal` | The scale variant started from `scale(0)`. | Starts from `scale(0.35)` with opacity 0. |
+| 9 | MEDIUM | Accessibility | Docs UI | Docs chrome ignored the OS reduced-motion setting. | `MotionConfig reducedMotion="user"` wraps the site; previews opt out so each component's own `reducedMotion` prop stays in charge. |
+| 10 | LOW | Physicality | Press feedback across the docs | Press scales ranged from 0.94 to 0.99. | Buttons 0.97, small icon buttons 0.95, cards 0.98, all on the strong ease-out. |
+| 11 | LOW | Easing | `lib/motion-tokens.ts`, `kinetic-beat` | Spring bounce reached 0.35 and 0.55. | Capped at 0.3. |
+| 12 | LOW | Performance | `blur-reveal`, `focus-pull` controls | Playground blur went to 30 px. | Capped at 20 px. |
+| 13 | LOW | Duration | `src/site/preview.tsx` | The replay spin took 400 ms. | 300 ms. |
+
+### Deliberate exceptions (documented, not findings)
+
+- **Ease-in on physical motion.** The split-flap top leaf falls under gravity, kinetic-beat's slam accelerates into an impact, and matrix glyphs fall. These are physics, not UI responses; each has a comment at the curve.
+- **Text entrances longer than 300 ms.** Reveals are explanatory, marketing motion where reading is the point. Opacity always leads, so text is readable well before the transform settles.
+- **Reduced motion shows the final state.** For text, the readable final state is the gentle version: SPEC section 7 records this decision, and fades would flash for users whose server render was already forced visible by the stylesheet.
+- **Layout animations stay on motion's shorthands** in `text-morph` and `rolling-number` (`layout="position"` needs motion's own transform control), and in kinetic-beat's springs (springs need numeric values).
+- **`marker-highlight` animates `background-size`.** It is paint-only, and it is the one property that highlights each wrapped line separately; `clip-path` would sweep the whole block at once.
+
+### Gate result
+
+Third `review-animations` pass: no `transition: all`, no `scale(0)`, no unexplained ease-in, no keyboard-triggered animation, no animated layout properties, no parent variables driving child transforms, hover gated, reduced motion handled in every component and in the docs UI. **Clean.**

@@ -170,7 +170,7 @@ Depends on phase 5. Skills found in `.claude/skills`: `find-animation-opportunit
 
 - [x] Run `find-animation-opportunities` across components and docs, write `docs/MOTION-AUDIT.md` (commit)
 - [x] Run `animate` on the audit items (commit). Rows 1 to 5 shipped; row 6 lands with the homepage in phase 7
-- [ ] Run `improve-animations`, fix findings, then `review-animations` until clean (commit)
+- [x] Run `improve-animations`, fix findings, then `review-animations` until clean (commit). Clean on the third pass; see MOTION-AUDIT.md step 3
 
 Done when: `review-animations` comes back clean.
 
