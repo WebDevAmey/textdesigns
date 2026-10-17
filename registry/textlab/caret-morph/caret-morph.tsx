@@ -78,6 +78,7 @@ export function CaretMorph({ text, variant = "highlight", autoplay = true, inter
       className={className}
       style={{ position: "relative", ...style }}
       tabIndex={0}
+      role="group"
       aria-label={text}
       onKeyDown={onKeyDown}
       onFocus={() => setEngaged(true)}
