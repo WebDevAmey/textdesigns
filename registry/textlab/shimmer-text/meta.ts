@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "shimmer-text",
+  title: "Shimmer text",
+  description: "A calm light passes across the words.",
+  category: "light",
+  exportName: "ShimmerText",
+  dependencies: [],
+  variants: ["subtle", "bright", "rainbow"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"subtle" | "bright" | "rainbow"', default: '"subtle"', description: "A soft pass for status lines, a crisp sheen, or a hint of color." },
+    { name: "speed", type: "number", default: "2.4", description: "Seconds per pass, including the rest after it." },
+    { name: "spread", type: "number", default: "0.18", description: "Width of the light band as a share of the text." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ShimmerText text="Thinking" />`,
+  whenToUse: ["Loading, thinking and generating states.", "Placeholders that should feel alive while content arrives."],
+  whenNotToUse: ["Headings that are already loaded; the motion implies work in progress.", "Error or success messages."],
+  accessibility: ["Plain, unsplit text. Pair it with aria-busy on the region that is loading."],
+  motion: ["The light crosses in the first 70% of each cycle, then rests, so it never feels frantic."],
+  reducedMotion: "The text shows at a steady, slightly muted color.",
+  performance: ["One CSS animation on background position."],
+  related: ["gradient-text", "neon-text", "typewriter"],
+  keywords: ["shimmer", "loading text", "skeleton", "thinking", "sheen", "ai loading"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["subtle", "bright", "rainbow"] }, { prop: "speed", kind: "range", min: 1, max: 5, step: 0.1 }],
+  preset: { text: "Generating a reply" },
+  added: "2026-10-17",
+};

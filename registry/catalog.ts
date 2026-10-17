@@ -23,6 +23,7 @@ import { meta as textMorph } from "./textlab/text-morph/meta";
 import { meta as wordRotator } from "./textlab/word-rotator/meta";
 import { meta as caretMorph } from "./textlab/caret-morph/meta";
 import { meta as gradientText } from "./textlab/gradient-text/meta";
+import { meta as shimmerText } from "./textlab/shimmer-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -50,6 +51,7 @@ export const catalog: ComponentMeta[] = [
   wordRotator,
   caretMorph,
   gradientText,
+  shimmerText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
