@@ -1,0 +1,31 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "jelly-text",
+  title: "Jelly text",
+  description: "Letters wobble like jelly when touched.",
+  category: "physics",
+  exportName: "JellyText",
+  dependencies: [],
+  variants: ["squash", "wobble"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"squash" | "wobble"', default: '"squash"', description: "Squish flat and spring tall, or rock side to side." },
+    { name: "strength", type: "number", default: "1", description: "How hard a touch kicks the letter." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<JellyText as="h2" text="Squishy" />`,
+  whenToUse: ["Playful brands, games and empty states.", "Words that invite poking, on mouse or touch."],
+  whenNotToUse: ["Interactive controls; letters are not buttons.", "Body text."],
+  accessibility: ["Letters are aria-hidden; the word is read once.", "Works with touch through pointer down."],
+  motion: ["Underdamped springs ring out over about a second.", "Neighbours get a smaller kick so the wobble spreads."],
+  reducedMotion: "Touch does nothing; plain text.",
+  performance: ["The frame loop runs only while a spring is moving."],
+  related: ["elastic-text", "magnetic-text", "letter-drop"],
+  keywords: ["jelly", "wobble", "squash and stretch", "springy", "hover", "bouncy"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["squash", "wobble"] }, { prop: "strength", kind: "range", min: 0.2, max: 3, step: 0.1 }],
+  preset: { text: "Squishy" },
+  added: "2026-10-18",
+};
