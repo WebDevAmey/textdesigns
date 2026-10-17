@@ -73,6 +73,7 @@ export const components: Record<string, AnyComponent> = {
   "pixel-sort": dynamic(() => import("@registry/textlab/pixel-sort/pixel-sort")),
   "particle-text": dynamic(() => import("@registry/textlab/particle-text/particle-text")),
   "shader-ripple": dynamic(() => import("@registry/textlab/shader-ripple/shader-ripple")),
+  "noise-dissolve": dynamic(() => import("@registry/textlab/noise-dissolve/noise-dissolve")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -105,6 +106,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "pixel-sort": dynamic(() => import("./pixel-sort")),
   "particle-text": dynamic(() => import("./particle-text")),
   "shader-ripple": dynamic(() => import("./shader-ripple")),
+  "noise-dissolve": dynamic(() => import("./noise-dissolve")),
 };
 
 export interface DemoProps {

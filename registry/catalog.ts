@@ -64,6 +64,7 @@ import { meta as ditherText } from "./textlab/dither-text/meta";
 import { meta as pixelSort } from "./textlab/pixel-sort/meta";
 import { meta as particleText } from "./textlab/particle-text/meta";
 import { meta as shaderRipple } from "./textlab/shader-ripple/meta";
+import { meta as noiseDissolve } from "./textlab/noise-dissolve/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -132,6 +133,7 @@ export const catalog: ComponentMeta[] = [
   pixelSort,
   particleText,
   shaderRipple,
+  noiseDissolve,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
