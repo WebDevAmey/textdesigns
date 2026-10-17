@@ -25,6 +25,7 @@ export const components: Record<string, AnyComponent> = {
   "countdown": dynamic(() => import("@registry/textlab/countdown/countdown")),
   "stat-reveal": dynamic(() => import("@registry/textlab/stat-reveal/stat-reveal")),
   "typewriter": dynamic(() => import("@registry/textlab/typewriter/typewriter")),
+  "scramble-text": dynamic(() => import("@registry/textlab/scramble-text/scramble-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
