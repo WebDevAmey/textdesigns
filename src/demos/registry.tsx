@@ -12,7 +12,8 @@ export const components: Record<string, AnyComponent> = {
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
-export const demos: Record<string, ComponentType<DemoProps>> = {};
+export const demos: Record<string, ComponentType<DemoProps>> = {
+};
 
 export interface DemoProps {
   variant: string;

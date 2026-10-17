@@ -44,14 +44,15 @@ async function handle(message: RpcRequest) {
 }
 
 export async function POST(request: Request) {
-  let body: RpcRequest | RpcRequest[];
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
     return Response.json({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } }, { status: 400, headers: cors });
   }
   const batch = Array.isArray(body);
-  const results = (await Promise.all((batch ? body : [body]).map(handle))).filter(Boolean);
+  const messages = (batch ? body : [body]) as RpcRequest[];
+  const results = (await Promise.all(messages.map(handle))).filter(Boolean);
   if (!results.length) return new Response(null, { status: 202, headers: cors });
   return Response.json(batch ? results : results[0], { headers: cors });
 }
