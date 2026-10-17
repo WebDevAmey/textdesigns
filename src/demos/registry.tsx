@@ -39,6 +39,7 @@ export const components: Record<string, AnyComponent> = {
   "spotlight-text": dynamic(() => import("@registry/textlab/spotlight-text/spotlight-text")),
   "glass-text": dynamic(() => import("@registry/textlab/glass-text/glass-text")),
   "ember-text": dynamic(() => import("@registry/textlab/ember-text/ember-text")),
+  "gooey-text": dynamic(() => import("@registry/textlab/gooey-text/gooey-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
