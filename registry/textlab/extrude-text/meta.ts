@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "extrude-text",
+  title: "Extrude text",
+  description: "Depth grows from the letters on hover.",
+  category: "cursor",
+  exportName: "ExtrudeText",
+  dependencies: [],
+  variants: ["block", "long-shadow", "stack"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"block" | "long-shadow" | "stack"', default: '"block"', description: "A solid slab, a fading diagonal shadow, or stacked outlines." },
+    { name: "depth", type: "number", default: "14", description: "Depth steps at full extrusion." },
+    { name: "color", type: "string", default: "var(--tl-accent)", description: "Depth color." },
+    { name: "hover", type: "boolean", default: "true", description: "Grow on hover from a shallow rest; false keeps it fully extruded." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ExtrudeText as="h2" text="Pop" variant="long-shadow" />`,
+  whenToUse: ["Retro, poster and toy-like brands.", "Big words that should feel pressable."],
+  whenNotToUse: ["Small text; the depth smears it.", "Minimal, quiet interfaces."],
+  accessibility: ["Plain text with shadows; nothing is split.", "Focus-visible grows it too when the element is focusable."],
+  motion: ["The face lifts up and left as depth grows, so it feels like it rises off the page.", "320 ms with the enter ease."],
+  reducedMotion: "Fully extruded and still.",
+  performance: ["Pure CSS: a registered property interpolates the shadow stack."],
+  related: ["tilt-text", "depth-layers", "neon-text"],
+  keywords: ["3d text", "extrude", "long shadow", "retro", "text shadow", "block letters"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["block", "long-shadow", "stack"] }, { prop: "depth", kind: "range", min: 4, max: 30, step: 1 }],
+  preset: { text: "Press" },
+  added: "2026-10-18",
+};

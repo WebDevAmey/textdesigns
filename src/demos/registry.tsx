@@ -61,6 +61,7 @@ export const components: Record<string, AnyComponent> = {
   "cursor-trail": dynamic(() => import("@registry/textlab/cursor-trail/cursor-trail")),
   "flip-roll": dynamic(() => import("@registry/textlab/flip-roll/flip-roll")),
   "tilt-text": dynamic(() => import("@registry/textlab/tilt-text/tilt-text")),
+  "extrude-text": dynamic(() => import("@registry/textlab/extrude-text/extrude-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -86,6 +87,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "circle-annotate": dynamic(() => import("./circle-annotate")),
   "cursor-trail": dynamic(() => import("./cursor-trail")),
   "tilt-text": dynamic(() => import("./tilt-text")),
+  "extrude-text": dynamic(() => import("./extrude-text")),
 };
 
 export interface DemoProps {
