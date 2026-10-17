@@ -35,7 +35,7 @@ export interface RevealTextProps extends RevealBaseProps {
   by: SplitBy;
   /** Where each part starts. A function gets the part index and count, for per-part offsets. */
   hidden: TargetAndTransition | ((index: number, total: number) => TargetAndTransition);
-  /** Where each part lands. Defaults to the identity: visible, no transform, no blur. */
+  /** Where each part lands. Transform shorthands here are ignored: parts always settle at rest. */
   shown?: TargetAndTransition;
   /** Wrap each part in an overflow clip so it rises out of nowhere. */
   clip?: boolean;
@@ -47,7 +47,37 @@ export interface RevealTextProps extends RevealBaseProps {
   partDelay?: (index: number, total: number) => number;
 }
 
-const SHOWN: TargetAndTransition = { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, rotateX: 0, rotateY: 0, filter: "blur(0px)", letterSpacing: "0em" };
+type Pose = TargetAndTransition & Record<string, unknown>;
+
+const unit = (v: unknown, fallback: string) => (typeof v === "string" ? v.replace(/^[-\d.]+/, "") || fallback : fallback);
+const len = (v: unknown, fallback = "px") => (typeof v === "number" ? `${v}${fallback}` : String(v));
+
+/**
+ * Turn motion's x / y / scale / rotate shorthands into one transform string, plus the matching
+ * resting string with the same functions and units. Full transform strings can be handed to the
+ * compositor; the shorthands are composed on the main thread and drop frames while the page loads.
+ */
+function poses(hidden: Pose, shown?: Pose): { from: Pose; to: Pose } {
+  const { x, y, scale, rotate, rotateX, transformPerspective, ...restFrom } = hidden;
+  const restTo: Pose = { ...shown };
+  for (const key of ["x", "y", "scale", "rotate", "rotateX", "transformPerspective"]) delete restTo[key];
+  const fns: [string, string][] = [];
+  if (transformPerspective !== undefined) fns.push([`perspective(${len(transformPerspective)})`, `perspective(${len(transformPerspective)})`]);
+  if (x !== undefined) fns.push([`translateX(${len(x)})`, `translateX(0${unit(x, "px")})`]);
+  if (y !== undefined) fns.push([`translateY(${len(y)})`, `translateY(0${unit(y, "px")})`]);
+  if (scale !== undefined) fns.push([`scale(${scale})`, "scale(1)"]);
+  if (rotate !== undefined) fns.push([`rotate(${len(rotate, "deg")})`, "rotate(0deg)"]);
+  if (rotateX !== undefined) fns.push([`rotateX(${len(rotateX, "deg")})`, "rotateX(0deg)"]);
+  const from: Pose = { ...restFrom };
+  const to: Pose = restTo;
+  if (fns.length) {
+    from.transform = fns.map((f) => f[0]).join(" ");
+    to.transform = fns.map((f) => f[1]).join(" ");
+  }
+  if (from.opacity !== undefined && to.opacity === undefined) to.opacity = 1;
+  if (from.filter !== undefined && to.filter === undefined) to.filter = "blur(0px)";
+  return { from, to };
+}
 
 /** Descenders and blur need room inside a clip; the negative margin keeps layout unchanged. */
 const clipStyle: CSSProperties = { display: "inline-block", overflow: "hidden", verticalAlign: "top", padding: "0.08em 0.12em 0.2em", margin: "-0.08em -0.12em -0.2em" };
@@ -71,7 +101,7 @@ export function RevealText({
   as: Tag = "span",
   by,
   hidden,
-  shown = SHOWN,
+  shown,
   clip = false,
   order = "start",
   trigger = "inView",
@@ -125,14 +155,14 @@ export function RevealText({
 
   // A render function, not a component, so parts keep their identity across renders.
   const part = (key: number, i: number, total: number, children: ReactNode, block = false) => {
-    const start = typeof hidden === "function" ? hidden(i, total) : hidden;
+    const { from: start, to: end } = poses((typeof hidden === "function" ? hidden(i, total) : hidden) as Pose, shown as Pose | undefined);
     const node = (
       <motion.span
         key={clip ? undefined : key}
         data-tl-part=""
         style={{ ...styleFor(i, total), ...(block ? { display: "block" } : null) }}
         initial={start}
-        animate={visible ? shown : start}
+        animate={visible ? end : start}
         transition={transitionFor(i, total)}
         onAnimationComplete={i === total - 1 && visible ? onComplete : undefined}
       >

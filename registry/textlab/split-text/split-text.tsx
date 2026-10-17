@@ -25,7 +25,7 @@ const PRESETS: Record<SplitTextPreset, TargetAndTransition> = {
   "fade-down": { opacity: 0, y: "-0.4em" },
   zoom: { opacity: 0, scale: 0.6 },
   blur: { opacity: 0, filter: "blur(8px)" },
-  flip: { opacity: 0, rotateX: 90 },
+  flip: { opacity: 0, transformPerspective: 500, rotateX: 90 },
 };
 
 /**
@@ -40,7 +40,7 @@ export function SplitText({ variant = "words", preset = "fade-up", from, order =
       order={order}
       clip={clip}
       hidden={from ?? PRESETS[preset]}
-      partStyle={preset === "flip" && !from ? { transformPerspective: 500, transformOrigin: "50% 100%" } : undefined}
+      partStyle={preset === "flip" && !from ? { transformOrigin: "50% 100%" } : undefined}
       {...props}
     />
   );

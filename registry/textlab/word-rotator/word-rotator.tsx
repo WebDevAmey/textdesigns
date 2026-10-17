@@ -24,10 +24,11 @@ export interface WordRotatorProps {
   style?: CSSProperties;
 }
 
-const MOTION: Record<WordRotatorVariant, { initial: TargetAndTransition; exit: TargetAndTransition }> = {
-  slide: { initial: { y: "100%", opacity: 0 }, exit: { y: "-100%", opacity: 0 } },
-  blur: { initial: { opacity: 0, filter: "blur(8px)" }, exit: { opacity: 0, filter: "blur(8px)" } },
-  flip: { initial: { rotateX: -90, opacity: 0 }, exit: { rotateX: 90, opacity: 0 } },
+// Full transform strings, so entering and leaving words can run on the compositor.
+const MOTION: Record<WordRotatorVariant, { initial: TargetAndTransition; rest: TargetAndTransition; exit: TargetAndTransition }> = {
+  slide: { initial: { transform: "translateY(100%)", opacity: 0 }, rest: { transform: "translateY(0%)", opacity: 1 }, exit: { transform: "translateY(-100%)", opacity: 0 } },
+  blur: { initial: { opacity: 0, filter: "blur(8px)" }, rest: { opacity: 1, filter: "blur(0px)" }, exit: { opacity: 0, filter: "blur(8px)" } },
+  flip: { initial: { transform: "rotateX(-90deg)", opacity: 0 }, rest: { transform: "rotateX(0deg)", opacity: 1 }, exit: { transform: "rotateX(90deg)", opacity: 0 } },
 };
 
 /**
@@ -70,7 +71,7 @@ export function WordRotator({ words, variant = "slide", interval = 2.4, pauseOnH
           <motion.span
             key={index}
             initial={m.initial}
-            animate={{ y: 0, opacity: 1, filter: "blur(0px)", rotateX: 0 }}
+            animate={m.rest}
             exit={m.exit}
             transition={spring.smooth}
             style={{ display: "inline-block", whiteSpace: "nowrap" }}

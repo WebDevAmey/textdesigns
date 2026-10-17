@@ -93,11 +93,11 @@ export function SliceReveal({
                 // A hair of overlap hides seams between slices at fractional pixel heights.
                 clipPath: `inset(${Math.max(0, top - 0.6)}% -10% ${Math.max(0, bottom - 0.6)}% -10%)`,
               }}
-              initial={{ x: `${from}%`, opacity: 0 }}
-              animate={on ? { x: "0%", opacity: 1 } : { x: `${from}%`, opacity: 0 }}
+              initial={{ transform: `translateX(${from}%)`, opacity: 0 }}
+              animate={on ? { transform: "translateX(0%)", opacity: 1 } : { transform: `translateX(${from}%)`, opacity: 0 }}
               transition={
                 on
-                  ? { x: { duration, delay: delay + i * stagger, ease: curve }, opacity: { duration: duration * 0.4, delay: delay + i * stagger } }
+                  ? { transform: { duration, delay: delay + i * stagger, ease: curve }, opacity: { duration: duration * 0.4, delay: delay + i * stagger } }
                   : { duration: durations.fast }
               }
               onAnimationComplete={on && i === count - 1 ? onComplete : undefined}
