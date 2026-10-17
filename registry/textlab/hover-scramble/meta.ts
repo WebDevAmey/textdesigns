@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "hover-scramble",
+  title: "Hover scramble",
+  description: "Scrambles on hover, settles on leave.",
+  category: "typing",
+  exportName: "HoverScramble",
+  dependencies: [],
+  variants: ["sweep", "all"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"sweep" | "all"', default: '"sweep"', description: "sweep re-settles left to right; all snaps back together at the end." },
+    { name: "charset", type: "string", default: "symbols", description: "Glyphs used while scrambled." },
+    { ...commonProps.duration, default: "0.5" },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<a href="/work"><HoverScramble text="Selected work" /></a>`,
+  whenToUse: ["Navigation links, footers and small buttons on technical brands.", "Any short label where hover feedback should feel playful."],
+  whenNotToUse: ["Primary calls to action; the label is briefly unreadable.", "Touch-first interfaces, where hover never happens."],
+  accessibility: ["Keyboard focus triggers it too, through focus capture on the wrapper.", "Screen readers hear the label, never the glyphs."],
+  motion: ["Half a second, under the 300 ms-per-step budget for UI feedback.", "Leaving mid-scramble settles straight back to the word."],
+  reducedMotion: "Hover does nothing; the label stays still.",
+  performance: ["Runs only while hovered.", "No layout work; the real label holds the size."],
+  related: ["scramble-text", "flip-roll", "magnetic-text"],
+  keywords: ["hover", "scramble", "nav link", "button", "glitch hover"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["sweep", "all"] }],
+  preset: { text: "Hover to scramble" },
+  added: "2026-10-17",
+};

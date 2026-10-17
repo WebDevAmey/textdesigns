@@ -17,6 +17,7 @@ import { meta as countdown } from "./textlab/countdown/meta";
 import { meta as statReveal } from "./textlab/stat-reveal/meta";
 import { meta as typewriter } from "./textlab/typewriter/meta";
 import { meta as scrambleText } from "./textlab/scramble-text/meta";
+import { meta as hoverScramble } from "./textlab/hover-scramble/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -38,6 +39,7 @@ export const catalog: ComponentMeta[] = [
   statReveal,
   typewriter,
   scrambleText,
+  hoverScramble,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
