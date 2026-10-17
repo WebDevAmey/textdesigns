@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "word-rotator",
+  title: "Word rotator",
+  description: "Cycles words while the width follows.",
+  category: "typing",
+  exportName: "WordRotator",
+  dependencies: ["motion"],
+  variants: ["slide", "blur", "flip"],
+  props: [
+    { name: "words", type: "string[]", description: "Words to cycle.", required: true },
+    { name: "variant", type: '"slide" | "blur" | "flip"', default: '"slide"', description: "How each word arrives." },
+    { name: "interval", type: "number", default: "2.4", description: "Seconds each word stays." },
+    { name: "pauseOnHover", type: "boolean", default: "true", description: "Pause while hovered or focused." },
+    { name: "label", type: "string", description: "What screen readers hear. Defaults to every word." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<h1>Built for <WordRotator words={["designers", "engineers", "writers"]} /></h1>`,
+  whenToUse: ["Hero lines with a rotating noun.", "Short lists where each item fits the same sentence."],
+  whenNotToUse: ["Words that differ wildly in length on mobile; the sentence reflows each time.", "Essential information hidden in later words."],
+  accessibility: ["Screen readers hear all words once instead of a moving target.", "Hover and focus pause the rotation."],
+  motion: ["The container's width animates on the same spring as the words, so neighbours glide.", "Old words leave as new ones arrive, overlapping instead of waiting."],
+  reducedMotion: "Shows the first word, still.",
+  performance: ["One interval; layout animation on a single wrapper."],
+  related: ["text-morph", "typewriter", "kinetic-beat"],
+  keywords: ["rotating words", "text rotate", "cycle", "hero", "headline"],
+  controls: [{ prop: "variant", kind: "select", options: ["slide", "blur", "flip"] }, { prop: "interval", kind: "range", min: 1, max: 5, step: 0.2 }],
+  preset: { words: ["designers", "engineers", "writers", "everyone"] },
+  added: "2026-10-17",
+};
