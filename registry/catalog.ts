@@ -42,6 +42,7 @@ import { meta as velocityMarquee } from "./textlab/velocity-marquee/meta";
 import { meta as scrollStretch } from "./textlab/scroll-stretch/meta";
 import { meta as depthLayers } from "./textlab/depth-layers/meta";
 import { meta as outlineDraw } from "./textlab/outline-draw/meta";
+import { meta as signature } from "./textlab/signature/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -88,6 +89,7 @@ export const catalog: ComponentMeta[] = [
   scrollStretch,
   depthLayers,
   outlineDraw,
+  signature,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

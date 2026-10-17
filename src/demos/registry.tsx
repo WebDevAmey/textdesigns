@@ -51,6 +51,7 @@ export const components: Record<string, AnyComponent> = {
   "scroll-stretch": dynamic(() => import("@registry/textlab/scroll-stretch/scroll-stretch")),
   "depth-layers": dynamic(() => import("@registry/textlab/depth-layers/depth-layers")),
   "outline-draw": dynamic(() => import("@registry/textlab/outline-draw/outline-draw")),
+  "signature": dynamic(() => import("@registry/textlab/signature/signature")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -69,6 +70,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "velocity-marquee": dynamic(() => import("./velocity-marquee")),
   "scroll-stretch": dynamic(() => import("./scroll-stretch")),
   "depth-layers": dynamic(() => import("./depth-layers")),
+  "signature": dynamic(() => import("./signature")),
 };
 
 export interface DemoProps {
