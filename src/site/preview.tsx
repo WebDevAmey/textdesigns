@@ -36,7 +36,7 @@ export function Preview({ name, variants, preset, props, height = 420 }: Preview
           type="button"
           onClick={() => setRun((n) => n + 1)}
           aria-label="Replay"
-          className="group inline-flex size-8 items-center justify-center rounded-md text-secondary transition-[color,background-color,transform] duration-150 hover:bg-surface-2 hover:text-foreground active:scale-[0.94]"
+          className="group inline-flex size-8 items-center justify-center rounded-md text-secondary transition-[color,background-color,transform] duration-150 hover:bg-surface-2 hover:text-foreground active:scale-[0.95]"
         >
           <RotateCcw
             className="size-4 transition-transform duration-[400ms] ease-enter motion-reduce:transition-none"

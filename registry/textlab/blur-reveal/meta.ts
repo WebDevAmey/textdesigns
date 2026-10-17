@@ -35,7 +35,7 @@ export const meta: ComponentMeta = {
   controls: [
     { prop: "text", kind: "text" },
     { prop: "variant", kind: "select", options: ["word", "char", "line"] },
-    { prop: "blur", kind: "range", min: 2, max: 30, step: 1 },
+    { prop: "blur", kind: "range", min: 2, max: 20, step: 1 },
     { prop: "duration", kind: "range", min: 0.2, max: 2, step: 0.05 },
   ],
   preset: { text: "Make every word count" },

@@ -36,7 +36,7 @@ export const meta: ComponentMeta = {
   controls: [
     { prop: "text", kind: "text" },
     { prop: "variant", kind: "select", options: ["center", "start", "end"] },
-    { prop: "blur", kind: "range", min: 4, max: 30, step: 1 },
+    { prop: "blur", kind: "range", min: 4, max: 20, step: 1 },
   ],
   preset: { text: "Look closer" },
   added: "2026-10-17",

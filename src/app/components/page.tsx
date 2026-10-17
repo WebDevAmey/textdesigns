@@ -21,7 +21,7 @@ export default function ComponentsIndex() {
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((item, i) => (
                 <li key={item.name} className={i < 6 ? "tl-stagger" : undefined} style={i < 6 ? { animationDelay: `${i * 40}ms` } : undefined}>
-                  <Link href={`/components/${item.name}`} className="block h-full rounded-xl border p-4 transition-[border-color,transform] duration-150 hover:border-foreground/25 active:scale-[0.99]">
+                  <Link href={`/components/${item.name}`} className="block h-full rounded-xl border p-4 transition-[border-color,transform] duration-150 hover:border-foreground/25 active:scale-[0.98]">
                     <span className="font-medium">{item.title}</span>
                     <span className="mt-0.5 block text-sm text-secondary">{item.description}</span>
                   </Link>

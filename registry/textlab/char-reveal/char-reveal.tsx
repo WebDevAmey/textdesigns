@@ -13,7 +13,7 @@ const HIDDEN = {
   fade: { opacity: 0, y: "0.12em" },
   drop: { opacity: 0, y: "-0.7em" },
   spin: { opacity: 0, rotate: -90, scale: 0.5 },
-  scale: { opacity: 0, scale: 0 },
+  scale: { opacity: 0, scale: 0.35 },
 } as const;
 
 /** Letters arrive one at a time. Each word stays unbreakable so lines never reflow mid-animation. */

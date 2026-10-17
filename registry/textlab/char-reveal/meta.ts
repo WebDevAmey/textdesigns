@@ -10,7 +10,7 @@ export const meta: ComponentMeta = {
   variants: ["fade", "drop", "spin", "scale"],
   props: [
     commonProps.text,
-    { name: "variant", type: '"fade" | "drop" | "spin" | "scale"', default: '"fade"', description: "fade is quiet, drop falls into place, spin turns up from the baseline, scale pops in." },
+    { name: "variant", type: '"fade" | "drop" | "spin" | "scale"', default: '"fade"', description: "fade is quiet, drop falls into place, spin turns up from the baseline, scale pops up from small." },
     commonProps.as,
     commonProps.trigger,
     commonProps.active,

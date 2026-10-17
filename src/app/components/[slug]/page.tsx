@@ -163,7 +163,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
           <ul className="grid gap-3 sm:grid-cols-2">
             {related.map((r) => (
               <li key={r.name}>
-                <Link href={`/components/${r.name}`} className="block rounded-xl border p-4 transition-[border-color,transform] duration-150 hover:border-foreground/25 active:scale-[0.99]">
+                <Link href={`/components/${r.name}`} className="block rounded-xl border p-4 transition-[border-color,transform] duration-150 hover:border-foreground/25 active:scale-[0.98]">
                   <span className="font-medium">{r.title}</span>
                   <span className="mt-0.5 block text-sm text-secondary">{r.description}</span>
                 </Link>

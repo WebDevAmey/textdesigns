@@ -7,7 +7,7 @@ export function DemoButton({ children, className = "", ...props }: ButtonHTMLAtt
   return (
     <button
       type="button"
-      className={`rounded-md border bg-background px-2.5 py-1 font-sans text-[13px] font-medium tracking-normal text-secondary transition-[color,border-color,transform] duration-150 ease-enter hover:border-foreground/25 hover:text-foreground active:scale-[0.96] ${className}`}
+      className={`rounded-md border bg-background px-2.5 py-1 font-sans text-[13px] font-medium tracking-normal text-secondary transition-[color,border-color,transform] duration-150 ease-enter hover:border-foreground/25 hover:text-foreground active:scale-[0.97] ${className}`}
       {...props}
     >
       {children}

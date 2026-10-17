@@ -27,9 +27,10 @@ export interface KineticBeatProps {
 }
 
 const MOVES: Record<KineticBeatVariant, { initial: TargetAndTransition; transition: Transition; exit: TargetAndTransition }> = {
-  pop: { initial: { scale: 0.4, opacity: 0 }, transition: { type: "spring", visualDuration: 0.22, bounce: 0.45 }, exit: { scale: 1.15, opacity: 0, transition: { duration: 0.12 } } },
+  pop: { initial: { scale: 0.4, opacity: 0 }, transition: { type: "spring", visualDuration: 0.22, bounce: 0.3 }, exit: { scale: 1.15, opacity: 0, transition: { duration: 0.12 } } },
+  // Slam is an impact: it accelerates into the landing on purpose, so it uses an ease-in curve.
   slam: { initial: { scale: 2.6, opacity: 0, filter: "blur(10px)" }, transition: { duration: 0.16, ease: [0.5, 0, 1, 0.5] }, exit: { opacity: 0, transition: { duration: 0.08 } } },
-  bounce: { initial: { y: "-0.8em", opacity: 0 }, transition: { type: "spring", visualDuration: 0.28, bounce: 0.55 }, exit: { y: "0.4em", opacity: 0, transition: { duration: 0.12 } } },
+  bounce: { initial: { y: "-0.8em", opacity: 0 }, transition: { type: "spring", visualDuration: 0.28, bounce: 0.3 }, exit: { y: "0.4em", opacity: 0, transition: { duration: 0.12 } } },
 };
 
 /**

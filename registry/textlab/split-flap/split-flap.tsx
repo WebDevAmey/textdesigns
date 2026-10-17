@@ -39,6 +39,7 @@ const CSS = `
 .tl-flap-bottom { bottom: 0; border-radius: 0 0 0.12em 0.12em; transform-origin: 50% 0%; }
 .tl-flap-bottom > span { bottom: 0; }
 .tl-flap-top::after { content: ""; position: absolute; inset: auto 0 0 0; height: 1px; background: var(--tl-flap-seam); }
+/* The top leaf falls under gravity, so it accelerates (ease-in); the bottom leaf lands and settles (ease-out). */
 .tl-flap-leaf-top { z-index: 2; animation: tl-flap-top var(--tl-flap-ms) cubic-bezier(0.4, 0, 1, 1) forwards; }
 .tl-flap-leaf-bottom { z-index: 2; transform: rotateX(90deg); animation: tl-flap-bottom var(--tl-flap-ms) cubic-bezier(0, 0, 0.2, 1) var(--tl-flap-ms) forwards; }
 `;
