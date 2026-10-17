@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "magnetic-text",
+  title: "Magnetic text",
+  description: "Letters lean toward the cursor and spring back.",
+  category: "cursor",
+  exportName: "MagneticText",
+  dependencies: [],
+  variants: ["attract", "repel"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"attract" | "repel"', default: '"attract"', description: "Lean toward the cursor, or shy away from it." },
+    { name: "radius", type: "number", default: "2.5", description: "Reach of the field in em." },
+    { name: "strength", type: "number", default: "0.28", description: "Largest offset in em." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<MagneticText as="h2" text="Come closer" />`,
+  whenToUse: ["Hero words and footers that reward exploring with the mouse.", "Playful portfolios."],
+  whenNotToUse: ["Touch-only layouts; nothing happens without a mouse or pen.", "Long text; every letter is tracked."],
+  accessibility: ["Letters are aria-hidden; the text is read once.", "Offsets are small, so words stay readable while they move."],
+  motion: ["Pull follows a smoothstep falloff and each letter eases toward its target.", "Letters glide home when the pointer leaves."],
+  reducedMotion: "Still, plain text.",
+  performance: ["Letter centers are measured once and on resize; the frame loop only writes transforms."],
+  related: ["variable-proximity", "cursor-trail", "jelly-text"],
+  keywords: ["magnetic", "cursor", "hover", "attract", "repel", "interactive text"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["attract", "repel"] }, { prop: "radius", kind: "range", min: 1, max: 6, step: 0.1 }, { prop: "strength", kind: "range", min: 0.05, max: 0.8, step: 0.01 }],
+  preset: { text: "Come closer" },
+  added: "2026-10-18",
+};

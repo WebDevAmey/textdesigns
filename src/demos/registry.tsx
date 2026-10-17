@@ -56,6 +56,7 @@ export const components: Record<string, AnyComponent> = {
   "underline-draw": dynamic(() => import("@registry/textlab/underline-draw/underline-draw")),
   "strike-through": dynamic(() => import("@registry/textlab/strike-through/strike-through")),
   "circle-annotate": dynamic(() => import("@registry/textlab/circle-annotate/circle-annotate")),
+  "magnetic-text": dynamic(() => import("@registry/textlab/magnetic-text/magnetic-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
