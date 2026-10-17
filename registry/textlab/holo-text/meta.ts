@@ -1,0 +1,31 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "holo-text",
+  title: "Holographic text",
+  description: "Foil that shifts color as you move across it.",
+  category: "light",
+  exportName: "HoloText",
+  dependencies: [],
+  variants: ["holo", "foil", "chrome"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"holo" | "foil" | "chrome"', default: '"holo"', description: "Rainbow hologram, warm iridescent leaf, or a cool metallic sweep." },
+    { name: "intensity", type: "number", default: "0.7", description: "How far colors travel with the pointer, 0 to 1." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<HoloText as="h1" text="Limited edition" variant="foil" />`,
+  whenToUse: ["Collectibles, drops and premium tiers.", "Large display words people will hover or drag across."],
+  whenNotToUse: ["Small text; the pattern breaks the letterforms.", "Text that needs high, steady contrast."],
+  accessibility: ["Plain, unsplit text.", "Without a pointer it rests on a pleasant still frame."],
+  motion: ["The pattern follows the pointer with damping, like light on a tilted card.", "The sheen brightens while the pointer is over the text."],
+  reducedMotion: "A still foil frame with no pointer tracking.",
+  performance: ["Pointer position is written to CSS variables once per frame, only while it is settling."],
+  related: ["aurora-text", "spotlight-text", "glass-text"],
+  keywords: ["holographic", "foil", "iridescent", "chrome", "metallic", "premium"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["holo", "foil", "chrome"] }, { prop: "intensity", kind: "range", min: 0, max: 1, step: 0.05 }],
+  preset: { text: "Limited edition" },
+  added: "2026-10-17",
+};
