@@ -30,6 +30,7 @@ export const components: Record<string, AnyComponent> = {
   "matrix-decode": dynamic(() => import("@registry/textlab/matrix-decode/matrix-decode")),
   "text-morph": dynamic(() => import("@registry/textlab/text-morph/text-morph")),
   "word-rotator": dynamic(() => import("@registry/textlab/word-rotator/word-rotator")),
+  "caret-morph": dynamic(() => import("@registry/textlab/caret-morph/caret-morph")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */

@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "caret-morph",
+  title: "Caret morph",
+  description: "A caret that glides between words and reshapes to fit.",
+  category: "typing",
+  exportName: "CaretMorph",
+  dependencies: ["motion"],
+  variants: ["highlight", "bar", "block"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"highlight" | "bar" | "block"', default: '"highlight"', description: "highlight selects the word, bar sits after it like a cursor, block inverts it." },
+    { name: "autoplay", type: "boolean", default: "true", description: "Tour the words while nobody is pointing." },
+    { name: "interval", type: "number", default: "1.3", description: "Seconds per word on the tour." },
+    { name: "color", type: "string", default: "var(--tl-accent)", description: "Highlight color." },
+    { ...commonProps.as, default: '"p"' },
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<CaretMorph text="Point at any word in this sentence" />`,
+  whenToUse: ["Editor and writing-tool marketing where the caret is the product.", "Interactive pull quotes."],
+  whenNotToUse: ["Real text inputs; use the browser caret.", "Long paragraphs; the tour takes too long to be noticed."],
+  accessibility: ["The sentence is focusable and named; Left and Right move the caret.", "Pointer and focus pause the tour."],
+  motion: ["The caret moves on the snappy spring, so hopping across words stays quick and interruptible.", "Shape changes ride the same spring as position."],
+  reducedMotion: "The caret is hidden; the sentence is plain text.",
+  performance: ["One absolutely positioned element. Word boxes are measured on resize, not per frame."],
+  related: ["typewriter", "read-along", "marker-highlight"],
+  keywords: ["caret", "cursor", "selection", "highlight", "editor", "text cursor"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["highlight", "bar", "block"] }],
+  preset: { text: "Point at any word in this sentence" },
+  added: "2026-10-17",
+};

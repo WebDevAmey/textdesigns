@@ -21,6 +21,7 @@ import { meta as hoverScramble } from "./textlab/hover-scramble/meta";
 import { meta as matrixDecode } from "./textlab/matrix-decode/meta";
 import { meta as textMorph } from "./textlab/text-morph/meta";
 import { meta as wordRotator } from "./textlab/word-rotator/meta";
+import { meta as caretMorph } from "./textlab/caret-morph/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -46,6 +47,7 @@ export const catalog: ComponentMeta[] = [
   matrixDecode,
   textMorph,
   wordRotator,
+  caretMorph,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
