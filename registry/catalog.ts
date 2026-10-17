@@ -11,6 +11,17 @@ import { meta as sliceReveal } from "./textlab/slice-reveal/meta";
 import { meta as focusPull } from "./textlab/focus-pull/meta";
 
 /** Every component, in sidebar order within its category. */
-export const catalog: ComponentMeta[] = [blurReveal];
+export const catalog: ComponentMeta[] = [
+  blurReveal,
+  wordReveal,
+  lineReveal,
+  charReveal,
+  wipeReveal,
+  inViewTitle,
+  splitText,
+  trackingReveal,
+  sliceReveal,
+  focusPull,
+];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
