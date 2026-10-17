@@ -24,15 +24,15 @@ Done when: both docs are committed and pushed.
 
 Depends on phase 1.
 
-- [ ] Trim dependencies (drop gsap, framer-motion, split-type, simplex-noise, base-ui, tabler) once nothing imports them
-- [ ] Add vitest, testing-library, jsdom, axe and `typecheck` / `test` scripts
-- [ ] `text-fx-tokens` CSS (type, color, effect tokens, light and dark)
-- [ ] `motion-tokens.ts`
-- [ ] `split.ts` with grapheme-safe splitting and tests
-- [ ] `use-split-lines.ts` with resize-aware line detection
-- [ ] `use-trigger.ts`, `use-reduced.ts`, `use-hydrated.ts`, `use-frame.ts`, `use-pointer.ts`
-- [ ] `sr-text.tsx`, `math.ts`, `noise.ts`
-- [ ] Catalog types (`registry/catalog.ts`) with props schema
+- [x] Trim dependencies (drop gsap, framer-motion, split-type, simplex-noise, base-ui, tabler) once nothing imports them
+- [x] Add vitest, testing-library, jsdom, axe and `typecheck` / `test` scripts
+- [x] `text-fx-tokens` CSS (type, color, effect tokens, light and dark)
+- [x] `motion-tokens.ts`
+- [x] `split.ts` with grapheme-safe splitting and tests
+- [x] `use-split-lines.ts` with resize-aware line detection
+- [x] `use-trigger.ts`, `use-reduced.ts`, `use-hydrated.ts`, `use-frame.ts`, `use-pointer.ts`
+- [x] `a11y.tsx` (screen-reader text), `math.ts`, `noise.ts`
+- [x] Catalog types (`registry/catalog.ts`) with props schema
 
 Done when: utilities are tested, typecheck and lint pass.
 
@@ -40,13 +40,13 @@ Done when: utilities are tested, typecheck and lint pass.
 
 Depends on phase 2.
 
-- [ ] Root layout with fonts, theme toggle (light and dark), skip link
-- [ ] Site header, sidebar grouped by job, footer
-- [ ] Component page template: preview with replay, Preview/Code tabs, variant switcher, install tabs with copy, usage, props table, a11y and motion notes, related
-- [ ] Code highlighting at build time
-- [ ] Docs pages: introduction, installation, ai, tokens, changelog
-- [ ] Guides, compare and roadmap pages
-- [ ] Remove the old `/animations` docs, landing page and old effects
+- [x] Root layout with fonts, theme toggle (light and dark), skip link
+- [x] Site header, sidebar grouped by job, footer
+- [x] Component page template: preview with replay, Preview/Code tabs, variant switcher, install tabs with copy, usage, props table, a11y and motion notes, related
+- [x] Code highlighting at build time
+- [x] Docs pages: introduction, installation, ai, tokens, changelog
+- [x] Guides, compare and roadmap pages
+- [x] Remove the old `/animations` docs, landing page and old effects
 
 Done when: the site builds and one sample component renders on its page.
 
@@ -54,13 +54,13 @@ Done when: the site builds and one sample component renders on its page.
 
 Depends on phase 3.
 
-- [ ] `scripts/build-registry.ts` writing `/r/*.json`, `/r/registry.json`, `/r/catalog.json`
-- [ ] `/llms.txt`, `/llms-full.txt`, `/llms-small.txt`
-- [ ] `/components/<name>.md` and `/components/<name>/markdown`
-- [ ] MCP server at `/api/mcp` and `mcp/server.mjs`
-- [ ] Agent skill at `/r/skills/textlab/SKILL.md`
-- [ ] Tests: registry items are valid, imports resolve, every catalog entry has docs and a demo
-- [ ] Verify `npx shadcn add` against a local build in a scratch app
+- [x] `scripts/build-registry.ts` writing `/r/*.json`, `/r/registry.json`, `/r/catalog.json`
+- [x] `/llms.txt`, `/llms-full.txt`, `/llms-small.txt`
+- [x] `/components/<name>.md` and `/components/<name>/markdown`
+- [x] MCP server at `/api/mcp` and `mcp/server.mjs`
+- [x] Agent skill at `/r/skills/textlab/SKILL.md`
+- [x] Tests: registry items are valid, imports resolve, every catalog entry has docs and a demo
+- [x] Verify `npx shadcn add` against a local build in a scratch app (found motion 14 breaks prerendering, so installs pin motion 12)
 
 Done when: a fresh Next app installs a component from the local registry and it renders.
 
@@ -69,98 +69,98 @@ Done when: a fresh Next app installs a component from the local registry and it 
 Depends on phase 4. One commit per component (component, demo, catalog entry, test).
 
 Reveal
-- [ ] blur-reveal
-- [ ] word-reveal
-- [ ] line-reveal
-- [ ] char-reveal
-- [ ] wipe-reveal
-- [ ] in-view-title
-- [ ] split-text
-- [ ] tracking-reveal
-- [ ] slice-reveal
-- [ ] focus-pull
+- [x] blur-reveal
+- [x] word-reveal
+- [x] line-reveal
+- [x] char-reveal
+- [x] wipe-reveal
+- [x] in-view-title
+- [x] split-text
+- [x] tracking-reveal
+- [x] slice-reveal
+- [x] focus-pull
 
 Numbers
-- [ ] rolling-number
-- [ ] odometer
-- [ ] split-flap
-- [ ] price-ticker
-- [ ] countdown
-- [ ] stat-reveal
+- [x] rolling-number
+- [x] odometer
+- [x] split-flap
+- [x] price-ticker
+- [x] countdown
+- [x] stat-reveal
 
 Typing
-- [ ] typewriter
-- [ ] scramble-text
-- [ ] hover-scramble
-- [ ] matrix-decode
-- [ ] text-morph
-- [ ] word-rotator
-- [ ] caret-morph
+- [x] typewriter
+- [x] scramble-text
+- [x] hover-scramble
+- [x] matrix-decode
+- [x] text-morph
+- [x] word-rotator
+- [x] caret-morph
 
 Light
-- [ ] gradient-text
-- [ ] shimmer-text
-- [ ] neon-text
-- [ ] aurora-text
-- [ ] holo-text
-- [ ] spotlight-text
-- [ ] glass-text
-- [ ] ember-text
+- [x] gradient-text
+- [x] shimmer-text
+- [x] neon-text
+- [x] aurora-text
+- [x] holo-text
+- [x] spotlight-text
+- [x] glass-text
+- [x] ember-text
 
 Distort
-- [ ] gooey-text
-- [ ] liquid-text
-- [ ] ink-bleed
-- [ ] chromatic-text
-- [ ] glitch-text
-- [ ] heat-haze
+- [x] gooey-text
+- [x] liquid-text
+- [x] ink-bleed
+- [x] chromatic-text
+- [x] glitch-text
+- [x] heat-haze
 
 Scroll
-- [ ] scroll-fill
-- [ ] scroll-skew
-- [ ] velocity-marquee
-- [ ] scroll-stretch
-- [ ] depth-layers
+- [x] scroll-fill
+- [x] scroll-skew
+- [x] velocity-marquee
+- [x] scroll-stretch
+- [x] depth-layers
 
 Draw
-- [ ] outline-draw
-- [ ] signature
-- [ ] marker-highlight
-- [ ] underline-draw
-- [ ] strike-through
-- [ ] circle-annotate
+- [x] outline-draw
+- [x] signature
+- [x] marker-highlight
+- [x] underline-draw
+- [x] strike-through
+- [x] circle-annotate
 
 Cursor
-- [ ] magnetic-text
-- [ ] variable-proximity
-- [ ] cursor-trail
-- [ ] flip-roll
-- [ ] tilt-text
-- [ ] extrude-text
+- [x] magnetic-text
+- [x] variable-proximity
+- [x] cursor-trail
+- [x] flip-roll
+- [x] tilt-text
+- [x] extrude-text
 
 Physics
-- [ ] letter-drop
-- [ ] elastic-text
-- [ ] jelly-text
-- [ ] wave-text
-- [ ] breathing-text
+- [x] letter-drop
+- [x] elastic-text
+- [x] jelly-text
+- [x] wave-text
+- [x] breathing-text
 
 Path
-- [ ] path-text
+- [x] path-text
 
 Pixel
-- [ ] ascii-text
-- [ ] dither-text
-- [ ] pixel-sort
-- [ ] particle-text
-- [ ] shader-ripple
-- [ ] noise-dissolve
+- [x] ascii-text
+- [x] dither-text
+- [x] pixel-sort
+- [x] particle-text
+- [x] shader-ripple
+- [x] noise-dissolve
 
 Kinetic
-- [ ] kinetic-beat
-- [ ] word-sequence
-- [ ] read-along
-- [ ] echo-text
+- [x] kinetic-beat
+- [x] word-sequence
+- [x] read-along
+- [x] echo-text
 
 Done when: every entry has a live demo, 2–4 variants, a preset, a reduced-motion branch, a props table, a registry item and a passing render test.
 
