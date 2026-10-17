@@ -74,6 +74,7 @@ export const components: Record<string, AnyComponent> = {
   "particle-text": dynamic(() => import("@registry/textlab/particle-text/particle-text")),
   "shader-ripple": dynamic(() => import("@registry/textlab/shader-ripple/shader-ripple")),
   "noise-dissolve": dynamic(() => import("@registry/textlab/noise-dissolve/noise-dissolve")),
+  "kinetic-beat": dynamic(() => import("@registry/textlab/kinetic-beat/kinetic-beat")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */

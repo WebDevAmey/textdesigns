@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "kinetic-beat",
+  title: "Kinetic beat",
+  description: "Words hit on a beat.",
+  category: "kinetic",
+  exportName: "KineticBeat",
+  dependencies: ["motion"],
+  variants: ["pop", "slam", "bounce"],
+  props: [
+    { name: "text", type: "string", description: "Words to hit, one per beat.", required: true },
+    { name: "variant", type: '"pop" | "slam" | "bounce"', default: '"pop"', description: "Scale up with overshoot, crash down from large, or hop in." },
+    { name: "bpm", type: "number", default: "120", description: "Beats per minute." },
+    { name: "loop", type: "boolean", default: "true", description: "Start over after the last word." },
+    { name: "rest", type: "number", default: "2", description: "Silent beats at the end of each loop." },
+    { ...commonProps.as, default: '"div"' },
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<KineticBeat text="Make it loud" bpm={128} variant="slam" />`,
+  whenToUse: ["Music, events and launch teasers.", "Short punchy slogans of three to six words."],
+  whenNotToUse: ["Information people need to read at their own pace.", "Long sentences."],
+  accessibility: ["The whole sentence is read once from a hidden copy.", "Pauses when scrolled out of view."],
+  motion: ["One word per beat; at 120 BPM that is two words a second.", "Exits are quick so each hit lands clean."],
+  reducedMotion: "The sentence appears whole and still.",
+  performance: ["One interval and one animated word at a time."],
+  related: ["word-sequence", "word-rotator", "velocity-marquee"],
+  keywords: ["kinetic typography", "beat", "bpm", "lyric", "slogan", "music"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["pop", "slam", "bounce"] }, { prop: "bpm", kind: "range", min: 60, max: 180, step: 2 }],
+  preset: { text: "Make it loud tonight" },
+  added: "2026-10-18",
+};

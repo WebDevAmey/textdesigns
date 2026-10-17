@@ -65,6 +65,7 @@ import { meta as pixelSort } from "./textlab/pixel-sort/meta";
 import { meta as particleText } from "./textlab/particle-text/meta";
 import { meta as shaderRipple } from "./textlab/shader-ripple/meta";
 import { meta as noiseDissolve } from "./textlab/noise-dissolve/meta";
+import { meta as kineticBeat } from "./textlab/kinetic-beat/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -134,6 +135,7 @@ export const catalog: ComponentMeta[] = [
   particleText,
   shaderRipple,
   noiseDissolve,
+  kineticBeat,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
