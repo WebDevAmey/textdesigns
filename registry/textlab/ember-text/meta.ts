@@ -25,7 +25,7 @@ export const meta: ComponentMeta = {
   whenToUse: ["Titles for craft, hardware and energy brands.", "Dark sections where warmth should arrive with the words."],
   whenNotToUse: ["Light backgrounds with the ice variant; the frost disappears.", "Paragraphs."],
   accessibility: ["The glow is a decorative copy; the title is read once.", "The settled color is the inherited text color, so contrast is unchanged."],
-  motion: ["Each letter drops in on a slightly bouncy spring.", "Heat fades through four stops over 1.6 s, brightest right as it lands."],
+  motion: ["Each letter settles a short drop with a long-tailed ease-out.", "Heat fades through four stops over 1.6 s, brightest right as it lands."],
   reducedMotion: "The title appears in its normal color.",
   performance: ["Two motion spans per letter; nothing runs after the last one cools."],
   related: ["neon-text", "matrix-decode", "char-reveal"],

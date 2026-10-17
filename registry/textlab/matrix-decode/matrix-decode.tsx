@@ -85,8 +85,8 @@ export function MatrixDecode({
                     {variant === "rain" ? (
                       <motion.span
                         style={{ position: "absolute", left: 0, right: 0, bottom: "100%", display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1, fontSize: "0.5em", color: glow, pointerEvents: "none" }}
-                        initial={{ y: "-60%", opacity: 0 }}
-                        animate={on ? { y: ["-60%", "140%"], opacity: [0, 1, 0] } : { y: "-60%", opacity: 0 }}
+                        initial={{ transform: "translateY(-60%)", opacity: 0 }}
+                        animate={on ? { transform: ["translateY(-60%)", "translateY(140%)"], opacity: [0, 1, 0] } : { transform: "translateY(-60%)", opacity: 0 }}
                         transition={on ? { duration: 0.55, delay: Math.max(0, at - 0.45), ease: "easeIn" } : { duration: 0 }} // glyphs fall, so they accelerate
                       >
                         {column.map((g, k) => (

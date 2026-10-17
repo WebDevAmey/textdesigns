@@ -57,9 +57,9 @@ export function StrikeThrough({ text, variant = "line", replacement, color = "va
         {showReplacement && (
           <motion.span
             aria-hidden="true"
-            style={{ position: "absolute", left: "50%", bottom: "78%", x: "-50%", whiteSpace: "nowrap", color, fontSize: "0.62em", fontStyle: "italic", rotate: -3 }}
-            initial={reduced ? false : { opacity: 0, y: "0.3em", filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            style={{ position: "absolute", left: "50%", bottom: "78%", whiteSpace: "nowrap", color, fontSize: "0.62em", fontStyle: "italic" }}
+            initial={reduced ? false : { opacity: 0, transform: "translateX(-50%) translateY(0.3em) rotate(-3deg)", filter: "blur(4px)" }}
+            animate={{ opacity: 1, transform: "translateX(-50%) translateY(0em) rotate(-3deg)", filter: "blur(0px)" }}
             transition={{ duration: 0.5, delay: reduced ? 0 : delay + duration + 0.1, ease: [...ease.enter] }}
           >
             {replacement}

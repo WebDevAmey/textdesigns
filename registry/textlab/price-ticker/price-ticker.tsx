@@ -83,8 +83,8 @@ export function PriceTicker({
             {change && (
               <motion.span
                 key={change.id}
-                initial={reduced ? false : { opacity: 0, y: up ? "0.6em" : "-0.6em" }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={reduced ? false : { opacity: 0, transform: `translateY(${up ? "0.6em" : "-0.6em"})` }}
+                animate={{ opacity: 1, transform: "translateY(0em)" }}
                 exit={{ opacity: 0, transition: { duration: 0.12 } }}
                 transition={{ type: "spring", visualDuration: 0.3, bounce: 0.2 }}
                 style={{ display: "inline-flex", alignItems: "center", gap: "0.25em", color: up ? upColor : downColor }}

@@ -67,9 +67,9 @@ export function EmberText({ text, variant = "ember", as: Tag = "span", trigger =
                     <motion.span
                       data-tl-part=""
                       style={{ display: "inline-block" }}
-                      initial={{ opacity: 0, y: "0.15em" }}
-                      animate={on ? { opacity: 1, y: 0 } : { opacity: 0, y: "0.15em" }}
-                      transition={on ? { opacity: { duration: 0.2, delay: at }, y: { type: "spring", visualDuration: 0.5, bounce: 0.3, delay: at } } : { duration: 0.15 }}
+                      initial={{ opacity: 0, transform: "translateY(0.15em)" }}
+                      animate={on ? { opacity: 1, transform: "translateY(0em)" } : { opacity: 0, transform: "translateY(0.15em)" }}
+                      transition={on ? { opacity: { duration: 0.2, delay: at }, transform: { duration: 0.6, delay: at, ease: [0.16, 1, 0.3, 1] } } : { duration: 0.15 }}
                     >
                       {char}
                     </motion.span>

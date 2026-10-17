@@ -22,7 +22,7 @@ export const meta: ComponentMeta = {
   whenToUse: ["Manifestos and intro sequences.", "Title cards for video-like landing pages."],
   whenNotToUse: ["Navigation or interface copy.", "Sentences over about ten words."],
   accessibility: ["The whole sentence is read once from a hidden copy.", "Every sequence ends on the full sentence, readable at rest."],
-  motion: ["Stack springs each word into place; stage blurs words in and out; cut uses hard cuts with no tween."],
+  motion: ["Stack eases each word up into place; stage blurs words in and out; cut uses hard cuts with no tween."],
   reducedMotion: "The sentence appears whole and still.",
   performance: ["One timer; one or a handful of animated spans."],
   related: ["kinetic-beat", "word-reveal", "read-along"],
