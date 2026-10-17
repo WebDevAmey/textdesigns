@@ -77,6 +77,7 @@ export const components: Record<string, AnyComponent> = {
   "kinetic-beat": dynamic(() => import("@registry/textlab/kinetic-beat/kinetic-beat")),
   "word-sequence": dynamic(() => import("@registry/textlab/word-sequence/word-sequence")),
   "read-along": dynamic(() => import("@registry/textlab/read-along/read-along")),
+  "echo-text": dynamic(() => import("@registry/textlab/echo-text/echo-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -110,6 +111,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "particle-text": dynamic(() => import("./particle-text")),
   "shader-ripple": dynamic(() => import("./shader-ripple")),
   "noise-dissolve": dynamic(() => import("./noise-dissolve")),
+  "echo-text": dynamic(() => import("./echo-text")),
 };
 
 export interface DemoProps {

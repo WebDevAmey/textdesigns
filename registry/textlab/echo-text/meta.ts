@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "echo-text",
+  title: "Echo text",
+  description: "Every change leaves fading echoes behind.",
+  category: "kinetic",
+  exportName: "EchoText",
+  dependencies: ["motion"],
+  variants: ["trail", "ghost"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"trail" | "ghost"', default: '"trail"', description: "A row of offset copies that fade in sequence, or a single bloom outward." },
+    { name: "echoes", type: "number", default: "4", description: "Copies per change, for trail." },
+    { name: "live", type: "boolean", default: "true", description: "Announce changes politely." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<EchoText text={status} variant="ghost" />`,
+  whenToUse: ["Status words, scores and mode labels where the change matters.", "Expressive headlines that cycle."],
+  whenNotToUse: ["Values that change many times a second; echoes pile up.", "Dense UI where trailing copies would overlap neighbours."],
+  accessibility: ["The new text is announced politely; echoes are aria-hidden.", "Echoes never block pointer events."],
+  motion: ["Echoes drift down and right, each a beat behind the last, and fade over about 0.7 s.", "Only the last three changes keep echoes, so rapid updates stay clean."],
+  reducedMotion: "The text swaps in place with no echoes.",
+  performance: ["A few short-lived motion spans per change, removed when they finish."],
+  related: ["text-morph", "word-rotator", "chromatic-text"],
+  keywords: ["echo", "ghost", "trail", "afterimage", "text change", "transition"],
+  controls: [{ prop: "variant", kind: "select", options: ["trail", "ghost"] }, { prop: "echoes", kind: "range", min: 1, max: 8, step: 1 }],
+  preset: {},
+  added: "2026-10-18",
+};

@@ -68,6 +68,7 @@ import { meta as noiseDissolve } from "./textlab/noise-dissolve/meta";
 import { meta as kineticBeat } from "./textlab/kinetic-beat/meta";
 import { meta as wordSequence } from "./textlab/word-sequence/meta";
 import { meta as readAlong } from "./textlab/read-along/meta";
+import { meta as echoText } from "./textlab/echo-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -140,6 +141,7 @@ export const catalog: ComponentMeta[] = [
   kineticBeat,
   wordSequence,
   readAlong,
+  echoText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
