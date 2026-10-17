@@ -63,6 +63,12 @@ describe("registry items", () => {
     expect(item.registryDependencies?.some((d) => d.endsWith("/r/text-fx.json"))).toBe(true);
     expect(item.files[0].target).toBe(`@components/textlab/${meta.name}/${meta.name}.tsx`);
   });
+
+  it("pins motion to the major version the components are tested on", () => {
+    const meta = catalog.find((c) => c.dependencies.includes("motion"))!;
+    const item = buildItem(meta, [{ file: `${meta.name}.tsx`, content: "x" }]);
+    expect(item.dependencies).toContain("motion@^12.38.0");
+  });
 });
 
 describe("markdown", () => {
