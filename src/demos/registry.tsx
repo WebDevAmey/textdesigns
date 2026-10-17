@@ -36,6 +36,7 @@ export const components: Record<string, AnyComponent> = {
   "neon-text": dynamic(() => import("@registry/textlab/neon-text/neon-text")),
   "aurora-text": dynamic(() => import("@registry/textlab/aurora-text/aurora-text")),
   "holo-text": dynamic(() => import("@registry/textlab/holo-text/holo-text")),
+  "spotlight-text": dynamic(() => import("@registry/textlab/spotlight-text/spotlight-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */

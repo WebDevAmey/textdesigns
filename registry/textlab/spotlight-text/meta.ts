@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "spotlight-text",
+  title: "Spotlight text",
+  description: "A light follows the cursor and reveals the copy.",
+  category: "light",
+  exportName: "SpotlightText",
+  dependencies: [],
+  variants: ["reveal", "glow", "outline"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"reveal" | "glow" | "outline"', default: '"reveal"', description: "Lift dim text, add a warm light, or fill hollow letters under the light." },
+    { name: "radius", type: "number", default: "2.2", description: "Radius of the light in em." },
+    { name: "color", type: "string", default: "var(--tl-fx-glow)", description: "Light color for the glow variant." },
+    { name: "dim", type: "number", default: "0.22", description: "Visibility outside the light, 0 to 1." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<SpotlightText as="h2" text="Look around" variant="glow" />`,
+  whenToUse: ["Hero statements meant to be explored.", "Dark, cinematic sections."],
+  whenNotToUse: ["Instructions or anything people must read in full immediately.", "Light backgrounds with the glow variant."],
+  accessibility: ["Screen readers get the text from a hidden copy.", "Outside the light the text stays legible at reduced contrast; raise dim if it must pass AA."],
+  motion: ["The light trails the pointer slightly, like a heavy torch.", "When the pointer leaves, the light fades rather than snapping off."],
+  reducedMotion: "Shows the text normally with no light.",
+  performance: ["A radial mask driven by CSS variables written once per frame while moving."],
+  related: ["holo-text", "glass-text", "variable-proximity"],
+  keywords: ["spotlight", "flashlight", "torch", "cursor reveal", "mask", "hover light"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["reveal", "glow", "outline"] }, { prop: "radius", kind: "range", min: 0.8, max: 6, step: 0.1 }],
+  preset: { text: "Look around" },
+  added: "2026-10-17",
+};
