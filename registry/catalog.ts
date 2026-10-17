@@ -62,6 +62,7 @@ import { meta as pathText } from "./textlab/path-text/meta";
 import { meta as asciiText } from "./textlab/ascii-text/meta";
 import { meta as ditherText } from "./textlab/dither-text/meta";
 import { meta as pixelSort } from "./textlab/pixel-sort/meta";
+import { meta as particleText } from "./textlab/particle-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -128,6 +129,7 @@ export const catalog: ComponentMeta[] = [
   asciiText,
   ditherText,
   pixelSort,
+  particleText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

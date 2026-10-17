@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "particle-text",
+  title: "Particle text",
+  description: "Particles gather into letters and scatter on touch.",
+  category: "pixel",
+  exportName: "ParticleText",
+  dependencies: [],
+  variants: ["dust", "sand", "stars"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"dust" | "sand" | "stars"', default: '"dust"', description: "Fine quick dust, heavy warm sand that sags under the pointer, or twinkling stars." },
+    { name: "gap", type: "number", default: "3", description: "Sampling gap in px; smaller means more particles." },
+    { name: "radius", type: "number", default: "1.2", description: "Pointer push radius in em." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ParticleText as="h1" text="Stardust" variant="stars" />`,
+  whenToUse: ["Launch pages and immersive heroes.", "One large word per screen."],
+  whenNotToUse: ["Several instances; each one simulates thousands of particles.", "Low-power contexts where battery matters."],
+  accessibility: ["Decorative canvas; the text is read from a hidden copy.", "Particles settle into readable letters within a second or two."],
+  motion: ["Particles gather from a wide cloud when the word scrolls in.", "The pointer pushes them away; springs pull them home."],
+  reducedMotion: "Plain text instead of the canvas.",
+  performance: ["Capped at 9,000 particles; the loop sleeps once they settle (except stars, which twinkle).", "Typed arrays, one draw call per frame for dust."],
+  related: ["dither-text", "noise-dissolve", "letter-drop"],
+  keywords: ["particles", "particle text", "canvas", "interactive", "stardust", "sand"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["dust", "sand", "stars"] }, { prop: "gap", kind: "range", min: 2, max: 6, step: 0.5 }],
+  preset: { text: "Stardust" },
+  heavy: true,
+  added: "2026-10-18",
+};
