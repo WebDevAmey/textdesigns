@@ -1,0 +1,31 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "neon-text",
+  title: "Neon sign",
+  description: "A neon sign that hums and flickers on.",
+  category: "light",
+  exportName: "NeonText",
+  dependencies: [],
+  variants: ["flicker", "steady", "pulse"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"flicker" | "steady" | "pulse"', default: '"flicker"', description: "Powers on and stutters now and then, hums gently, or breathes its glow." },
+    { name: "color", type: "string", default: "hot pink", description: "Tube color. The core is mixed toward white." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<NeonText text="Open late" color="oklch(0.78 0.18 200)" />`,
+  whenToUse: ["Nightlife, music and retro brands on dark backgrounds.", "A single sign-like word."],
+  whenNotToUse: ["Light backgrounds; the glow washes out.", "Running copy."],
+  accessibility: ["Flicker stays under two flashes per second.", "The text is plain and unsplit."],
+  motion: ["Power-on takes 1.4 s, then a rare stutter every 7 s.", "Pulse breathes the halo over 3 s, not the letters."],
+  reducedMotion: "The sign glows steadily with no flicker.",
+  performance: ["Text-shadow only; animation is CSS.", "Pulse animates text-shadow, which repaints; use it once per screen."],
+  related: ["ember-text", "aurora-text", "glitch-text"],
+  keywords: ["neon", "glow", "flicker", "sign", "retro", "synthwave"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["flicker", "steady", "pulse"] }],
+  preset: { text: "Open late" },
+  added: "2026-10-17",
+};

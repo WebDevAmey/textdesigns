@@ -33,6 +33,7 @@ export const components: Record<string, AnyComponent> = {
   "caret-morph": dynamic(() => import("@registry/textlab/caret-morph/caret-morph")),
   "gradient-text": dynamic(() => import("@registry/textlab/gradient-text/gradient-text")),
   "shimmer-text": dynamic(() => import("@registry/textlab/shimmer-text/shimmer-text")),
+  "neon-text": dynamic(() => import("@registry/textlab/neon-text/neon-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
