@@ -1,0 +1,84 @@
+/*
+ * Textlab tokens. Import once in your root layout:
+ *   import "@/components/textlab/tokens.css";
+ * Colors fall back to shadcn's semantic variables when they exist.
+ */
+:root {
+  --tl-background: var(--background, oklch(0.99 0.002 90));
+  --tl-surface: oklch(0.975 0.003 90);
+  --tl-surface-2: oklch(0.95 0.004 90);
+  --tl-foreground: var(--foreground, oklch(0.18 0.006 90));
+  --tl-text-secondary: oklch(0.45 0.008 90);
+  --tl-text-tertiary: oklch(0.62 0.008 90);
+  --tl-border: var(--border, oklch(0.9 0.004 90));
+  --tl-accent: oklch(0.62 0.19 35);
+  --tl-accent-foreground: oklch(0.99 0 0);
+
+  --tl-fx-highlight: oklch(0.92 0.15 100 / 0.75);
+  --tl-fx-glow: oklch(0.72 0.17 35);
+  --tl-fx-ink: oklch(0.2 0.02 260);
+  --tl-fx-spectrum-1: oklch(0.7 0.19 30);
+  --tl-fx-spectrum-2: oklch(0.78 0.16 80);
+  --tl-fx-spectrum-3: oklch(0.7 0.14 190);
+  --tl-fx-spectrum-4: oklch(0.6 0.2 290);
+
+  --tl-font-sans: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  --tl-font-display: var(--font-display, ui-serif, Georgia, serif);
+  --tl-font-flex: var(--font-flex, var(--tl-font-sans));
+  --tl-font-mono: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  --tl-text-display: clamp(2.5rem, 6vw + 1rem, 6rem);
+  --tl-text-title: clamp(1.75rem, 3vw + 1rem, 3rem);
+  --tl-leading-tight: 1.05;
+  --tl-tracking-tight: -0.02em;
+
+  --tl-ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --tl-ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
+  --tl-ease-standard: cubic-bezier(0.65, 0, 0.35, 1);
+  --tl-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --tl-duration-fast: 160ms;
+  --tl-duration-base: 240ms;
+  --tl-duration-slow: 400ms;
+  --tl-duration-reveal: 800ms;
+}
+
+.dark,
+[data-theme="dark"] {
+  --tl-background: var(--background, oklch(0.16 0.004 90));
+  --tl-surface: oklch(0.2 0.004 90);
+  --tl-surface-2: oklch(0.24 0.005 90);
+  --tl-foreground: var(--foreground, oklch(0.96 0.004 90));
+  --tl-text-secondary: oklch(0.72 0.006 90);
+  --tl-text-tertiary: oklch(0.56 0.006 90);
+  --tl-border: var(--border, oklch(0.3 0.004 90));
+  --tl-accent: oklch(0.72 0.17 40);
+  --tl-accent-foreground: oklch(0.16 0 0);
+
+  --tl-fx-highlight: oklch(0.55 0.13 100 / 0.55);
+  --tl-fx-glow: oklch(0.78 0.16 40);
+  --tl-fx-ink: oklch(0.92 0.01 260);
+}
+
+/* Parts rendered hidden on the server show anyway if scripts are slow. Hydration removes data-tl-pending. */
+[data-tl-pending] [data-tl-part] {
+  animation: tl-settle 0.4s var(--tl-ease-enter) 2.4s forwards;
+}
+
+@keyframes tl-settle {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
+}
+
+/* Before hydration the JS reduced-motion branch has not run yet, so the stylesheet shows the final state. */
+@media (prefers-reduced-motion: reduce) {
+  [data-tl-motion="user"] [data-tl-part] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    animation: none !important;
+  }
+}
