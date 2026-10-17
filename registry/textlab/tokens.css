@@ -26,6 +26,7 @@
   --tl-font-display: var(--font-display, ui-serif, Georgia, serif);
   --tl-font-flex: var(--font-flex, var(--tl-font-sans));
   --tl-font-mono: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  --tl-font-script: var(--font-script, "Snell Roundhand", "Brush Script MT", cursive);
   --tl-text-display: clamp(2.5rem, 6vw + 1rem, 6rem);
   --tl-text-title: clamp(1.75rem, 3vw + 1rem, 3rem);
   --tl-leading-tight: 1.05;

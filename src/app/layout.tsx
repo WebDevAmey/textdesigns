@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif, Roboto_Flex } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif, Mrs_Saint_Delafield, Roboto_Flex } from "next/font/google";
 import { SiteHeader } from "@/site/site-header";
 import { SiteFooter } from "@/site/site-footer";
 import { site } from "@/site/config";
@@ -8,6 +8,7 @@ import "./globals.css";
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 const instrument = Instrument_Serif({ variable: "--font-instrument", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
+const script = Mrs_Saint_Delafield({ variable: "--font-script", subsets: ["latin"], weight: "400" });
 const robotoFlex = Roboto_Flex({ variable: "--font-roboto-flex", subsets: ["latin"], axes: ["wdth", "opsz", "slnt", "GRAD"] });
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ const themeScript = `try{var t=localStorage.getItem("tl-theme");var d=t?t==="dar
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${instrument.variable} ${robotoFlex.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${instrument.variable} ${robotoFlex.variable} ${script.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
