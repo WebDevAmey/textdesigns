@@ -13,6 +13,7 @@ export const components: Record<string, AnyComponent> = {
   "line-reveal": dynamic(() => import("@registry/textlab/line-reveal/line-reveal")),
   "char-reveal": dynamic(() => import("@registry/textlab/char-reveal/char-reveal")),
   "wipe-reveal": dynamic(() => import("@registry/textlab/wipe-reveal/wipe-reveal")),
+  "in-view-title": dynamic(() => import("@registry/textlab/in-view-title/in-view-title")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
