@@ -57,7 +57,7 @@ Import the tokens once in your root layout: \`import "@/components/textlab/token
 
 ### Manual
 
-1. Install the dependencies: \`npm install ${meta.dependencies.join(" ") || "motion"}\`
+1. Install the dependencies: \`npm install ${meta.dependencies.map((d) => (d === "motion" ? "motion@12" : d)).join(" ") || "motion@12"}\`
 2. Copy \`text-fx\` (${registryUrl("text-fx")}) and this component into \`components/textlab/\`.
 
 ## Usage

@@ -42,7 +42,7 @@ export default function Installation() {
 
       <h2>Manual install</h2>
       <p>
-        Every registry item is plain JSON with the source inlined. Open any <code>/r/&lt;name&gt;.json</code>, copy the files into the same folders, and run <code>npm install motion</code> when a component lists it.
+        Every registry item is plain JSON with the source inlined. Open any <code>/r/&lt;name&gt;.json</code>, copy the files into the same folders, and run <code>npm install motion@12</code> when a component lists it.
       </p>
     </DocPage>
   );
