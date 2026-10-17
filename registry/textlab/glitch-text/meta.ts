@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "glitch-text",
+  title: "Glitch text",
+  description: "A controlled digital glitch on cue.",
+  category: "distort",
+  exportName: "GlitchText",
+  dependencies: [],
+  variants: ["slice", "shift", "scan"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"slice" | "shift" | "scan"', default: '"slice"', description: "Tear bands sideways, jolt the word, or roll a bright scan band through it." },
+    { name: "trigger", type: '"interval" | "hover" | "mount"', default: '"interval"', description: "When it glitches." },
+    { name: "every", type: "number", default: "3.5", description: "Seconds between bursts for interval." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<GlitchText text="Signal lost" trigger="hover" />`,
+  whenToUse: ["Gaming, music and cyber themes.", "Error and 404 pages with personality."],
+  whenNotToUse: ["Serious or high-trust contexts like payments.", "More than one glitch on screen."],
+  accessibility: ["Bursts are 450 ms with at least 3 s between them by default, well under flash thresholds.", "The readable text never moves except in the shift variant's short jolt."],
+  motion: ["Hard steps, not tweens, so it looks digital.", "Long rests between bursts keep it intentional."],
+  reducedMotion: "No glitching; plain text.",
+  performance: ["CSS keyframes on clip-path and transform; idle between bursts."],
+  related: ["chromatic-text", "slice-reveal", "scramble-text"],
+  keywords: ["glitch", "rgb split", "distortion", "cyberpunk", "error", "vhs"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["slice", "shift", "scan"] }],
+  preset: { text: "Signal lost" },
+  added: "2026-10-17",
+};
