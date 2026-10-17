@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "liquid-text",
+  title: "Liquid text",
+  description: "Ripples run through the letters under the cursor.",
+  category: "distort",
+  exportName: "LiquidText",
+  dependencies: [],
+  variants: ["ripple", "wave", "still"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"ripple" | "wave" | "still"', default: '"ripple"', description: "Stir under the pointer, keep a slow current running, or stay calm until touched." },
+    { name: "strength", type: "number", default: "14", description: "Displacement in px at full stir." },
+    { name: "radius", type: "number", default: "1.6", description: "Radius of the stirred area in em." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<LiquidText as="h2" text="Still water" variant="still" />`,
+  whenToUse: ["Water, wellness and audio brands.", "Large display words people will hover."],
+  whenNotToUse: ["Text that must be read while the pointer is over it.", "Small sizes; the ripple scale is in pixels."],
+  accessibility: ["Only a decorative copy is distorted; screen readers read the text once.", "Outside the pointer's circle the text is untouched."],
+  motion: ["The current drifts slowly on two sine waves so it never loops visibly.", "Stir fades in and out with the pointer instead of switching."],
+  reducedMotion: "Plain, still text.",
+  performance: ["One SVG turbulence filter. The loop pauses offscreen and when the tab is hidden."],
+  related: ["heat-haze", "gooey-text", "ink-bleed"],
+  keywords: ["liquid", "water", "ripple", "displacement", "turbulence", "svg filter"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["ripple", "wave", "still"] }, { prop: "strength", kind: "range", min: 2, max: 40, step: 1 }],
+  preset: { text: "Still water" },
+  added: "2026-10-17",
+};

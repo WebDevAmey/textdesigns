@@ -31,6 +31,7 @@ import { meta as spotlightText } from "./textlab/spotlight-text/meta";
 import { meta as glassText } from "./textlab/glass-text/meta";
 import { meta as emberText } from "./textlab/ember-text/meta";
 import { meta as gooeyText } from "./textlab/gooey-text/meta";
+import { meta as liquidText } from "./textlab/liquid-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -66,6 +67,7 @@ export const catalog: ComponentMeta[] = [
   glassText,
   emberText,
   gooeyText,
+  liquidText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
