@@ -49,6 +49,7 @@ export const components: Record<string, AnyComponent> = {
   "scroll-skew": dynamic(() => import("@registry/textlab/scroll-skew/scroll-skew")),
   "velocity-marquee": dynamic(() => import("@registry/textlab/velocity-marquee/velocity-marquee")),
   "scroll-stretch": dynamic(() => import("@registry/textlab/scroll-stretch/scroll-stretch")),
+  "depth-layers": dynamic(() => import("@registry/textlab/depth-layers/depth-layers")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -66,6 +67,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "scroll-skew": dynamic(() => import("./scroll-skew")),
   "velocity-marquee": dynamic(() => import("./velocity-marquee")),
   "scroll-stretch": dynamic(() => import("./scroll-stretch")),
+  "depth-layers": dynamic(() => import("./depth-layers")),
 };
 
 export interface DemoProps {
