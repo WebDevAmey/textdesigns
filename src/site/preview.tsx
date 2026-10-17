@@ -9,6 +9,7 @@ export interface PreviewProps {
   name: string;
   variants: string[];
   preset?: Record<string, unknown>;
+  /** Kept for callers; scroll demos manage their own scroll area. */
   scroll?: boolean;
   /** Fixed props, for example from the playground. */
   props?: Record<string, unknown>;
@@ -16,7 +17,7 @@ export interface PreviewProps {
 }
 
 /** A live stage for one component, with a variant switcher and a replay button. */
-export function Preview({ name, variants, preset, scroll, props, height = 420 }: PreviewProps) {
+export function Preview({ name, variants, preset, props, height = 420 }: PreviewProps) {
   const [variant, setVariant] = useState(variants[0] ?? "");
   const [run, setRun] = useState(0);
   const Demo = demos[name];
@@ -41,7 +42,7 @@ export function Preview({ name, variants, preset, scroll, props, height = 420 }:
         </button>
       </div>
       <div
-        className={`relative flex w-full items-center justify-center px-6 ${scroll ? "overflow-y-auto" : "overflow-hidden"}`}
+        className="relative flex w-full items-center justify-center overflow-hidden px-6"
         style={{ height }}
         data-preview-stage=""
       >
