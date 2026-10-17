@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "cursor-trail",
+  title: "Cursor trail",
+  description: "A word trails behind the cursor letter by letter.",
+  category: "cursor",
+  exportName: "CursorTrail",
+  dependencies: [],
+  variants: ["chain", "scatter"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"chain" | "scatter"', default: '"chain"', description: "String letters along your path, or let each chase the cursor." },
+    { name: "children", type: "ReactNode", description: "Content of the area the trail lives in." },
+    { name: "spacing", type: "number", default: "0.62", description: "Distance between letters on the chain, in em." },
+    { name: "trailClassName", type: "string", description: "Class for the trailing letters." },
+    { ...commonProps.as, default: '"div"' },
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<CursorTrail text="hello" className="h-80 rounded-xl border"><p>Move your mouse here</p></CursorTrail>`,
+  whenToUse: ["Playful hero areas and 404 pages.", "Portfolio sections that invite exploring."],
+  whenNotToUse: ["Over content people need to read or click; the trail sits on top.", "Touch-only experiences."],
+  accessibility: ["The trail is decorative and aria-hidden; it never blocks clicks.", "Content inside the area works normally."],
+  motion: ["Chain letters hold a fixed distance and turn to follow the path.", "Letters fade in and out with the pointer instead of popping."],
+  reducedMotion: "No trail; the area renders its content only.",
+  performance: ["One frame loop that writes transforms; pauses when offscreen."],
+  related: ["magnetic-text", "path-text", "spotlight-text"],
+  keywords: ["cursor trail", "mouse trail", "follow cursor", "snake", "interactive"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["chain", "scatter"] }],
+  preset: { text: "follow me" },
+  added: "2026-10-18",
+};

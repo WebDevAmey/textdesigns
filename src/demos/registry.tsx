@@ -58,6 +58,7 @@ export const components: Record<string, AnyComponent> = {
   "circle-annotate": dynamic(() => import("@registry/textlab/circle-annotate/circle-annotate")),
   "magnetic-text": dynamic(() => import("@registry/textlab/magnetic-text/magnetic-text")),
   "variable-proximity": dynamic(() => import("@registry/textlab/variable-proximity/variable-proximity")),
+  "cursor-trail": dynamic(() => import("@registry/textlab/cursor-trail/cursor-trail")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -81,6 +82,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "underline-draw": dynamic(() => import("./underline-draw")),
   "strike-through": dynamic(() => import("./strike-through")),
   "circle-annotate": dynamic(() => import("./circle-annotate")),
+  "cursor-trail": dynamic(() => import("./cursor-trail")),
 };
 
 export interface DemoProps {
