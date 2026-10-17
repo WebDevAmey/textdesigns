@@ -69,6 +69,7 @@
     transform: none;
     filter: none;
     clip-path: none;
+    --tl-wipe: 200%;
   }
 }
 
@@ -79,6 +80,8 @@
     transform: none !important;
     filter: none !important;
     clip-path: none !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
     animation: none !important;
   }
 }
