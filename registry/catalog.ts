@@ -48,6 +48,7 @@ import { meta as underlineDraw } from "./textlab/underline-draw/meta";
 import { meta as strikeThrough } from "./textlab/strike-through/meta";
 import { meta as circleAnnotate } from "./textlab/circle-annotate/meta";
 import { meta as magneticText } from "./textlab/magnetic-text/meta";
+import { meta as variableProximity } from "./textlab/variable-proximity/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -100,6 +101,7 @@ export const catalog: ComponentMeta[] = [
   strikeThrough,
   circleAnnotate,
   magneticText,
+  variableProximity,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
