@@ -1,0 +1,31 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "text-morph",
+  title: "Text morph",
+  description: "One word turns into the next, letter by letter.",
+  category: "typing",
+  exportName: "TextMorph",
+  dependencies: ["motion"],
+  variants: ["slide", "blur", "flip"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"slide" | "blur" | "flip"', default: '"slide"', description: "How new letters arrive and old ones leave. Shared letters always glide." },
+    { name: "live", type: "boolean", default: "true", description: "Announce changes politely to screen readers." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<button onClick={save}><TextMorph text={saved ? "Saved" : "Save"} /></button>`,
+  whenToUse: ["Button labels that change state: Save to Saved, Follow to Following.", "Toggles and short status words."],
+  whenNotToUse: ["Long sentences; most letters change, so the morph reads as noise.", "Labels that change many times a second."],
+  accessibility: ["The new label is announced politely by default.", "Letters are aria-hidden; screen readers never hear them one by one."],
+  motion: ["Shared letters glide on a smooth spring and can be interrupted mid-morph.", "Exits are quick (150 ms) so the new word never waits."],
+  reducedMotion: "The label swaps instantly.",
+  performance: ["Layout animation per letter; keep labels short."],
+  related: ["word-rotator", "typewriter", "flip-roll"],
+  keywords: ["morph", "label", "flip", "layout animation", "button state", "text transition"],
+  controls: [{ prop: "variant", kind: "select", options: ["slide", "blur", "flip"] }],
+  preset: {},
+  added: "2026-10-17",
+};

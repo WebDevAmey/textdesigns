@@ -28,6 +28,7 @@ export const components: Record<string, AnyComponent> = {
   "scramble-text": dynamic(() => import("@registry/textlab/scramble-text/scramble-text")),
   "hover-scramble": dynamic(() => import("@registry/textlab/hover-scramble/hover-scramble")),
   "matrix-decode": dynamic(() => import("@registry/textlab/matrix-decode/matrix-decode")),
+  "text-morph": dynamic(() => import("@registry/textlab/text-morph/text-morph")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -37,6 +38,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "split-flap": dynamic(() => import("./split-flap")),
   "price-ticker": dynamic(() => import("./price-ticker")),
   "countdown": dynamic(() => import("./countdown")),
+  "text-morph": dynamic(() => import("./text-morph")),
 };
 
 export interface DemoProps {
