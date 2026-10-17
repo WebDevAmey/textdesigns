@@ -38,7 +38,7 @@ const PATHS = { line: roughUnderline, wave: roughWave, scribble: roughScribble }
  * A hand-drawn underline sketches in under the words. The stroke keeps its width at any size, and
  * the jitter is seeded from the text so every underline is unique but stable.
  */
-export function UnderlineDraw({ children, variant = "line", color = "var(--tl-accent, #e5643a)", thickness = 3, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration, ease, reducedMotion = "user", className, style }: UnderlineDrawProps) {
+export function UnderlineDraw({ children, variant = "line", color = "var(--tl-accent, #3a9a5b)", thickness = 3, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration, ease, reducedMotion = "user", className, style }: UnderlineDrawProps) {
   const { ref, on, bind } = useTrigger<HTMLElement>({ trigger, active, once });
   const reduced = useReduced(reducedMotion);
   const seed = hashString(typeof children === "string" ? children : variant);

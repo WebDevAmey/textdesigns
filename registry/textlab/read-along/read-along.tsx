@@ -29,7 +29,7 @@ export interface ReadAlongProps {
  * A selection-like highlight follows the reading, word by word, at a natural pace. Longer words get
  * a little more time, and punctuation earns a pause.
  */
-export function ReadAlong({ text, variant = "highlight", wpm = 220, color = "var(--tl-accent, #e5643a)", loop = true, as: Tag = "p", reducedMotion = "user", className, style }: ReadAlongProps) {
+export function ReadAlong({ text, variant = "highlight", wpm = 220, color = "var(--tl-accent, #3a9a5b)", loop = true, as: Tag = "p", reducedMotion = "user", className, style }: ReadAlongProps) {
   const { ref, on } = useTrigger<HTMLElement>({ trigger: "inView", once: false });
   const reduced = useReduced(reducedMotion);
   const words = splitWords(text);

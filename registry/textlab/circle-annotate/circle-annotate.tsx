@@ -32,7 +32,7 @@ export interface CircleAnnotateProps {
 const PATHS = { circle: roughEllipse, box: roughBox, bracket: roughBrackets };
 
 /** A pen circles the word that matters, in one continuous stroke that overshoots its start. */
-export function CircleAnnotate({ children, variant = "circle", color = "var(--tl-accent, #e5643a)", thickness = 2.5, padding = 0.25, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration = 0.9, reducedMotion = "user", className, style }: CircleAnnotateProps) {
+export function CircleAnnotate({ children, variant = "circle", color = "var(--tl-accent, #3a9a5b)", thickness = 2.5, padding = 0.25, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration = 0.9, reducedMotion = "user", className, style }: CircleAnnotateProps) {
   const { ref, on, bind } = useTrigger<HTMLElement>({ trigger, active, once });
   const reduced = useReduced(reducedMotion);
   const d = PATHS[variant](hashString(typeof children === "string" ? children : variant));

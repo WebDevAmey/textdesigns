@@ -30,7 +30,7 @@ type Box = { x: number; y: number; w: number; h: number };
  * A caret that glides between words and reshapes to fit them. Point at a word, or focus the
  * sentence and use the arrow keys, and the caret springs there.
  */
-export function CaretMorph({ text, variant = "highlight", autoplay = true, interval = 1.3, color = "var(--tl-accent, #e5643a)", as: Tag = "p", reducedMotion = "user", className, style }: CaretMorphProps) {
+export function CaretMorph({ text, variant = "highlight", autoplay = true, interval = 1.3, color = "var(--tl-accent, #3a9a5b)", as: Tag = "p", reducedMotion = "user", className, style }: CaretMorphProps) {
   const reduced = useReduced(reducedMotion);
   const words = splitWords(text);
   const root = useRef<HTMLElement | null>(null);

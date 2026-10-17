@@ -28,13 +28,13 @@
 }
 
 :root {
-  --code-bg: oklch(0.97 0.003 90);
+  --code-bg: oklch(0.965 0 0);
   --header-h: 56px;
   color-scheme: light;
 }
 
 .dark {
-  --code-bg: oklch(0.19 0.004 90);
+  --code-bg: oklch(0.185 0 0);
   color-scheme: dark;
 }
 
@@ -58,7 +58,7 @@
   }
 
   ::selection {
-    background: oklch(0.62 0.19 35 / 0.22);
+    background: color-mix(in oklab, var(--tl-accent) 28%, transparent);
   }
 
   /* Keyboard focus gets a visible ring; pointer focus does not. */

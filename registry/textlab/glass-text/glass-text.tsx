@@ -28,7 +28,7 @@ const DEFAULT_BACKDROP =
  * Glass letters over a scene. Each letter shows the scene behind it magnified and shifted, as thick
  * glass would, with a bright rim and a highlight that follows the pointer.
  */
-export function GlassText({ text, variant = "clear", backdrop = DEFAULT_BACKDROP, tint = "var(--tl-accent, #e5643a)", as: Tag = "span", reducedMotion = "user", className, style }: GlassTextProps) {
+export function GlassText({ text, variant = "clear", backdrop = DEFAULT_BACKDROP, tint = "var(--tl-accent, #3a9a5b)", as: Tag = "span", reducedMotion = "user", className, style }: GlassTextProps) {
   const ref = useRef<HTMLElement | null>(null);
   const reduced = useReduced(reducedMotion);
   usePointerVars(ref, { enabled: !reduced, rate: 9 });

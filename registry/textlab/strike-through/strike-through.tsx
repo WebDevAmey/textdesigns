@@ -35,7 +35,7 @@ export interface StrikeThroughProps {
  * Cross out a word and, if you like, write the new one above it. The old word dims as the pen
  * passes, so the correction reads in the right order.
  */
-export function StrikeThrough({ text, variant = "line", replacement, color = "var(--tl-accent, #e5643a)", thickness = 3, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration = 0.5, reducedMotion = "user", className, style }: StrikeThroughProps) {
+export function StrikeThrough({ text, variant = "line", replacement, color = "var(--tl-accent, #3a9a5b)", thickness = 3, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration = 0.5, reducedMotion = "user", className, style }: StrikeThroughProps) {
   const { ref, on, bind } = useTrigger<HTMLElement>({ trigger, active, once });
   const reduced = useReduced(reducedMotion);
   const struck = on || reduced;

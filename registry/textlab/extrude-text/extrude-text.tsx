@@ -48,7 +48,7 @@ function layers(variant: ExtrudeTextVariant, depth: number, color: string) {
  * Depth grows from the letters on hover. The extrusion is a registered CSS property, so the browser
  * interpolates it smoothly with no JavaScript at all.
  */
-export function ExtrudeText({ text, variant = "block", depth = 14, color = "var(--tl-accent, #e5643a)", hover = true, as: Tag = "span", reducedMotion = "user", className, style }: ExtrudeTextProps) {
+export function ExtrudeText({ text, variant = "block", depth = 14, color = "var(--tl-accent, #3a9a5b)", hover = true, as: Tag = "span", reducedMotion = "user", className, style }: ExtrudeTextProps) {
   const reduced = useReduced(reducedMotion);
   const rest = hover && !reduced ? 0.25 : 1;
   return (
