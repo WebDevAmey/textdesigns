@@ -57,6 +57,7 @@ import { meta as letterDrop } from "./textlab/letter-drop/meta";
 import { meta as elasticText } from "./textlab/elastic-text/meta";
 import { meta as jellyText } from "./textlab/jelly-text/meta";
 import { meta as waveText } from "./textlab/wave-text/meta";
+import { meta as breathingText } from "./textlab/breathing-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -118,6 +119,7 @@ export const catalog: ComponentMeta[] = [
   elasticText,
   jellyText,
   waveText,
+  breathingText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
