@@ -22,7 +22,7 @@ export const meta: ComponentMeta = {
   whenToUse: ["Editor and writing-tool marketing where the caret is the product.", "Interactive pull quotes."],
   whenNotToUse: ["Real text inputs; use the browser caret.", "Long paragraphs; the tour takes too long to be noticed."],
   accessibility: ["The sentence is focusable and named; Left and Right move the caret.", "Pointer and focus pause the tour."],
-  motion: ["The caret moves on the snappy spring, so hopping across words stays quick and interruptible.", "Shape changes ride the same spring as position."],
+  motion: ["The caret glides in 200 ms with a strong ease-out and retargets mid-move, so hopping across words stays quick.", "Position and width ride one transform, so the glide never touches layout."],
   reducedMotion: "The caret is hidden; the sentence is plain text.",
   performance: ["One absolutely positioned element. Word boxes are measured on resize, not per frame."],
   related: ["typewriter", "read-along", "marker-highlight"],

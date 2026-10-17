@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ElementType, type KeyboardEvent } from "react";
 import { motion } from "motion/react";
-import { spring } from "../lib/motion-tokens";
+import { duration, ease } from "../lib/motion-tokens";
 import { splitWords } from "../lib/split";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 
@@ -65,12 +65,16 @@ export function CaretMorph({ text, variant = "highlight", autoplay = true, inter
   };
 
   const box = boxes[index];
-  const caret: CSSProperties = { position: "absolute", left: 0, top: 0, pointerEvents: "none", borderRadius: variant === "bar" ? 2 : "0.12em" };
-  const target = box
+  // The caret is a fixed 100px-wide box moved and stretched with one transform, so the glide never
+  // touches layout. Its height only changes with the line height, which does not animate.
+  const BASE = 100;
+  const caret: CSSProperties = { position: "absolute", left: 0, top: 0, width: BASE, pointerEvents: "none", transformOrigin: "0 0", borderRadius: variant === "bar" ? 2 : "0.12em" };
+  const frame = box
     ? variant === "bar"
-      ? { x: box.x + box.w + 2, y: box.y + box.h * 0.12, width: Math.max(2, box.h * 0.06), height: box.h * 0.78 }
-      : { x: box.x - box.h * 0.08, y: box.y + box.h * 0.04, width: box.w + box.h * 0.16, height: box.h * 0.92 }
+      ? { x: box.x + box.w + 2, y: box.y + box.h * 0.12, w: Math.max(2, box.h * 0.06), h: box.h * 0.78 }
+      : { x: box.x - box.h * 0.08, y: box.y + box.h * 0.04, w: box.w + box.h * 0.16, h: box.h * 0.92 }
     : null;
+  const target = frame ? { transform: `translate(${frame.x.toFixed(1)}px, ${frame.y.toFixed(1)}px) scaleX(${(frame.w / BASE).toFixed(4)})` } : null;
 
   return (
     <Tag
@@ -90,13 +94,14 @@ export function CaretMorph({ text, variant = "highlight", autoplay = true, inter
           aria-hidden="true"
           style={{
             ...caret,
+            height: frame?.h,
             background: variant === "highlight" ? `color-mix(in oklab, ${color} 28%, transparent)` : "currentColor",
             mixBlendMode: variant === "block" ? "difference" : undefined,
             zIndex: variant === "block" ? 1 : 0,
           }}
           initial={false}
           animate={target}
-          transition={spring.snappy}
+          transition={{ duration: duration.base * 0.85, ease: [...ease.enter] }}
         />
       )}
       <span aria-hidden="true" style={{ position: "relative" }}>

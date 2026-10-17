@@ -22,7 +22,7 @@ export const meta: ComponentMeta = {
   whenToUse: ["Audio and text-to-speech products.", "Language learning, lyrics and accessibility demos."],
   whenNotToUse: ["Long articles; the pace is fixed.", "As a substitute for real synced captions."],
   accessibility: ["The paragraph is read once from a hidden copy.", "The highlight pauses when the paragraph leaves the viewport."],
-  motion: ["The selection box moves on the snappy spring between words.", "Longer words and punctuation get extra time, like natural reading."],
+  motion: ["The selection box glides between words in 200 ms with a strong ease-out, moved and stretched by one transform.", "Longer words and punctuation get extra time, like natural reading."],
   reducedMotion: "Plain paragraph, no highlight.",
   performance: ["One timer and one moving box; word boxes are read once per step."],
   related: ["scroll-fill", "caret-morph", "marker-highlight"],

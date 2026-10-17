@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ElementType } from "react";
 import { motion } from "motion/react";
 import { SrText } from "../lib/a11y";
-import { spring } from "../lib/motion-tokens";
+import { ease } from "../lib/motion-tokens";
 import { splitWords } from "../lib/split";
 import { useReduced, type ReducedMotion } from "../lib/use-reduced";
 import { useTrigger } from "../lib/use-trigger";
@@ -70,10 +70,11 @@ export function ReadAlong({ text, variant = "highlight", wpm = 220, color = "var
       {variant === "highlight" && box && (
         <motion.span
           aria-hidden="true"
-          style={{ position: "absolute", left: 0, top: 0, borderRadius: "0.15em", background: `color-mix(in oklab, ${color} 26%, transparent)`, pointerEvents: "none" }}
+          style={{ position: "absolute", left: 0, top: 0, width: 100, height: box.h, transformOrigin: "0 0", borderRadius: "0.15em", background: `color-mix(in oklab, ${color} 26%, transparent)`, pointerEvents: "none" }}
           initial={false}
-          animate={{ x: box.x - 3, y: box.y, width: box.w + 6, height: box.h }}
-          transition={spring.snappy}
+          // One transform moves and stretches the box; animating width would cost layout every frame.
+          animate={{ transform: `translate(${box.x - 3}px, ${box.y}px) scaleX(${((box.w + 6) / 100).toFixed(4)})` }}
+          transition={{ duration: 0.2, ease: [...ease.enter] }}
         />
       )}
       <span aria-hidden="true" style={{ position: "relative" }}>
