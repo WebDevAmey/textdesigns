@@ -54,11 +54,13 @@ export function useTrigger<T extends Element = HTMLElement>({ trigger = "mount",
   else if (trigger === "hover") on = hovered;
   else if (trigger === "manual") on = active;
 
+  // Touch has no hover: a tap fires pointerenter without a matching leave, which would leave the
+  // effect stuck on. Only mouse and pen count as hover; keyboard focus always counts.
   const bind =
     trigger === "hover"
       ? {
-          onPointerEnter: () => setHovered(true),
-          onPointerLeave: () => setHovered(false),
+          onPointerEnter: (event: PointerEvent<T>) => event.pointerType !== "touch" && setHovered(true),
+          onPointerLeave: (event: PointerEvent<T>) => event.pointerType !== "touch" && setHovered(false),
           onFocus: () => setHovered(true),
           onBlur: () => setHovered(false),
         }

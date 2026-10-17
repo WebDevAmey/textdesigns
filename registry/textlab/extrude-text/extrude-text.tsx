@@ -23,8 +23,9 @@ export interface ExtrudeTextProps {
 
 const CSS = `
 @property --tl-depth { syntax: "<number>"; inherits: true; initial-value: 0; }
-.tl-extrude { --tl-depth: var(--tl-depth-rest); transition: --tl-depth 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 320ms cubic-bezier(0.22, 1, 0.36, 1); }
-.tl-extrude[data-hover]:hover, .tl-extrude[data-hover]:focus-visible { --tl-depth: 1; }
+.tl-extrude { --tl-depth: var(--tl-depth-rest); transition: --tl-depth 260ms var(--tl-ease-enter, cubic-bezier(0.23, 1, 0.32, 1)), transform 260ms var(--tl-ease-enter, cubic-bezier(0.23, 1, 0.32, 1)); }
+.tl-extrude[data-hover]:focus-visible { --tl-depth: 1; }
+@media (hover: hover) and (pointer: fine) { .tl-extrude[data-hover]:hover { --tl-depth: 1; } }
 @media (prefers-reduced-motion: reduce) { .tl-extrude[data-motion="user"] { transition: none; } }
 `;
 

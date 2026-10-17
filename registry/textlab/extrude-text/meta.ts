@@ -22,7 +22,7 @@ export const meta: ComponentMeta = {
   whenToUse: ["Retro, poster and toy-like brands.", "Big words that should feel pressable."],
   whenNotToUse: ["Small text; the depth smears it.", "Minimal, quiet interfaces."],
   accessibility: ["Plain text with shadows; nothing is split.", "Focus-visible grows it too when the element is focusable."],
-  motion: ["The face lifts up and left as depth grows, so it feels like it rises off the page.", "320 ms with the enter ease."],
+  motion: ["The face lifts up and left as depth grows, so it feels like it rises off the page.", "260 ms with the enter ease; hover only counts on devices with a fine pointer, so taps never leave it stuck raised."],
   reducedMotion: "Fully extruded and still.",
   performance: ["Pure CSS: a registered property interpolates the shadow stack."],
   related: ["tilt-text", "depth-layers", "neon-text"],
