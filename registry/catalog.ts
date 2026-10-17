@@ -43,6 +43,7 @@ import { meta as scrollStretch } from "./textlab/scroll-stretch/meta";
 import { meta as depthLayers } from "./textlab/depth-layers/meta";
 import { meta as outlineDraw } from "./textlab/outline-draw/meta";
 import { meta as signature } from "./textlab/signature/meta";
+import { meta as markerHighlight } from "./textlab/marker-highlight/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -90,6 +91,7 @@ export const catalog: ComponentMeta[] = [
   depthLayers,
   outlineDraw,
   signature,
+  markerHighlight,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
