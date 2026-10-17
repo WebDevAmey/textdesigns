@@ -178,7 +178,7 @@ Done when: `review-animations` comes back clean.
 
 Depends on phase 6.
 
-- [ ] Check installed skills, install missing ones (famous, taste) or note the fallback
+- [x] Check installed skills, install missing ones (famous, taste) or note the fallback. Installed taste (`design-taste-frontend`, `high-end-visual-design`); no "famous" skill exists on skills.sh, so `high-end-visual-design` stands in for hero moments
 - [ ] Signature homepage with the interactive playground (text, variant, speed, easing, export to code)
 - [ ] Docs layout and component page template (ui-ux-pro-max)
 - [ ] Editorial filter on demos (taste)
