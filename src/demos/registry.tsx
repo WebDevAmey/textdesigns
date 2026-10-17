@@ -27,6 +27,7 @@ export const components: Record<string, AnyComponent> = {
   "typewriter": dynamic(() => import("@registry/textlab/typewriter/typewriter")),
   "scramble-text": dynamic(() => import("@registry/textlab/scramble-text/scramble-text")),
   "hover-scramble": dynamic(() => import("@registry/textlab/hover-scramble/hover-scramble")),
+  "matrix-decode": dynamic(() => import("@registry/textlab/matrix-decode/matrix-decode")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
