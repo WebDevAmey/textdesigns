@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "dither-text",
+  title: "Dither text",
+  description: "Ordered dither and halftone dots form the type.",
+  category: "pixel",
+  exportName: "DitherText",
+  dependencies: [],
+  variants: ["dither", "halftone"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"dither" | "halftone"', default: '"dither"', description: "Square Bayer pixels, or dots on an offset screen." },
+    { name: "pitch", type: "number", default: "0.035", description: "Pixel or dot pitch as a share of the font size." },
+    { name: "shade", type: "number", default: "0.55", description: "How much lighter the bottom of the letters gets, 0 to 1." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<DitherText as="h1" text="Print" variant="halftone" />`,
+  whenToUse: ["Editorial, zine and print-inspired brands.", "Heavy display type with room to show texture."],
+  whenNotToUse: ["Small or thin text.", "Busy photographic backgrounds behind it."],
+  accessibility: ["Decorative canvas; the text is read from a hidden copy."],
+  motion: ["Dithers in over 1.1 s as it enters the viewport, in Bayer order.", "The pointer adds a soft spot of extra ink."],
+  reducedMotion: "Plain text instead of the canvas.",
+  performance: ["Rasterises on resize; draws only during the reveal and while the pointer moves."],
+  related: ["ascii-text", "pixel-sort", "particle-text"],
+  keywords: ["dither", "halftone", "bayer", "print", "pixel", "risograph"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["dither", "halftone"] }, { prop: "pitch", kind: "range", min: 0.015, max: 0.08, step: 0.005 }],
+  preset: { text: "Print" },
+  heavy: true,
+  added: "2026-10-18",
+};
