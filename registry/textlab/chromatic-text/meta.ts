@@ -1,0 +1,32 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "chromatic-text",
+  title: "Chromatic text",
+  description: "The color channels split and rejoin.",
+  category: "distort",
+  exportName: "ChromaticText",
+  dependencies: [],
+  variants: ["hover", "velocity", "pulse"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"hover" | "velocity" | "pulse"', default: '"hover"', description: "Split while hovered, with pointer speed, or in a brief pulse every few seconds." },
+    { name: "amount", type: "number", default: "0.06", description: "Largest channel offset in em." },
+    { name: "colors", type: "[string, string]", default: "red and cyan", description: "Fringe colors." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ChromaticText as="h2" text="Out of focus" variant="velocity" />`,
+  whenToUse: ["Music, fashion and camera brands.", "Display headlines that should react to energy."],
+  whenNotToUse: ["Body text; fringes reduce legibility.", "Interfaces where it would read as a rendering bug."],
+  accessibility: ["The real text stays on top and unchanged; fringes are decorative copies.", "Pulse is brief and infrequent, never a flash."],
+  motion: ["Channels slide on damped springs, so the split eases in and out.", "Velocity follows the direction you moved the pointer."],
+  reducedMotion: "No fringes; plain text.",
+  performance: ["Two transformed copies; offsets are CSS variables written per frame only while visible."],
+  related: ["glitch-text", "scroll-skew", "slice-reveal"],
+  keywords: ["chromatic aberration", "rgb split", "fringe", "lens", "glitch"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["hover", "velocity", "pulse"] }, { prop: "amount", kind: "range", min: 0.01, max: 0.2, step: 0.01 }],
+  preset: { text: "Out of focus" },
+  added: "2026-10-17",
+};

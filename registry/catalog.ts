@@ -33,6 +33,7 @@ import { meta as emberText } from "./textlab/ember-text/meta";
 import { meta as gooeyText } from "./textlab/gooey-text/meta";
 import { meta as liquidText } from "./textlab/liquid-text/meta";
 import { meta as inkBleed } from "./textlab/ink-bleed/meta";
+import { meta as chromaticText } from "./textlab/chromatic-text/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -70,6 +71,7 @@ export const catalog: ComponentMeta[] = [
   gooeyText,
   liquidText,
   inkBleed,
+  chromaticText,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

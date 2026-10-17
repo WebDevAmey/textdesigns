@@ -42,6 +42,7 @@ export const components: Record<string, AnyComponent> = {
   "gooey-text": dynamic(() => import("@registry/textlab/gooey-text/gooey-text")),
   "liquid-text": dynamic(() => import("@registry/textlab/liquid-text/liquid-text")),
   "ink-bleed": dynamic(() => import("@registry/textlab/ink-bleed/ink-bleed")),
+  "chromatic-text": dynamic(() => import("@registry/textlab/chromatic-text/chromatic-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
