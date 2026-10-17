@@ -59,6 +59,7 @@ export const components: Record<string, AnyComponent> = {
   "magnetic-text": dynamic(() => import("@registry/textlab/magnetic-text/magnetic-text")),
   "variable-proximity": dynamic(() => import("@registry/textlab/variable-proximity/variable-proximity")),
   "cursor-trail": dynamic(() => import("@registry/textlab/cursor-trail/cursor-trail")),
+  "flip-roll": dynamic(() => import("@registry/textlab/flip-roll/flip-roll")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */

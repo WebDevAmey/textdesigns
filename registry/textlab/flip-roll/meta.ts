@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "flip-roll",
+  title: "Flip roll",
+  description: "Hover and the label rolls up into a fresh copy.",
+  category: "cursor",
+  exportName: "FlipRoll",
+  dependencies: [],
+  variants: ["stagger", "up", "down"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"stagger" | "up" | "down"', default: '"stagger"', description: "Roll letter by letter, or the whole label up or down." },
+    { name: "duration", type: "number", default: "0.45", description: "Seconds per roll." },
+    { name: "stagger", type: "number", default: "0.025", description: "Seconds between letters." },
+    { ...commonProps.ease, default: '"emphasized"' },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<a href="/contact" className="inline-flex"><FlipRoll text="Get in touch" /></a>`,
+  whenToUse: ["Navigation links, buttons and footer links.", "Any short label that deserves a tactile hover."],
+  whenNotToUse: ["Long labels; the stagger tail drags.", "Inline links in body copy."],
+  accessibility: ["Keyboard focus inside triggers it, through focus capture.", "Screen readers read the label once."],
+  motion: ["Under half a second with a long-tailed ease, so it feels quick but soft.", "Leaving reverses immediately, interrupting cleanly."],
+  reducedMotion: "Hover changes nothing.",
+  performance: ["CSS transitions on transform only."],
+  related: ["hover-scramble", "text-morph", "magnetic-text"],
+  keywords: ["roll", "flip", "hover", "button text", "nav link", "text swap"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["stagger", "up", "down"] }],
+  preset: { text: "Hover to roll" },
+  added: "2026-10-18",
+};
