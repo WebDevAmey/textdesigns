@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif, Mrs_Saint_Delafield, Roboto_Flex }
 import { SiteHeader } from "@/site/site-header";
 import { SiteFooter } from "@/site/site-footer";
 import { site } from "@/site/config";
+import { Providers } from "@/site/providers";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -42,9 +43,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <Providers>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </Providers>
       </body>
     </html>
   );

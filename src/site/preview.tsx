@@ -1,6 +1,7 @@
 "use client";
 
 import { RotateCcw } from "lucide-react";
+import { MotionConfig } from "motion/react";
 import { useState } from "react";
 import { components, demos } from "@/demos/registry";
 import { Segmented } from "./segmented";
@@ -39,7 +40,7 @@ export function Preview({ name, variants, preset, props, height = 420 }: Preview
           className="group inline-flex size-8 items-center justify-center rounded-md text-secondary transition-[color,background-color,transform] duration-150 hover:bg-surface-2 hover:text-foreground active:scale-[0.95]"
         >
           <RotateCcw
-            className="size-4 transition-transform duration-[400ms] ease-enter motion-reduce:transition-none"
+            className="size-4 transition-transform duration-300 ease-enter motion-reduce:transition-none"
             style={{ transform: `rotate(${-run * 360}deg)` }}
             strokeWidth={1.75}
           />
@@ -51,7 +52,10 @@ export function Preview({ name, variants, preset, props, height = 420 }: Preview
         data-preview-stage=""
       >
         <div key={`${variant}-${run}`} className="flex w-full max-w-3xl items-center justify-center text-center text-[clamp(1.75rem,4vw,3rem)] leading-[1.1] tracking-[-0.02em]">
-          {Demo ? <Demo variant={variant} props={merged} /> : Component ? <Component {...merged} /> : <p className="text-sm text-secondary">Preview unavailable</p>}
+          {/* Components handle reduced motion themselves through their reducedMotion prop. */}
+          <MotionConfig reducedMotion="never">
+            {Demo ? <Demo variant={variant} props={merged} /> : Component ? <Component {...merged} /> : <p className="text-sm text-secondary">Preview unavailable</p>}
+          </MotionConfig>
         </div>
       </div>
     </div>
