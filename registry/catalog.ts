@@ -12,6 +12,7 @@ import { meta as focusPull } from "./textlab/focus-pull/meta";
 import { meta as rollingNumber } from "./textlab/rolling-number/meta";
 import { meta as odometer } from "./textlab/odometer/meta";
 import { meta as splitFlap } from "./textlab/split-flap/meta";
+import { meta as priceTicker } from "./textlab/price-ticker/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -28,6 +29,7 @@ export const catalog: ComponentMeta[] = [
   rollingNumber,
   odometer,
   splitFlap,
+  priceTicker,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

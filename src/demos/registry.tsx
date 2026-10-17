@@ -21,6 +21,7 @@ export const components: Record<string, AnyComponent> = {
   "rolling-number": dynamic(() => import("@registry/textlab/rolling-number/rolling-number")),
   "odometer": dynamic(() => import("@registry/textlab/odometer/odometer")),
   "split-flap": dynamic(() => import("@registry/textlab/split-flap/split-flap")),
+  "price-ticker": dynamic(() => import("@registry/textlab/price-ticker/price-ticker")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -28,6 +29,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "rolling-number": dynamic(() => import("./rolling-number")),
   "odometer": dynamic(() => import("./odometer")),
   "split-flap": dynamic(() => import("./split-flap")),
+  "price-ticker": dynamic(() => import("./price-ticker")),
 };
 
 export interface DemoProps {
