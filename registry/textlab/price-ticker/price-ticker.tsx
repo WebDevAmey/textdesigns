@@ -95,8 +95,8 @@ export function PriceTicker({
                   width="0.8em"
                   height="0.8em"
                   initial={false}
-                  animate={{ rotate: up ? 0 : 180 }}
-                  transition={{ type: "spring", visualDuration: 0.3, bounce: 0 }}
+                  animate={{ transform: `rotate(${up ? 0 : 180}deg)` }}
+                  transition={{ duration: 0.2, ease: [...ease.enter] }}
                 >
                   <path d="M5 1.5 L9 7.5 H1 Z" fill="currentColor" />
                 </motion.svg>

@@ -64,13 +64,16 @@ export function Signature({ text, variant = "pen", font = "var(--tl-font-script,
             <stop offset="1" stopColor="black" />
           </linearGradient>
           <mask id={`${id}-mask`} maskUnits="userSpaceOnUse" x="-10%" y="-50%" width="120%" height="200%">
+            {/* The soft-edged rect slides in from the left; translating it costs no geometry work. */}
             <motion.rect
               x="-10%"
               y="-50%"
+              width="125%"
               height="200%"
               fill={`url(#${id}-edge)`}
-              initial={{ width: "0%" }}
-              animate={{ width: on ? "125%" : "0%" }}
+              style={{ transformBox: "fill-box" }}
+              initial={{ transform: "translateX(-100%)" }}
+              animate={{ transform: on ? "translateX(0%)" : "translateX(-100%)" }}
               transition={on ? writing : { duration: 0.2 }}
               onAnimationComplete={on ? onComplete : undefined}
             />

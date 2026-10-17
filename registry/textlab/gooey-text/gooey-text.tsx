@@ -53,7 +53,7 @@ export function GooeyText({ words, variant = "blob", interval = 2.2, duration = 
   }
 
   const longest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
-  const exit = variant === "drip" ? { opacity: 0, filter: "blur(10px)", y: "0.5em", scaleY: 1.4 } : { opacity: 0, filter: "blur(12px)" };
+  const exit = variant === "drip" ? { opacity: 0, filter: "blur(10px)", transform: "translateY(0.5em) scaleY(1.4)" } : { opacity: 0, filter: "blur(12px)", transform: "translateY(0em) scaleY(1)" };
 
   return (
     <Tag className={className} style={{ position: "relative", display: "inline-block", ...style }}>
@@ -72,8 +72,8 @@ export function GooeyText({ words, variant = "blob", interval = 2.2, duration = 
           <motion.span
             key={index}
             style={{ gridArea: "1 / 1", textAlign: "center", transformOrigin: "50% 0%" }}
-            initial={{ opacity: 0, filter: "blur(12px)", y: variant === "drip" ? "-0.25em" : 0 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0, scaleY: 1 }}
+            initial={{ opacity: 0, filter: "blur(12px)", transform: `translateY(${variant === "drip" ? "-0.25em" : "0em"}) scaleY(1)` }}
+            animate={{ opacity: 1, filter: "blur(0px)", transform: "translateY(0em) scaleY(1)" }}
             exit={{ ...exit, transition: { duration: duration * 0.9, ease: [...ease.standard] } }}
             transition={{ duration, ease: [...ease.enter] }}
           >
