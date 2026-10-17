@@ -15,8 +15,8 @@ Done when: SPEC sections 2 and 3 are written.
 - [x] Write `docs/SPEC.md`
 - [x] Write `docs/PLAN.md`
 - [x] Set git identity (WebDevAmey, ameytarmale7@gmail.com)
-- [ ] Disable Claude attribution in `.claude/settings.json` (waiting on owner approval)
-- [ ] Strip the Claude co-author trailers from 6 older commits and force-push (waiting on owner approval)
+- [x] Disable Claude attribution in `.claude/settings.json`
+- [x] Strip the Claude co-author trailers from 6 older commits and force-push
 
 Done when: both docs are committed and pushed.
 
