@@ -9,6 +9,7 @@ type AnyComponent = ComponentType<any>;
 /** Each component, loaded only on the pages that show it. */
 export const components: Record<string, AnyComponent> = {
   "blur-reveal": dynamic(() => import("@registry/textlab/blur-reveal/blur-reveal")),
+  "word-reveal": dynamic(() => import("@registry/textlab/word-reveal/word-reveal")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */

@@ -1,5 +1,6 @@
 import type { ComponentMeta } from "./types";
 import { meta as blurReveal } from "./textlab/blur-reveal/meta";
+import { meta as wordReveal } from "./textlab/word-reveal/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [blurReveal];
