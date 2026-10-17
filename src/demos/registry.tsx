@@ -18,10 +18,12 @@ export const components: Record<string, AnyComponent> = {
   "tracking-reveal": dynamic(() => import("@registry/textlab/tracking-reveal/tracking-reveal")),
   "slice-reveal": dynamic(() => import("@registry/textlab/slice-reveal/slice-reveal")),
   "focus-pull": dynamic(() => import("@registry/textlab/focus-pull/focus-pull")),
+  "rolling-number": dynamic(() => import("@registry/textlab/rolling-number/rolling-number")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
 export const demos: Record<string, ComponentType<DemoProps>> = {
+  "rolling-number": dynamic(() => import("./rolling-number")),
 };
 
 export interface DemoProps {
