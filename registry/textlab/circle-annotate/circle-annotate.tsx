@@ -1,0 +1,56 @@
+"use client";
+
+import type { CSSProperties, ElementType, ReactNode } from "react";
+import { motion } from "motion/react";
+import { drawProps } from "../lib/draw";
+import { hashString } from "../lib/math";
+import { roughBox, roughBrackets, roughEllipse } from "../lib/rough";
+import { useReduced, type ReducedMotion } from "../lib/use-reduced";
+import { useTrigger, type Trigger } from "../lib/use-trigger";
+
+export type CircleAnnotateVariant = "circle" | "box" | "bracket";
+
+export interface CircleAnnotateProps {
+  children: ReactNode;
+  /** circle loops around the word, box frames it, bracket sets it off at both ends. */
+  variant?: CircleAnnotateVariant;
+  color?: string;
+  thickness?: number;
+  /** Extra room around the word, in em. */
+  padding?: number;
+  as?: ElementType;
+  trigger?: Exclude<Trigger, "always">;
+  active?: boolean;
+  once?: boolean;
+  delay?: number;
+  duration?: number;
+  reducedMotion?: ReducedMotion;
+  className?: string;
+  style?: CSSProperties;
+}
+
+const PATHS = { circle: roughEllipse, box: roughBox, bracket: roughBrackets };
+
+/** A pen circles the word that matters, in one continuous stroke that overshoots its start. */
+export function CircleAnnotate({ children, variant = "circle", color = "var(--tl-accent, #e5643a)", thickness = 2.5, padding = 0.25, as: Tag = "span", trigger = "inView", active, once = true, delay = 0, duration = 0.9, reducedMotion = "user", className, style }: CircleAnnotateProps) {
+  const { ref, on, bind } = useTrigger<HTMLElement>({ trigger, active, once });
+  const reduced = useReduced(reducedMotion);
+  const d = PATHS[variant](hashString(typeof children === "string" ? children : variant));
+  const draw = drawProps(on, { duration, delay, ease: "standard" });
+  const pad = `${padding}em`;
+  return (
+    <Tag ref={ref} className={className} style={{ position: "relative", display: "inline-block", ...style }} {...bind}>
+      {children}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 100 20"
+        preserveAspectRatio="none"
+        style={{ position: "absolute", left: `calc(-1 * ${pad})`, right: `calc(-1 * ${pad})`, top: `calc(-0.6 * ${pad})`, bottom: `calc(-0.6 * ${pad})`, width: `calc(100% + 2 * ${pad})`, height: `calc(100% + 1.2 * ${pad})`, overflow: "visible", pointerEvents: "none" }}
+      >
+        <motion.path d={d} fill="none" stroke={color} strokeWidth={thickness} strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" {...(reduced ? { initial: false, animate: { pathLength: 1, opacity: 1 } } : draw)} />
+      </svg>
+    </Tag>
+  );
+}
+
+export default CircleAnnotate;

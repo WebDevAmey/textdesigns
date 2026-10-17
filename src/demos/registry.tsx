@@ -55,6 +55,7 @@ export const components: Record<string, AnyComponent> = {
   "marker-highlight": dynamic(() => import("@registry/textlab/marker-highlight/marker-highlight")),
   "underline-draw": dynamic(() => import("@registry/textlab/underline-draw/underline-draw")),
   "strike-through": dynamic(() => import("@registry/textlab/strike-through/strike-through")),
+  "circle-annotate": dynamic(() => import("@registry/textlab/circle-annotate/circle-annotate")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
@@ -77,6 +78,7 @@ export const demos: Record<string, ComponentType<DemoProps>> = {
   "marker-highlight": dynamic(() => import("./marker-highlight")),
   "underline-draw": dynamic(() => import("./underline-draw")),
   "strike-through": dynamic(() => import("./strike-through")),
+  "circle-annotate": dynamic(() => import("./circle-annotate")),
 };
 
 export interface DemoProps {
