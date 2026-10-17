@@ -53,6 +53,7 @@ import { meta as cursorTrail } from "./textlab/cursor-trail/meta";
 import { meta as flipRoll } from "./textlab/flip-roll/meta";
 import { meta as tiltText } from "./textlab/tilt-text/meta";
 import { meta as extrudeText } from "./textlab/extrude-text/meta";
+import { meta as letterDrop } from "./textlab/letter-drop/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -110,6 +111,7 @@ export const catalog: ComponentMeta[] = [
   flipRoll,
   tiltText,
   extrudeText,
+  letterDrop,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);
