@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, type CSSProperties, type ElementType, type ReactNode } from "react";
-import { motion, type TargetAndTransition, type Transition } from "motion/react";
+import { motion, type MotionStyle, type TargetAndTransition, type Transition } from "motion/react";
 import { SrText, cx } from "./a11y";
 import { duration as durations, resolveEase, stagger as staggers, type EaseInput } from "./motion-tokens";
 import { splitWords, type SplitBy } from "./split";
@@ -26,13 +26,15 @@ export interface RevealBaseProps {
   reducedMotion?: ReducedMotion;
   className?: string;
   style?: CSSProperties;
+  /** Forwarded to the root element. */
+  id?: string;
   onComplete?: () => void;
 }
 
 export interface RevealTextProps extends RevealBaseProps {
   by: SplitBy;
-  /** Where each part starts. */
-  hidden: TargetAndTransition;
+  /** Where each part starts. A function gets the part index and count, for per-part offsets. */
+  hidden: TargetAndTransition | ((index: number, total: number) => TargetAndTransition);
   /** Where each part lands. Defaults to the identity: visible, no transform, no blur. */
   shown?: TargetAndTransition;
   /** Wrap each part in an overflow clip so it rises out of nowhere. */
@@ -40,7 +42,7 @@ export interface RevealTextProps extends RevealBaseProps {
   /** Which part moves first. */
   order?: RevealOrder;
   /** Styles applied to every animated part. */
-  partStyle?: CSSProperties | ((index: number, total: number) => CSSProperties);
+  partStyle?: MotionStyle | ((index: number, total: number) => MotionStyle);
   /** Extra per-part delay in seconds, added after the stagger. */
   partDelay?: (index: number, total: number) => number;
 }
@@ -83,6 +85,7 @@ export function RevealText({
   reducedMotion = "user",
   className,
   style,
+  id,
   partStyle,
   partDelay,
   onComplete,
@@ -95,7 +98,7 @@ export function RevealText({
 
   if (reduced) {
     return (
-      <Tag ref={ref} className={className} style={style} {...bind}>
+      <Tag ref={ref} id={id} className={className} style={style} {...bind}>
         {text}
       </Tag>
     );
@@ -115,20 +118,21 @@ export function RevealText({
     };
   };
 
-  const styleFor = (i: number, total: number): CSSProperties => ({
+  const styleFor = (i: number, total: number): MotionStyle => ({
     display: "inline-block",
     ...(typeof partStyle === "function" ? partStyle(i, total) : partStyle),
   });
 
   // A render function, not a component, so parts keep their identity across renders.
   const part = (key: number, i: number, total: number, children: ReactNode, block = false) => {
+    const start = typeof hidden === "function" ? hidden(i, total) : hidden;
     const node = (
       <motion.span
         key={clip ? undefined : key}
         data-tl-part=""
         style={{ ...styleFor(i, total), ...(block ? { display: "block" } : null) }}
-        initial={hidden}
-        animate={visible ? shown : hidden}
+        initial={start}
+        animate={visible ? shown : start}
         transition={transitionFor(i, total)}
         onAnimationComplete={i === total - 1 && visible ? onComplete : undefined}
       >
@@ -185,6 +189,7 @@ export function RevealText({
   return (
     <Tag
       ref={ref}
+      id={id}
       className={cx(className)}
       style={style}
       data-tl-motion={reducedMotion === "user" ? "user" : undefined}
