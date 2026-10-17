@@ -1,0 +1,31 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "heat-haze",
+  title: "Heat haze",
+  description: "A mirage warps the air around the type.",
+  category: "distort",
+  exportName: "HeatHaze",
+  dependencies: [],
+  variants: ["haze", "boil"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"haze" | "boil"', default: '"haze"', description: "A gentle shimmer, or fast rising air." },
+    { name: "strength", type: "number", default: "6", description: "Distortion in px." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<HeatHaze as="h2" text="Midday on the salt flats" />`,
+  whenToUse: ["Travel, summer and desert themes.", "A single atmospheric headline."],
+  whenNotToUse: ["Text people must read closely.", "Multiple instances on one page; each runs a live filter."],
+  accessibility: ["The distorted layer is decorative; the text is read from a hidden copy.", "Distortion is a few pixels, so the word stays legible."],
+  motion: ["Noise rises continuously while its seed steps, so the shimmer never repeats exactly."],
+  reducedMotion: "Plain, still text.",
+  performance: ["SVG SMIL animation on one filter; no JavaScript loop.", "Filters repaint every frame; use one per screen."],
+  related: ["liquid-text", "aurora-text", "ink-bleed"],
+  keywords: ["heat", "haze", "mirage", "shimmer", "turbulence", "desert"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["haze", "boil"] }, { prop: "strength", kind: "range", min: 1, max: 20, step: 1 }],
+  preset: { text: "Midday on the salt flats" },
+  added: "2026-10-17",
+};

@@ -35,6 +35,7 @@ import { meta as liquidText } from "./textlab/liquid-text/meta";
 import { meta as inkBleed } from "./textlab/ink-bleed/meta";
 import { meta as chromaticText } from "./textlab/chromatic-text/meta";
 import { meta as glitchText } from "./textlab/glitch-text/meta";
+import { meta as heatHaze } from "./textlab/heat-haze/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -74,6 +75,7 @@ export const catalog: ComponentMeta[] = [
   inkBleed,
   chromaticText,
   glitchText,
+  heatHaze,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

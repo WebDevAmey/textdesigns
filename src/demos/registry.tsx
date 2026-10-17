@@ -44,6 +44,7 @@ export const components: Record<string, AnyComponent> = {
   "ink-bleed": dynamic(() => import("@registry/textlab/ink-bleed/ink-bleed")),
   "chromatic-text": dynamic(() => import("@registry/textlab/chromatic-text/chromatic-text")),
   "glitch-text": dynamic(() => import("@registry/textlab/glitch-text/glitch-text")),
+  "heat-haze": dynamic(() => import("@registry/textlab/heat-haze/heat-haze")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
