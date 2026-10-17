@@ -39,6 +39,7 @@ import { meta as heatHaze } from "./textlab/heat-haze/meta";
 import { meta as scrollFill } from "./textlab/scroll-fill/meta";
 import { meta as scrollSkew } from "./textlab/scroll-skew/meta";
 import { meta as velocityMarquee } from "./textlab/velocity-marquee/meta";
+import { meta as scrollStretch } from "./textlab/scroll-stretch/meta";
 
 /** Every component, in sidebar order within its category. */
 export const catalog: ComponentMeta[] = [
@@ -82,6 +83,7 @@ export const catalog: ComponentMeta[] = [
   scrollFill,
   scrollSkew,
   velocityMarquee,
+  scrollStretch,
 ];
 
 export const byName = (name: string) => catalog.find((entry) => entry.name === name);

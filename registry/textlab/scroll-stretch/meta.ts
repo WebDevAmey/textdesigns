@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "scroll-stretch",
+  title: "Scroll stretch",
+  description: "Letters stretch tall as you scroll fast.",
+  category: "scroll",
+  exportName: "ScrollStretch",
+  dependencies: ["motion"],
+  variants: ["vertical", "horizontal"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"vertical" | "horizontal"', default: '"vertical"', description: "Pull letters tall, or smear them sideways." },
+    { name: "max", type: "number", default: "0.6", description: "Largest stretch above 1." },
+    { name: "container", type: "RefObject<HTMLElement>", description: "Scrollable ancestor. Defaults to the window." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<ScrollStretch as="h2" text="Elastic" />`,
+  whenToUse: ["Short, heavy display words on playful pages.", "Section dividers that react to momentum."],
+  whenNotToUse: ["Long titles; per-letter springs add up.", "Serious, text-first pages."],
+  accessibility: ["Letters are aria-hidden; the word is read once.", "Moves only during fast scrolling."],
+  motion: ["Each letter has its own spring, slightly softer along the word, so the stretch ripples.", "Volume is preserved: taller letters get narrower."],
+  reducedMotion: "Still, normal letters.",
+  performance: ["One spring per letter. Keep it to short words."],
+  related: ["scroll-skew", "elastic-text", "velocity-marquee"],
+  keywords: ["stretch", "scroll velocity", "taffy", "elastic", "squash"],
+  controls: [{ prop: "variant", kind: "select", options: ["vertical", "horizontal"] }, { prop: "max", kind: "range", min: 0.1, max: 1.5, step: 0.05 }],
+  preset: { text: "Elastic" },
+  scroll: true,
+  added: "2026-10-17",
+};
