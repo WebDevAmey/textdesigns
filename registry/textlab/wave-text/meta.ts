@@ -1,0 +1,33 @@
+import { commonProps, type ComponentMeta } from "../../types";
+
+export const meta: ComponentMeta = {
+  name: "wave-text",
+  title: "Wave text",
+  description: "A sine wave runs through the line.",
+  category: "physics",
+  exportName: "WaveText",
+  dependencies: [],
+  variants: ["wave", "bounce", "float"],
+  props: [
+    commonProps.text,
+    { name: "variant", type: '"wave" | "bounce" | "float"', default: '"wave"', description: "A smooth sine, hops off the baseline, or a gentle drift and tilt." },
+    { name: "amplitude", type: "number", default: "0.2", description: "Wave height in em." },
+    { name: "speed", type: "number", default: "1.6", description: "Seconds per cycle." },
+    { name: "spread", type: "number", default: "0.08", description: "Seconds between neighbouring letters." },
+    commonProps.as,
+    commonProps.reducedMotion,
+    commonProps.className,
+  ],
+  usage: `<WaveText text="Hello, sailor" variant="bounce" />`,
+  whenToUse: ["Loading states, celebrations and playful labels.", "Short words that should feel alive."],
+  whenNotToUse: ["Anything people must read carefully.", "Several looping effects on the same screen."],
+  accessibility: ["Letters are aria-hidden; the text is read once.", "It never stops on its own, so keep it short and decorative."],
+  motion: ["Negative delays start every letter mid-cycle, so the wave is already in motion on load."],
+  reducedMotion: "Still, plain text.",
+  performance: ["Pure CSS keyframes on transform; no JavaScript after render."],
+  related: ["breathing-text", "jelly-text", "path-text"],
+  keywords: ["wave", "bounce", "wavy text", "sine", "float", "loop"],
+  controls: [{ prop: "text", kind: "text" }, { prop: "variant", kind: "select", options: ["wave", "bounce", "float"] }, { prop: "amplitude", kind: "range", min: 0.05, max: 0.6, step: 0.01 }, { prop: "speed", kind: "range", min: 0.6, max: 4, step: 0.1 }],
+  preset: { text: "Riding the wave" },
+  added: "2026-10-18",
+};

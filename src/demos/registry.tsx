@@ -65,6 +65,7 @@ export const components: Record<string, AnyComponent> = {
   "letter-drop": dynamic(() => import("@registry/textlab/letter-drop/letter-drop")),
   "elastic-text": dynamic(() => import("@registry/textlab/elastic-text/elastic-text")),
   "jelly-text": dynamic(() => import("@registry/textlab/jelly-text/jelly-text")),
+  "wave-text": dynamic(() => import("@registry/textlab/wave-text/wave-text")),
 };
 
 /** Custom demos for components that need a stage: scroll areas, changing values, controls. */
