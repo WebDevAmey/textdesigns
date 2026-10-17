@@ -26,6 +26,8 @@ export interface AnimationDoc {
   previewProps?: Record<string, unknown>;
   /** Animation category. */
   category?: string;
+  /** Whether the preview should have a dark background. */
+  darkPreview?: boolean;
 }
 
 export type DocIcon = "type" | "reveal" | "hover" | "loop" | "scroll";
@@ -98,9 +100,10 @@ const SOURCE_FILES: Record<string, string> = {
   "text-split": "TextSplitWrapper.tsx",
   "text-loop": "TextLoopWrapper.tsx",
   "stagger-fade": "StaggerFadeText.tsx",
+
 };
 
-const fromLibrary = (slug: string, component: ComponentType<{ text: string; containerRef?: React.RefObject<HTMLDivElement | null> }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>): AnimationDoc => ({
+const fromLibrary = (slug: string, component: ComponentType<{ text: string; containerRef?: React.RefObject<HTMLDivElement | null> }>, name: string, description: string, category: string, infinite?: boolean, previewProps?: Record<string, unknown>, darkPreview?: boolean): AnimationDoc => ({
   slug,
   name,
   description,
@@ -127,6 +130,7 @@ const fromLibrary = (slug: string, component: ComponentType<{ text: string; cont
   replays: !infinite,
   previewProps,
   category,
+  darkPreview,
 });
 
 const libraryGroups = (

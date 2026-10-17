@@ -57,6 +57,7 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
 
   const active = docs.find((d) => d.slug === activeSlug) ?? docs[0];
   const isScrollAnimation = active?.category === "scroll";
+  const isDarkPreview = active?.darkPreview === true;
 
   useEffect(() => {
     if (view !== "preview" || !active.replays) return;
@@ -173,11 +174,11 @@ export default function AnimationDocs({ groups }: AnimationDocsProps) {
                   >
                     <div 
                       ref={previewContainerRef}
-                      className={`relative mt-3 flex h-[480px] w-full min-w-0 items-center justify-center rounded-xl border border-neutral-200 bg-white ${
+                      className={`relative mt-3 flex h-[480px] w-full min-w-0 items-center justify-center rounded-xl border border-neutral-200 ${isDarkPreview ? 'bg-black' : 'bg-white'} ${
                         isScrollAnimation ? 'overflow-y-auto preview-scrollbar' : 'overflow-hidden'
                       }`}
                     >
-                      <div className={`flex max-w-full items-center justify-center px-6 text-4xl text-foreground ${isScrollAnimation ? 'py-[200px]' : ''}`}>
+                      <div className={`flex max-w-full items-center justify-center px-6 text-4xl ${isDarkPreview ? 'text-white' : 'text-foreground'} ${isScrollAnimation ? 'py-[200px]' : ''}`}>
                         {active.component ? (
                           <div>
                             <active.component

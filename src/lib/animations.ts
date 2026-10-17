@@ -526,4 +526,5 @@ export const animations = [
     component: StaggerFadeText,
     code: `<StaggerFade text="Stagger Fade" />`,
   },
+
 ];

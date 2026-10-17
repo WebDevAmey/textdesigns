@@ -9,6 +9,7 @@ interface AnimationCardProps {
   description: string;
   component: React.ComponentType<{ text: string }>;
   infinite?: boolean;
+  darkPreview?: boolean;
 }
 
 const LOOP_MS = 6000;
@@ -19,6 +20,7 @@ export default function AnimationCard({
   description,
   component: Animation,
   infinite = false,
+  darkPreview = false,
 }: AnimationCardProps) {
   const [iteration, setIteration] = useState(0);
 
@@ -45,14 +47,14 @@ export default function AnimationCard({
     <article className="group overflow-hidden rounded-2xl border border-dotted border-neutral-500/70 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)]">
 
       {/* Preview */}
-      <div className="relative flex min-h-[260px] items-center justify-center overflow-hidden bg-neutral-50 px-4">
+      <div className={`relative flex min-h-[260px] items-center justify-center overflow-hidden px-4 ${darkPreview ? 'bg-black' : 'bg-neutral-50'}`}>
 
         {/* Live preview chip */}
         <span className="absolute left-4 top-4 rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-black/40 shadow-sm">
           Live preview
         </span>
 
-        <div className="relative whitespace-nowrap text-center text-lg font-medium leading-none tracking-tight text-black/90">
+        <div className={`relative whitespace-nowrap text-center text-lg font-medium leading-none tracking-tight ${darkPreview ? 'text-white' : 'text-black/90'}`}>
           <Animation
             key={iteration}
             text={name}
