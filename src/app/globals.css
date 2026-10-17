@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "../../registry/textlab/tokens.css";
+
+@source "../../registry";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--tl-background);
+  --color-surface: var(--tl-surface);
+  --color-surface-2: var(--tl-surface-2);
+  --color-foreground: var(--tl-foreground);
+  --color-secondary: var(--tl-text-secondary);
+  --color-tertiary: var(--tl-text-tertiary);
+  --color-border: var(--tl-border);
+  --color-accent: var(--tl-accent);
+  --color-accent-foreground: var(--tl-accent-foreground);
+  --color-code: var(--code-bg);
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-flex: var(--font-roboto-flex), var(--font-geist), sans-serif;
+  --ease-enter: var(--tl-ease-enter);
+  --ease-exit: var(--tl-ease-exit);
+  --ease-standard: var(--tl-ease-standard);
+}
+
+:root {
+  --code-bg: oklch(0.97 0.003 90);
+  --header-h: 56px;
+  color-scheme: light;
+}
+
+.dark {
+  --code-bg: oklch(0.19 0.004 90);
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--tl-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--header-h) + 24px);
+  }
+
+  body {
+    background: var(--tl-background);
+    color: var(--tl-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: oklch(0.62 0.19 35 / 0.22);
+  }
+
+  /* Keyboard focus gets a visible ring; pointer focus does not. */
+  :focus-visible {
+    outline: 2px solid var(--tl-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  .prose-docs {
+    color: var(--tl-text-secondary);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .prose-docs h2 {
+    color: var(--tl-foreground);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 2.5rem 0 0.75rem;
+  }
+  .prose-docs h3 {
+    color: var(--tl-foreground);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 1.75rem 0 0.5rem;
+  }
+  .prose-docs p {
+    margin: 0.75rem 0;
+  }
+  .prose-docs ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 0.75rem 0;
+  }
+  .prose-docs li {
+    margin: 0.25rem 0;
+  }
+  .prose-docs a {
+    color: var(--tl-foreground);
+    text-decoration: underline;
+    text-decoration-color: var(--tl-border);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 160ms var(--tl-ease-enter);
+  }
+  .prose-docs a:hover {
+    text-decoration-color: currentColor;
+  }
+  .prose-docs code:not(pre code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--code-bg);
+    border: 1px solid var(--tl-border);
+    border-radius: 6px;
+    padding: 0.1em 0.35em;
+    color: var(--tl-foreground);
+  }
+  .prose-docs strong {
+    color: var(--tl-foreground);
+    font-weight: 500;
+  }
+}
+
+.shiki,
+.shiki span {
+  background: transparent !important;
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
