@@ -15,7 +15,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
             Browse
             <span aria-hidden className="text-secondary transition-transform duration-200 ease-enter group-open:rotate-45">+</span>
           </summary>
-          <div className="max-h-[60dvh] overflow-y-auto border-t px-2 py-4">
+          <div className="tl-disclosure-panel max-h-[60dvh] overflow-y-auto border-t px-2 py-4">
             <Sidebar groups={sidebarGroups()} />
           </div>
         </details>

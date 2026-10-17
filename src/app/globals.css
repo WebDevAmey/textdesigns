@@ -143,3 +143,41 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Disclosure panels fade down into place when opened; closing stays instant. */
+.tl-disclosure-panel {
+  transition:
+    opacity 200ms var(--tl-ease-enter),
+    transform 200ms var(--tl-ease-enter);
+}
+@starting-style {
+  details[open] .tl-disclosure-panel {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Group entrance for card grids seen occasionally; never blocks clicks. */
+@keyframes tl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.tl-stagger {
+  animation: tl-rise 300ms var(--tl-ease-enter) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-disclosure-panel {
+    transition: opacity 200ms var(--tl-ease-enter);
+  }
+  @starting-style {
+    details[open] .tl-disclosure-panel {
+      transform: none;
+    }
+  }
+  .tl-stagger {
+    animation: none;
+  }
+}

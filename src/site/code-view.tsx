@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { CopyButton } from "./copy-button";
 import { Segmented } from "./segmented";
+import { swap } from "./motion";
 
 export interface CodeFile {
   label: string;
@@ -25,7 +27,9 @@ export function CodeView({ files, maxHeight = 520 }: { files: CodeFile[]; maxHei
         )}
         <CopyButton value={file.raw} label={`Copy ${file.label}`} />
       </div>
-      <div className="overflow-auto px-4 py-3.5 font-mono text-[13px] leading-6" style={{ maxHeight }} dangerouslySetInnerHTML={{ __html: file.html }} />
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div key={file.label} {...swap} className="overflow-auto px-4 py-3.5 font-mono text-[13px] leading-6" style={{ maxHeight }} dangerouslySetInnerHTML={{ __html: file.html }} />
+      </AnimatePresence>
     </div>
   );
 }

@@ -168,8 +168,8 @@ Done when: every entry has a live demo, 2–4 variants, a preset, a reduced-moti
 
 Depends on phase 5. Skills found in `.claude/skills`: `find-animation-opportunities`, `animate`, `improve-animations`, `review-animations`, `emil-design-eng`, `apple-design`, `animation-vocabulary`. The step names in the brief map one to one; "find animation opportunities" is the `find-animation-opportunities` skill.
 
-- [ ] Run `find-animation-opportunities` across components and docs, write `docs/MOTION-AUDIT.md` (commit)
-- [ ] Run `animate` on the audit items (commit)
+- [x] Run `find-animation-opportunities` across components and docs, write `docs/MOTION-AUDIT.md` (commit)
+- [x] Run `animate` on the audit items (commit). Rows 1 to 5 shipped; row 6 lands with the homepage in phase 7
 - [ ] Run `improve-animations`, fix findings, then `review-animations` until clean (commit)
 
 Done when: `review-animations` comes back clean.

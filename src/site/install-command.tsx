@@ -1,6 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { swap } from "./motion";
 import { CopyButton } from "./copy-button";
 import { Segmented } from "./segmented";
 
@@ -9,6 +11,7 @@ type Manager = (typeof managers)[number];
 const runner: Record<Manager, string> = { npm: "npx", pnpm: "pnpm dlx", yarn: "yarn dlx", bun: "bunx --bun" };
 
 const KEY = "tl-pm";
+
 const listeners = new Set<() => void>();
 const read = (): Manager => {
   try {
@@ -42,7 +45,11 @@ export function InstallCommand({ target }: { target: string }) {
       <pre className="overflow-x-auto px-4 py-3.5 font-mono text-[13px] leading-6 text-foreground">
         <code>
           <span className="select-none text-tertiary">$ </span>
-          {command}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span key={stored} {...swap}>
+              {command}
+            </motion.span>
+          </AnimatePresence>
         </code>
       </pre>
     </div>
