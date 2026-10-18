@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Installed agent skills and generated registry output are not our source.
+    ".agents/**",
+    ".claude/**",
+    ".taste-skill/**",
+    "public/**",
   ]),
 ]);
 

@@ -49,7 +49,7 @@ async function main() {
     $schema: "https://ui.shadcn.com/schema/registry.json",
     name: "textlab",
     homepage: site.url,
-    items: items.map(({ files, ...rest }) => ({ ...rest, files: files.map(({ content: _content, ...f }) => f) })),
+    items: items.map(({ files, ...rest }) => ({ ...rest, files: files.map((f) => ({ path: f.path, type: f.type, target: f.target })) })),
   };
   await writeFile(path.join(PUBLIC, "r", "registry.json"), JSON.stringify(registry, null, 2) + "\n");
 
