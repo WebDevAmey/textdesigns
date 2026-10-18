@@ -179,11 +179,11 @@ Done when: `review-animations` comes back clean.
 Depends on phase 6.
 
 - [x] Check installed skills, install missing ones (famous, taste) or note the fallback. Installed taste (`design-taste-frontend`, `high-end-visual-design`); no "famous" skill exists on skills.sh, so `high-end-visual-design` stands in for hero moments
-- [ ] Signature homepage with the interactive playground (text, variant, speed, easing, export to code)
-- [ ] Docs layout and component page template (ui-ux-pro-max)
-- [ ] Editorial filter on demos (taste)
-- [ ] Micro-interactions (emil-design-eng) and restraint, depth and springs (apple-design)
-- [ ] Mobile-first check at 375, 768, 1024 and 1440
-- [ ] Lighthouse and axe on the homepage and one component page
+- [x] Signature homepage with the interactive playground (text, variant, speed, easing, export to code), the in-view title demo and live specimens
+- [x] Docs layout and component page template (ui-ux-pro-max): exaggerated-minimal type, display-face previews, 44px touch targets on coarse pointers, 404 page
+- [x] Editorial filter on demos (taste): dropped the cream and terracotta palette for a neutral ground and one green accent, no eyebrows or icon cards on the homepage
+- [x] Micro-interactions (emil-design-eng) and restraint, depth and springs (apple-design): press scales, keyboard-instant tabs, playground replay
+- [x] Mobile-first check at 375, 768, 1024 and 1440 (fixed two grids that widened the page on phones; no horizontal scroll on any page checked)
+- [x] Lighthouse and axe on the homepage and one component page: desktop 98–99 performance; mobile 79–85 performance (simulated slow 4G); accessibility, best practices and SEO 100; axe clean in every component test
 
 Done when: lint, typecheck, tests and build pass, and every box above is ticked.
