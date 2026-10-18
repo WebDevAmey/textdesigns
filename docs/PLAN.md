@@ -184,6 +184,6 @@ Depends on phase 6.
 - [x] Editorial filter on demos (taste): dropped the cream and terracotta palette for a neutral ground and one green accent, no eyebrows or icon cards on the homepage
 - [x] Micro-interactions (emil-design-eng) and restraint, depth and springs (apple-design): press scales, keyboard-instant tabs, playground replay
 - [x] Mobile-first check at 375, 768, 1024 and 1440 (fixed two grids that widened the page on phones; no horizontal scroll on any page checked)
-- [x] Lighthouse and axe on the homepage and one component page: desktop 98–99 performance; mobile 79–85 performance (simulated slow 4G); accessibility, best practices and SEO 100; axe clean in every component test
+- [x] Lighthouse and axe on the homepage and one component page: desktop 98–99 performance; mobile 87–97 performance (simulated slow 4G, after trimming Roboto Flex to the axes in use); accessibility, best practices and SEO 100; axe clean in every component test
 
 Done when: lint, typecheck, tests and build pass, and every box above is ticked.
