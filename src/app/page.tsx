@@ -56,7 +56,7 @@ export default function Home() {
         </Link>
       </section>
 
-      <section aria-labelledby="ai" className="mx-auto mt-32 grid max-w-[1400px] gap-10 px-4 sm:mt-44 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+      <section aria-labelledby="ai" className="mx-auto mt-32 grid max-w-[1400px] grid-cols-1 gap-10 px-4 sm:mt-44 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-start [&>*]:min-w-0">
         <div>
           <h2 id="ai" className="max-w-xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
             Your agent can install it, too.

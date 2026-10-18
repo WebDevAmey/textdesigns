@@ -107,7 +107,7 @@ export function Playground() {
         </button>
       </div>
 
-      <div className="grid gap-5 bg-background/40 p-4 sm:p-6">
+      <div className="grid grid-cols-1 gap-5 bg-background/40 p-4 sm:p-6 [&>*]:min-w-0">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <label htmlFor={`${id}-text`} className="w-20 shrink-0 text-sm text-secondary">
             Text
