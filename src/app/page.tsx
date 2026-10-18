@@ -1,18 +1,98 @@
 import Link from "next/link";
 import { catalog } from "@registry/catalog";
+import { categories } from "@registry/types";
+import { BlurReveal } from "@registry/textlab/blur-reveal/blur-reveal";
+import { StatReveal } from "@registry/textlab/stat-reveal/stat-reveal";
+import { Playground } from "@/site/playground";
+import { InViewShowcase } from "@/site/home/in-view-showcase";
+import { Specimens } from "@/site/home/specimens";
+import { Code } from "@/site/doc-page";
+import { site } from "@/site/config";
 
 export default function Home() {
   return (
-    <main id="main" className="mx-auto max-w-[1400px] px-4 sm:px-6">
-      <section className="py-24 sm:py-32">
-        <h1 className="max-w-4xl font-display text-[clamp(3rem,8vw,6.5rem)] leading-[0.95] tracking-[-0.03em]">Text effects your users feel and your agents can install.</h1>
-        <p className="mt-6 max-w-xl text-lg text-secondary">
-          {catalog.length} live text components for React. Copy the source with the shadcn CLI, read every page as Markdown, or let your AI tool find them over MCP.
-        </p>
-        <div className="mt-8 flex gap-3">
-          <Link href="/components" className="rounded-lg bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-transform duration-150 active:scale-[0.97]">Explore components</Link>
-          <Link href="/docs/ai" className="rounded-lg border px-4 py-2.5 text-sm font-medium transition-[border-color,transform] duration-150 hover:border-foreground/25 active:scale-[0.97]">Give Textlab to your AI</Link>
+    <main id="main">
+      <section className="mx-auto max-w-[1400px] px-4 pb-10 pt-16 sm:px-6 sm:pt-24">
+        <BlurReveal as="h1" trigger="mount" text="Text, set in motion." className="max-w-[12ch] font-display text-[clamp(3.5rem,11vw,10rem)] leading-[0.92] tracking-[-0.035em]" />
+        <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <p className="max-w-md text-lg text-secondary">
+            {catalog.length} text effects for React. Live on every page, installed as source with the shadcn CLI, and readable by your AI tools.
+          </p>
+          <div className="flex items-center gap-5">
+            <Link href="/components" className="inline-flex h-11 items-center rounded-full bg-foreground px-5 text-[15px] font-medium text-background transition-transform duration-150 active:scale-[0.97]">
+              Browse the effects
+            </Link>
+            <Link href="/docs/ai" className="text-[15px] text-secondary underline decoration-border underline-offset-4 transition-colors duration-150 hover:text-foreground hover:decoration-current">
+              Give it to your AI
+            </Link>
+          </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-[1400px] px-4 sm:px-6">
+        <Playground />
+      </section>
+
+      <section aria-labelledby="titles" className="mx-auto mt-32 max-w-[1400px] px-4 sm:mt-44 sm:px-6">
+        <h2 id="titles" className="max-w-2xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
+          Titles that arrive as you scroll.
+        </h2>
+        <p className="mt-4 max-w-lg text-secondary">Blur, words, lines or a wipe: one component, four entrances that share their timing.</p>
+        <div className="mt-10">
+          <InViewShowcase />
+        </div>
+      </section>
+
+      <section aria-labelledby="specimen" className="mx-auto mt-32 max-w-[1400px] px-4 sm:mt-44 sm:px-6">
+        <h2 id="specimen" className="max-w-2xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
+          Twelve kinds of motion, all of it type.
+        </h2>
+        <p className="mt-4 max-w-lg text-secondary">
+          {categories.map((c) => c.title.toLowerCase()).join(", ")}. A few of them, running at full size:
+        </p>
+        <Specimens />
+        <Link href="/components" className="mt-4 inline-flex h-11 items-center rounded-full bg-surface-2 px-5 text-[15px] font-medium transition-transform duration-150 active:scale-[0.97]">
+          See all {catalog.length}
+        </Link>
+      </section>
+
+      <section aria-labelledby="ai" className="mx-auto mt-32 grid max-w-[1400px] gap-10 px-4 sm:mt-44 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+        <div>
+          <h2 id="ai" className="max-w-xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
+            Your agent can install it, too.
+          </h2>
+          <p className="mt-4 max-w-md text-secondary">
+            Every component has a Markdown page and a registry item. The MCP server lets Claude, Cursor or Codex search by intent, read the props and install the right effect.
+          </p>
+          <Link href="/docs/ai" className="mt-6 inline-flex text-[15px] underline decoration-border underline-offset-4 transition-colors duration-150 hover:decoration-current">
+            Set up AI tools
+          </Link>
+        </div>
+        <div>
+          <Code lang="bash" label="Install" code={`npx shadcn@latest add ${site.namespace}/scramble-text`} />
+          <Code lang="bash" label="Connect" code={`claude mcp add --transport http textlab ${site.url}/api/mcp`} />
+        </div>
+      </section>
+
+      <section aria-label="Numbers" className="mx-auto mt-32 grid max-w-[1400px] grid-cols-1 gap-10 px-4 sm:mt-44 sm:grid-cols-3 sm:px-6">
+        {[
+          { value: catalog.length, label: "Text effects, each with live variants" },
+          { value: categories.length, label: "Groups, named by what they do" },
+          { value: 363, label: "Tests, including an axe check for every component" },
+        ].map((stat) => (
+          <div key={stat.label}>
+            <StatReveal value={stat.value} className="font-display text-[clamp(4rem,10vw,8rem)] leading-none" />
+            <p className="mt-2 max-w-[22ch] text-secondary">{stat.label}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mx-auto mt-32 max-w-[1400px] px-4 pb-24 sm:mt-44 sm:px-6">
+        <Link href="/components" className="group block">
+          <span className="block font-display text-[clamp(4rem,17vw,16rem)] leading-[0.85] tracking-[-0.04em] transition-colors duration-200 group-hover:text-accent">
+            Start typing.
+          </span>
+        </Link>
       </section>
     </main>
   );
