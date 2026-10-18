@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { catalog } from "@registry/catalog";
 import { categories } from "@registry/types";
-import { BlurReveal } from "@registry/textlab/blur-reveal/blur-reveal";
+import { SplitText } from "@registry/textlab/split-text/split-text";
 import { StatReveal } from "@registry/textlab/stat-reveal/stat-reveal";
 import { Playground } from "@/site/playground";
 import { InViewShowcase } from "@/site/home/in-view-showcase";
@@ -13,7 +13,8 @@ export default function Home() {
   return (
     <main id="main">
       <section className="mx-auto max-w-[1400px] px-4 pb-10 pt-16 sm:px-6 sm:pt-24">
-        <BlurReveal as="h1" trigger="mount" text="Text, set in motion." className="max-w-[12ch] font-display text-[clamp(3.5rem,11vw,10rem)] leading-[0.92] tracking-[-0.035em]" />
+        {/* The hero sharpens from a blur without fading in, so it paints at first render and counts for LCP at once. */}
+        <SplitText as="h1" trigger="mount" variant="words" from={{ filter: "blur(10px)", y: "0.12em" }} duration={0.9} text="Text, set in motion." className="max-w-[12ch] font-display text-[clamp(3.5rem,11vw,10rem)] leading-[0.92] tracking-[-0.035em]" />
         <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <p className="max-w-md text-lg text-secondary">
             {catalog.length} text effects for React. Live on every page, installed as source with the shadcn CLI, and readable by your AI tools.
