@@ -40,7 +40,7 @@ export function Segmented<T extends string>({ value, options, onChange, label, s
             aria-checked={selected}
             tabIndex={selected ? 0 : -1}
             onClick={() => onChange(option)}
-            className={`relative shrink-0 rounded-md font-medium transition-colors duration-150 ${size === "sm" ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-[13px]"} ${selected ? "text-foreground" : "text-secondary hover:text-foreground"}`}
+            className={`relative shrink-0 rounded-md font-medium transition-colors duration-150 pointer-coarse:min-h-10 ${size === "sm" ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-[13px]"} ${selected ? "text-foreground" : "text-secondary hover:text-foreground"}`}
           >
             {selected && (
               <motion.span

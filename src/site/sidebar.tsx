@@ -23,7 +23,7 @@ export function Sidebar({ groups }: { groups: SidebarGroup[] }) {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className="flex items-center justify-between rounded-md px-2 py-1 text-secondary transition-colors duration-150 hover:text-foreground aria-[current=page]:bg-surface-2 aria-[current=page]:text-foreground"
+                    className="flex items-center justify-between rounded-md px-2 py-1 text-secondary pointer-coarse:py-2.5 transition-colors duration-150 hover:text-foreground aria-[current=page]:bg-surface-2 aria-[current=page]:text-foreground"
                   >
                     {item.label}
                     {item.badge ? <span className="text-[10px] text-tertiary">{item.badge}</span> : null}
