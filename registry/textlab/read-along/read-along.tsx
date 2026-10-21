@@ -48,13 +48,23 @@ export function ReadAlong({ text, variant = "highlight", wpm = 220, color = "var
   }, [on, reduced, index, words, wpm, loop]);
 
   useLayoutEffect(() => {
+    const root = ref.current;
     const el = spans.current[index];
-    if (!el) {
+    if (!el || !root) {
       setBox(null);
       return;
     }
-    setBox({ x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight });
-  }, [index]);
+    // Measure against the root's box: offsetLeft would be relative to whichever ancestor is positioned.
+    const measure = () => {
+      const origin = root.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      setBox({ x: r.left - origin.left - root.clientLeft, y: r.top - origin.top - root.clientTop, w: r.width, h: r.height });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [index, ref]);
 
   if (reduced) {
     return (
@@ -70,11 +80,11 @@ export function ReadAlong({ text, variant = "highlight", wpm = 220, color = "var
       {variant === "highlight" && box && (
         <motion.span
           aria-hidden="true"
-          style={{ position: "absolute", left: 0, top: 0, width: 100, height: box.h, transformOrigin: "0 0", borderRadius: "0.15em", background: `color-mix(in oklab, ${color} 26%, transparent)`, pointerEvents: "none" }}
+          style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", borderRadius: "0.18em", background: `color-mix(in oklab, ${color} 26%, transparent)`, pointerEvents: "none" }}
           initial={false}
-          // One transform moves and stretches the box; animating width would cost layout every frame.
-          animate={{ transform: `translate(${box.x - 3}px, ${box.y}px) scaleX(${((box.w + 6) / 100).toFixed(4)})` }}
-          transition={{ duration: 0.2, ease: [...ease.enter] }}
+          // Width animates instead of scaleX so the rounded corners stay round and the box hugs the word exactly.
+          animate={{ transform: `translate(${box.x - 2}px, ${box.y}px)`, width: box.w + 4, height: box.h }}
+          transition={{ duration: 0.22, ease: [...ease.enter] }}
         />
       )}
       <span aria-hidden="true" style={{ position: "relative" }}>
