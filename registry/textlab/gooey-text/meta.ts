@@ -12,7 +12,7 @@ export const meta: ComponentMeta = {
     { name: "words", type: "string[]", description: "Words to melt between.", required: true },
     { name: "variant", type: '"blob" | "drip"', default: '"blob"', description: "Melt in place, or let the old word drip away." },
     { name: "interval", type: "number", default: "2.2", description: "Seconds each word holds." },
-    { name: "duration", type: "number", default: "1", description: "Seconds the melt takes." },
+    { name: "duration", type: "number", default: "1.2", description: "Seconds the melt takes." },
     { name: "goo", type: "number", default: "12", description: "Stickiness, 4 to 20. Higher merges letters more." },
     { name: "label", type: "string", description: "What screen readers hear. Defaults to every word." },
     commonProps.as,
