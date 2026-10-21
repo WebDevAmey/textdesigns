@@ -1,29 +1,39 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { useReduced } from "@registry/textlab/lib/use-reduced";
 
+/**
+ * Magic UI's animated theme toggler with the triangle reveal. It runs controlled so the choice is
+ * saved under the same key the no-flash script in the layout reads.
+ */
 export function ThemeToggle() {
-  const toggle = () => {
+  const reduced = useReduced();
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
     const root = document.documentElement;
-    const next = !root.classList.contains("dark");
-    // Suppress every transition for one frame so colors swap at once instead of fading piecemeal.
-    root.classList.add("[&_*]:transition-none");
-    root.classList.toggle("dark", next);
-    try {
-      localStorage.setItem("tl-theme", next ? "dark" : "light");
-    } catch {}
-    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("[&_*]:transition-none")));
-  };
+    const sync = () => setTheme(root.classList.contains("dark") ? "dark" : "light");
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <button
-      type="button"
-      onClick={toggle}
+    <AnimatedThemeToggler
+      variant="triangle"
+      duration={reduced ? 1 : 520}
+      theme={theme}
+      onThemeChange={(next) => {
+        setTheme(next);
+        try {
+          localStorage.setItem("tl-theme", next);
+        } catch {}
+      }}
       aria-label="Toggle theme"
-      className="relative inline-flex size-9 items-center justify-center rounded-md text-secondary transition-[color,transform] duration-150 hover:text-foreground active:scale-[0.97]"
-    >
-      <Sun className="size-[18px] scale-100 rotate-0 transition-transform duration-200 ease-enter dark:scale-0 dark:-rotate-90" strokeWidth={1.75} />
-      <Moon className="absolute size-[18px] scale-0 rotate-90 transition-transform duration-200 ease-enter dark:scale-100 dark:rotate-0" strokeWidth={1.75} />
-    </button>
+      className="inline-flex size-9 items-center justify-center rounded-md text-secondary transition-[color,transform] duration-150 hover:text-foreground active:scale-[0.97] pointer-coarse:size-11 [&_svg]:size-[18px] [&_svg]:stroke-[1.75]"
+    />
   );
 }
