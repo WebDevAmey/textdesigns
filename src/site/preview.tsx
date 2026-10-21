@@ -51,7 +51,7 @@ export function Preview({ name, variants, preset, props, height = 420 }: Preview
         style={{ height }}
         data-preview-stage=""
       >
-        <div key={`${variant}-${run}`} className="flex w-full max-w-3xl items-center justify-center text-center font-display text-[clamp(2.25rem,6vw,4.25rem)] leading-[1.05] tracking-[-0.02em]">
+        <div key={`${variant}-${run}`} className="flex w-full max-w-3xl items-center justify-center text-center font-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] tracking-[-0.035em]">
           {/* Components handle reduced motion themselves through their reducedMotion prop. */}
           <MotionConfig reducedMotion="never">
             {Demo ? <Demo variant={variant} props={merged} /> : Component ? <Component {...merged} /> : <p className="text-sm text-secondary">Preview unavailable</p>}

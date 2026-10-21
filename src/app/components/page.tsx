@@ -7,7 +7,7 @@ export const metadata = { title: "Components", description: "Every Textlab text 
 export default function ComponentsIndex() {
   return (
     <div className="max-w-[960px]">
-      <h1 className="font-display text-[44px] leading-[1.02] tracking-[-0.02em] sm:text-[56px]">Components</h1>
+      <h1 className="font-display text-[36px] leading-[1.05] tracking-[-0.035em] sm:text-[44px]">Components</h1>
       <p className="mt-2 text-lg text-secondary">{catalog.length} text effects, each live on its page and installable with one command.</p>
       {categories.map((category) => {
         const items = catalog.filter((c) => c.category === category.id);
@@ -15,7 +15,7 @@ export default function ComponentsIndex() {
         return (
           <section key={category.id} aria-labelledby={`cat-${category.id}`} className="mt-12">
             <div className="mb-4 flex items-baseline gap-3">
-              <h2 id={`cat-${category.id}`} className="font-display text-[28px] leading-tight">{category.title}</h2>
+              <h2 id={`cat-${category.id}`} className="font-display text-[22px] leading-tight">{category.title}</h2>
               <p className="text-sm text-tertiary">{category.blurb}</p>
             </div>
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

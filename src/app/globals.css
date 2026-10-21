@@ -16,10 +16,10 @@
   --color-accent: var(--tl-accent);
   --color-accent-foreground: var(--tl-accent-foreground);
   --color-code: var(--code-bg);
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-grotesk), var(--font-geist), ui-sans-serif, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-flex: var(--font-roboto-flex), var(--font-geist), sans-serif;
+  --font-sans: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-flex: var(--font-roboto-flex), var(--font-switzer), sans-serif;
   --ease-enter: var(--tl-ease-enter);
   --ease-exit: var(--tl-ease-exit);
   --ease-standard: var(--tl-ease-standard);
@@ -74,10 +74,10 @@
 }
 
 @layer components {
-  /* Space Grotesk reads best a touch heavier and tighter at display sizes; utilities can still override. */
+  /* Switzer at display sizes: semibold and tight, the way it is drawn to be used large. Utilities can still override. */
   .font-display {
-    font-weight: 500;
-    letter-spacing: -0.03em;
+    font-weight: 600;
+    letter-spacing: -0.04em;
   }
   .prose-docs {
     color: var(--tl-text-secondary);
@@ -87,7 +87,9 @@
   .prose-docs h2 {
     color: var(--tl-foreground);
     font-family: var(--font-display);
-    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    font-size: 1.5rem;
     line-height: 1.15;
     letter-spacing: -0.01em;
     margin: 2.5rem 0 0.75rem;

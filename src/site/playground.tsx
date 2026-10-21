@@ -94,7 +94,7 @@ export function Playground() {
         Playground
       </h2>
       <div className="relative flex min-h-[300px] items-center justify-center px-5 py-14 sm:min-h-[380px]">
-        <div key={`${effect}-${variant}-${run}-${speed}-${ease}`} className="w-full text-center font-display text-[clamp(2.75rem,9vw,7.5rem)] leading-[1] tracking-[-0.02em]">
+        <div key={`${effect}-${variant}-${run}-${speed}-${ease}`} className="w-full text-center font-display text-[clamp(2.25rem,7vw,5.75rem)] leading-[1] tracking-[-0.04em]">
           <MotionConfig reducedMotion="never">{Component ? <Component {...meta.preset} text={shown} variant={variant} trigger="mount" {...extra} /> : shown}</MotionConfig>
         </div>
         <button

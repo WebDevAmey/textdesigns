@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/components/[slug]
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <section aria-labelledby={id} className="mt-12">
-      <h2 id={id} className="mb-4 font-display text-[28px] leading-tight tracking-[-0.01em]">
+      <h2 id={id} className="mb-4 font-display text-[22px] leading-tight tracking-[-0.01em]">
         {title}
       </h2>
       {children}
@@ -82,7 +82,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
         </p>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-display text-[44px] leading-[1.02] tracking-[-0.02em] sm:text-[56px]">{meta.title}</h1>
+            <h1 className="font-display text-[36px] leading-[1.05] tracking-[-0.035em] sm:text-[44px]">{meta.title}</h1>
             <p className="mt-2 text-lg text-secondary">{meta.description}</p>
           </div>
           <div className="flex items-center gap-1 rounded-lg border px-1 py-0.5 text-[13px] text-secondary">

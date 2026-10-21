@@ -42,7 +42,7 @@ export function Specimens() {
               </Link>
               <p className="mt-1 text-[15px] text-secondary">{row.note}</p>
             </div>
-            <div className="min-w-0 text-[clamp(2.5rem,7.5vw,6rem)] leading-[1.05] tracking-[-0.02em]">{row.node}</div>
+            <div className="min-w-0 text-[clamp(2rem,5.5vw,4.5rem)] leading-[1.05] tracking-[-0.035em]">{row.node}</div>
           </li>
         ))}
       </ul>

@@ -15,7 +15,7 @@ export default function Home() {
     <main id="main">
       <section className="mx-auto max-w-[1400px] px-4 pb-10 pt-16 sm:px-6 sm:pt-24">
         {/* The hero sharpens from a blur without fading in, so it paints at first render and counts for LCP at once. */}
-        <SplitText as="h1" trigger="mount" variant="words" from={{ filter: "blur(10px)", y: "0.12em" }} duration={0.9} text="Text, set in motion." className="max-w-[12ch] font-display text-[clamp(3.5rem,11vw,10rem)] leading-[0.92] tracking-[-0.035em]" />
+        <SplitText as="h1" trigger="mount" variant="words" from={{ filter: "blur(10px)", y: "0.12em" }} duration={0.9} text="Text, set in motion." className="max-w-[12ch] font-display text-[clamp(2.75rem,8vw,7rem)] leading-[0.95] tracking-[-0.045em]" />
         <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <p className="max-w-md text-lg text-secondary">
             {catalog.length} text effects for React. Live on every page, installed as source with the shadcn CLI, and readable by your AI tools.
@@ -36,7 +36,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="titles" className="mx-auto mt-32 max-w-[1400px] px-4 sm:mt-44 sm:px-6">
-        <h2 id="titles" className="max-w-2xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
+        <h2 id="titles" className="max-w-2xl font-display text-[clamp(1.875rem,4vw,3.25rem)] leading-[1] tracking-[-0.02em]">
           Titles that arrive as you scroll.
         </h2>
         <p className="mt-4 max-w-lg text-secondary">Blur, words, lines or a wipe: one component, four entrances that share their timing.</p>
@@ -46,7 +46,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="specimen" className="mx-auto mt-32 max-w-[1400px] px-4 sm:mt-44 sm:px-6">
-        <h2 id="specimen" className="max-w-2xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
+        <h2 id="specimen" className="max-w-2xl font-display text-[clamp(1.875rem,4vw,3.25rem)] leading-[1] tracking-[-0.02em]">
           Twelve kinds of motion, all of it type.
         </h2>
         <p className="mt-4 max-w-lg text-secondary">
@@ -60,7 +60,7 @@ export default function Home() {
 
       <section aria-labelledby="ai" className="mx-auto mt-32 grid max-w-[1400px] grid-cols-1 gap-10 px-4 sm:mt-44 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-start [&>*]:min-w-0">
         <div>
-          <h2 id="ai" className="max-w-xl font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1] tracking-[-0.02em]">
+          <h2 id="ai" className="max-w-xl font-display text-[clamp(1.875rem,4vw,3.25rem)] leading-[1] tracking-[-0.02em]">
             Your agent can install it, too.
           </h2>
           <p className="mt-4 max-w-md text-secondary">
@@ -83,7 +83,7 @@ export default function Home() {
           { value: 363, label: "Tests, including an axe check for every component" },
         ].map((stat) => (
           <div key={stat.label}>
-            <StatReveal value={stat.value} className="font-display text-[clamp(4rem,10vw,8rem)] leading-none" />
+            <StatReveal value={stat.value} className="font-display text-[clamp(3rem,7vw,6rem)] leading-none" />
             <p className="mt-2 max-w-[22ch] text-secondary">{stat.label}</p>
           </div>
         ))}
@@ -91,7 +91,7 @@ export default function Home() {
 
       <section className="mx-auto mt-32 max-w-[1400px] px-4 pb-24 sm:mt-44 sm:px-6">
         <Link href="/components" className="group block">
-          <span className="block font-display text-[clamp(4rem,17vw,16rem)] leading-[0.85] tracking-[-0.04em] transition-colors duration-200 group-hover:text-accent">
+          <span className="block whitespace-nowrap font-display text-[clamp(2.5rem,11.5vw,10rem)] leading-[0.9] tracking-[-0.05em] transition-colors duration-200 group-hover:text-accent">
             Start typing.
           </span>
         </Link>
