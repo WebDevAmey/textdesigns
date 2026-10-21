@@ -64,11 +64,11 @@ export default function Home() {
       <section className="mx-auto flex max-w-[1400px] flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-24">
         <Link href="/docs/changelog" className="group inline-flex items-center gap-2 rounded-full bg-surface py-1 pl-1 pr-3 text-sm text-secondary ring-1 ring-border transition-colors duration-300 hover:text-foreground">
           <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-semibold text-accent-foreground">New</span>
-          Gooey, glitch and nine more effects, rebuilt
+          Eleven effects, rebuilt and smoother
           <ArrowRight aria-hidden className={arrow} />
         </Link>
         {/* The hero sharpens from a blur without fading in, so it paints at first render and counts for LCP at once. */}
-        <h1 className="mt-8 max-w-[680px] font-display text-5xl leading-none tracking-[-0.045em] sm:text-7xl">
+        <h1 className="mt-8 max-w-5xl font-display text-5xl leading-none tracking-[-0.045em] [text-wrap:balance] sm:text-7xl">
           <SplitText as="span" trigger="mount" variant="words" from={{ filter: "blur(10px)", y: "0.12em" }} duration={0.9} text="Animated text for React," className="block" />
           <SplitText as="span" trigger="mount" variant="words" from={{ filter: "blur(10px)", y: "0.12em" }} duration={0.9} delay={0.15} text="installed in one command." className="block text-tertiary" />
         </h1>

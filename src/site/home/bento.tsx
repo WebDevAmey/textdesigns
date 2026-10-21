@@ -35,7 +35,7 @@ const cards: Card[] = [
     size: "text-6xl sm:text-8xl",
   },
   { name: "Rolling number", href: "/components/rolling-number", caption: "Each digit rolls to its new value.", node: <LiveCount />, size: "text-5xl sm:text-6xl" },
-  { name: "Scramble text", href: "/components/scramble-text", caption: "Letters decode into place on view.", node: <ScrambleText text="Access granted" className="font-display" />, size: "text-4xl sm:text-5xl" },
+  { name: "Scramble text", href: "/components/scramble-text", caption: "Letters decode into place on view.", node: <ScrambleText text="Access granted" className="font-display" />, size: "text-3xl sm:text-4xl xl:text-5xl" },
   {
     name: "Variable proximity",
     href: "/components/variable-proximity",
