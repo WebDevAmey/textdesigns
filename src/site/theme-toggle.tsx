@@ -5,7 +5,7 @@ import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { useReduced } from "@registry/textlab/lib/use-reduced";
 
 /**
- * Magic UI's animated theme toggler with the triangle reveal. It runs controlled so the choice is
+ * Magic UI's animated theme toggler with the triangle reveal, growing from the middle of the screen. It runs controlled so the choice is
  * saved under the same key the no-flash script in the layout reads.
  */
 export function ThemeToggle() {
@@ -24,6 +24,7 @@ export function ThemeToggle() {
   return (
     <AnimatedThemeToggler
       variant="triangle"
+      fromCenter
       duration={reduced ? 1 : 520}
       theme={theme}
       onThemeChange={(next) => {
