@@ -115,10 +115,10 @@ mcp/server.mjs           the same tools over stdio for local clients
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--font-sans` | Geist (variable 100–900) | UI and most demos |
-| `--font-display` | Space Grotesk (500, -0.03em) | Headings, demos and the docs identity. The site type follows supermemory.ai: Geist, Geist Mono and Space Grotesk |
+| `--font-sans` | Switzer 400/500 (Indian Type Foundry, ITF Free Font License) | UI and most demos |
+| `--font-display` | Switzer 600, -0.04em | Headings, demos and the docs identity |
 | `--font-flex` | Roboto Flex (wght, wdth, opsz, slnt) | Variable-font effects |
-| `--font-mono` | Geist Mono | Code, counters, split-flap |
+| `--font-mono` | IBM Plex Mono | Code, counters, split-flap |
 | `--text-display` | `clamp(2.5rem, 6vw + 1rem, 6rem)` | Hero titles |
 | `--text-title` | `clamp(1.75rem, 3vw + 1rem, 3rem)` | Section titles and demo default |
 | `--leading-tight` / `--tracking-tight` | `1.05` / `-0.02em` | Display text |

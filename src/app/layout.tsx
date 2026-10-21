@@ -1,16 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Mrs_Saint_Delafield, Roboto_Flex, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Mrs_Saint_Delafield, Roboto_Flex } from "next/font/google";
+import localFont from "next/font/local";
 import { SiteHeader } from "@/site/site-header";
 import { SiteFooter } from "@/site/site-footer";
 import { site } from "@/site/config";
 import { Providers } from "@/site/providers";
 import "./globals.css";
 
-// The site type follows supermemory.ai: Geist for text, Space Grotesk for display, Geist Mono for code and labels.
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
+// Switzer (Indian Type Foundry, free under the ITF Free Font License) sets text and display; IBM Plex Mono sets code.
+const switzer = localFont({
+  variable: "--font-switzer",
+  src: [
+    { path: "../fonts/Switzer-400.woff2", weight: "400" },
+    { path: "../fonts/Switzer-500.woff2", weight: "500" },
+    { path: "../fonts/Switzer-600.woff2", weight: "600" },
+  ],
+});
 // Only the two faces in the first screen are preloaded; the rest load when a page uses them.
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], preload: false });
-const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin"] });
+const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500"], preload: false });
 const script = Mrs_Saint_Delafield({ variable: "--font-script", subsets: ["latin"], weight: "400", preload: false });
 const robotoFlex = Roboto_Flex({ variable: "--font-roboto-flex", subsets: ["latin"], axes: ["wdth", "slnt"], preload: false });
 
@@ -34,7 +41,7 @@ const themeScript = `try{var t=localStorage.getItem("tl-theme");var d=t?t==="dar
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${grotesk.variable} ${robotoFlex.variable} ${script.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${switzer.variable} ${plexMono.variable} ${robotoFlex.variable} ${script.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
