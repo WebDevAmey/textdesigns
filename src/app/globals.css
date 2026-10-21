@@ -17,7 +17,7 @@
   --color-accent-foreground: var(--tl-accent-foreground);
   --color-code: var(--code-bg);
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-display: var(--font-grotesk), var(--font-geist), ui-sans-serif, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-flex: var(--font-roboto-flex), var(--font-geist), sans-serif;
   --ease-enter: var(--tl-ease-enter);
@@ -74,6 +74,11 @@
 }
 
 @layer components {
+  /* Space Grotesk reads best a touch heavier and tighter at display sizes; utilities can still override. */
+  .font-display {
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
   .prose-docs {
     color: var(--tl-text-secondary);
     line-height: 1.7;
@@ -182,4 +187,10 @@
   .tl-stagger {
     animation: none;
   }
+}
+/* The animated theme toggler draws its own clip-path reveal over the view transition snapshots. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

@@ -23,7 +23,7 @@
   --tl-fx-spectrum-4: oklch(0.6 0.2 290);
 
   --tl-font-sans: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
-  --tl-font-display: var(--font-display, ui-serif, Georgia, serif);
+  --tl-font-display: var(--font-display, ui-sans-serif, system-ui, sans-serif);
   --tl-font-flex: var(--font-flex, var(--tl-font-sans));
   --tl-font-mono: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
   --tl-font-script: var(--font-script, "Snell Roundhand", "Brush Script MT", cursive);

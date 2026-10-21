@@ -1,15 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif, Mrs_Saint_Delafield, Roboto_Flex } from "next/font/google";
+import { Geist, Geist_Mono, Mrs_Saint_Delafield, Roboto_Flex, Space_Grotesk } from "next/font/google";
 import { SiteHeader } from "@/site/site-header";
 import { SiteFooter } from "@/site/site-footer";
 import { site } from "@/site/config";
 import { Providers } from "@/site/providers";
 import "./globals.css";
 
+// The site type follows supermemory.ai: Geist for text, Space Grotesk for display, Geist Mono for code and labels.
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 // Only the two faces in the first screen are preloaded; the rest load when a page uses them.
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], preload: false });
-const instrument = Instrument_Serif({ variable: "--font-instrument", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
+const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin"] });
 const script = Mrs_Saint_Delafield({ variable: "--font-script", subsets: ["latin"], weight: "400", preload: false });
 const robotoFlex = Roboto_Flex({ variable: "--font-roboto-flex", subsets: ["latin"], axes: ["wdth", "slnt"], preload: false });
 
@@ -33,7 +34,7 @@ const themeScript = `try{var t=localStorage.getItem("tl-theme");var d=t?t==="dar
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${instrument.variable} ${robotoFlex.variable} ${script.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${grotesk.variable} ${robotoFlex.variable} ${script.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

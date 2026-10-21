@@ -35,7 +35,7 @@ export function SiteFooter() {
     <footer className="border-t">
       <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.5fr_repeat(3,1fr)]">
         <div className="max-w-xs">
-          <p className="font-display text-2xl italic">Textlab</p>
+          <p className="font-display text-2xl font-semibold tracking-[-0.04em]">Textlab</p>
           <p className="mt-2 text-sm text-secondary">Text effects for React, with docs your AI tools can read.</p>
         </div>
         {groups.map((group) => (
