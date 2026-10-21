@@ -38,6 +38,12 @@ export function CircleAnnotate({ children, variant = "circle", color = "var(--tl
   const d = PATHS[variant](hashString(typeof children === "string" ? children : variant));
   const draw = drawProps(on, { duration, delay, ease: "standard" });
   const pad = `${padding}em`;
+  // An ellipse drawn inside the word's box would cut its corners, so the circle's box grows past the
+  // word on every side until the corners of the letters sit inside the curve.
+  const frame: CSSProperties =
+    variant === "circle"
+      ? { left: `calc(-12.5% - ${pad})`, top: `calc(-17.5% - 0.5 * ${pad})`, width: `calc(125% + 2 * ${pad})`, height: `calc(135% + ${pad})` }
+      : { left: `calc(-1 * ${pad})`, top: `calc(-0.6 * ${pad})`, width: `calc(100% + 2 * ${pad})`, height: `calc(100% + 1.2 * ${pad})` };
   return (
     <Tag ref={ref} className={className} style={{ position: "relative", display: "inline-block", ...style }} {...bind}>
       {children}
@@ -45,7 +51,7 @@ export function CircleAnnotate({ children, variant = "circle", color = "var(--tl
         aria-hidden="true"
         viewBox="0 0 100 20"
         preserveAspectRatio="none"
-        style={{ position: "absolute", left: `calc(-1 * ${pad})`, right: `calc(-1 * ${pad})`, top: `calc(-0.6 * ${pad})`, bottom: `calc(-0.6 * ${pad})`, width: `calc(100% + 2 * ${pad})`, height: `calc(100% + 1.2 * ${pad})`, overflow: "visible", pointerEvents: "none" }}
+        style={{ position: "absolute", ...frame, overflow: "visible", pointerEvents: "none" }}
       >
         <motion.path d={d} fill="none" stroke={color} strokeWidth={thickness} strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" {...(reduced ? { initial: false, animate: { pathLength: 1, opacity: 1 } } : draw)} />
       </svg>
