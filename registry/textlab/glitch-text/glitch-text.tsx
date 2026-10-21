@@ -20,18 +20,63 @@ export interface GlitchTextProps {
   style?: CSSProperties;
 }
 
-// Bursts last 450 ms with hard steps, then rest; never more than two bursts a second.
+// Each burst is a double hit: a sharp tear, a beat of calm, a smaller aftershock, all hard-stepped
+// over half a second, then a long rest. Never more than two bursts a second.
 const CSS = `
-@keyframes tl-glitch-a { 0% { clip-path: inset(12% 0 70% 0); transform: translate(-0.06em, 0); } 20% { clip-path: inset(58% 0 22% 0); transform: translate(0.08em, 0); } 40% { clip-path: inset(30% 0 52% 0); transform: translate(-0.04em, 0); } 60% { clip-path: inset(80% 0 6% 0); transform: translate(0.05em, 0); } 80% { clip-path: inset(4% 0 84% 0); transform: translate(-0.07em, 0); } 100% { clip-path: inset(50% 0 50% 0); transform: none; } }
-@keyframes tl-glitch-b { 0% { clip-path: inset(66% 0 12% 0); transform: translate(0.07em, 0); } 25% { clip-path: inset(8% 0 76% 0); transform: translate(-0.05em, 0); } 50% { clip-path: inset(40% 0 38% 0); transform: translate(0.06em, 0); } 75% { clip-path: inset(20% 0 64% 0); transform: translate(-0.08em, 0); } 100% { clip-path: inset(50% 0 50% 0); transform: none; } }
-@keyframes tl-glitch-shift { 0%, 100% { transform: none; } 15% { transform: translate(-0.05em, 0.02em) skewX(-6deg); } 30% { transform: translate(0.06em, -0.01em); } 45% { transform: translate(-0.02em, 0) skewX(4deg); } 60% { transform: translate(0.03em, 0.01em); } }
+@keyframes tl-glitch-a {
+  0% { clip-path: inset(10% 0 72% 0); transform: translate(-0.09em, 0) skewX(-8deg); }
+  8% { clip-path: inset(62% 0 20% 0); transform: translate(0.11em, 0); }
+  16% { clip-path: inset(34% 0 50% 0); transform: translate(-0.05em, 0) skewX(6deg); }
+  24% { clip-path: inset(84% 0 4% 0); transform: translate(0.07em, 0); }
+  32% { clip-path: inset(2% 0 88% 0); transform: translate(-0.1em, 0); }
+  40%, 58% { clip-path: inset(50% 0 50% 0); transform: none; }
+  64% { clip-path: inset(44% 0 40% 0); transform: translate(0.05em, 0); }
+  74% { clip-path: inset(70% 0 18% 0); transform: translate(-0.04em, 0); }
+  84%, 100% { clip-path: inset(50% 0 50% 0); transform: none; }
+}
+@keyframes tl-glitch-b {
+  0% { clip-path: inset(68% 0 10% 0); transform: translate(0.1em, 0); }
+  10% { clip-path: inset(6% 0 78% 0); transform: translate(-0.08em, 0) skewX(7deg); }
+  20% { clip-path: inset(42% 0 36% 0); transform: translate(0.06em, 0); }
+  30% { clip-path: inset(22% 0 62% 0); transform: translate(-0.11em, 0); }
+  40%, 60% { clip-path: inset(50% 0 50% 0); transform: none; }
+  68% { clip-path: inset(14% 0 72% 0); transform: translate(-0.05em, 0); }
+  78% { clip-path: inset(56% 0 30% 0); transform: translate(0.04em, 0); }
+  86%, 100% { clip-path: inset(50% 0 50% 0); transform: none; }
+}
+@keyframes tl-glitch-jolt {
+  0%, 40%, 60%, 86%, 100% { transform: none; opacity: 1; }
+  6% { transform: translate(-0.03em, 0.01em); opacity: 0.82; }
+  14% { transform: translate(0.025em, 0) skewX(-3deg); }
+  26% { transform: translate(-0.015em, -0.01em); opacity: 0.9; }
+  68% { transform: translate(0.02em, 0); opacity: 0.88; }
+}
+@keyframes tl-glitch-split-a {
+  0%, 40%, 60%, 86%, 100% { clip-path: inset(0 0 100% 0); transform: none; }
+  4% { clip-path: inset(0); transform: translate(-0.07em, 0.01em); }
+  16% { clip-path: inset(0); transform: translate(-0.04em, -0.01em); }
+  28% { clip-path: inset(0); transform: translate(-0.08em, 0); }
+  66% { clip-path: inset(0); transform: translate(-0.035em, 0); }
+}
+@keyframes tl-glitch-split-b {
+  0%, 40%, 60%, 86%, 100% { clip-path: inset(0 0 100% 0); transform: none; }
+  4% { clip-path: inset(0); transform: translate(0.07em, -0.01em); }
+  16% { clip-path: inset(0); transform: translate(0.05em, 0.01em); }
+  28% { clip-path: inset(0); transform: translate(0.08em, 0); }
+  66% { clip-path: inset(0); transform: translate(0.035em, 0); }
+}
+@keyframes tl-glitch-shift { 0%, 40%, 60%, 86%, 100% { transform: none; } 6% { transform: translate(-0.06em, 0.02em) skewX(-8deg); } 16% { transform: translate(0.07em, -0.01em); } 28% { transform: translate(-0.03em, 0) skewX(5deg); } 68% { transform: translate(0.03em, 0.01em); } }
 @keyframes tl-glitch-scan { from { background-position: 0 -120%; } to { background-position: 0 220%; } }
 .tl-glitch-layer { position: absolute; inset: 0; pointer-events: none; clip-path: inset(50% 0 50% 0); }
-[data-glitching] > .tl-glitch-a { animation: tl-glitch-a 0.45s steps(1) 1; color: var(--tl-glitch-1); }
-[data-glitching] > .tl-glitch-b { animation: tl-glitch-b 0.45s steps(1) 1; color: var(--tl-glitch-2); }
-[data-glitching][data-variant="shift"] > .tl-glitch-main { animation: tl-glitch-shift 0.45s steps(1) 1; }
-[data-variant="scan"] > .tl-glitch-scan { clip-path: none; background: linear-gradient(transparent 0%, color-mix(in oklab, currentColor 0%, transparent) 40%, var(--tl-glitch-2) 50%, transparent 60%) no-repeat; background-size: 100% 40%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-position: 0 -120%; }
+[data-glitching] > .tl-glitch-a { animation: tl-glitch-a 0.5s steps(1) 1; color: var(--tl-glitch-1); }
+[data-glitching] > .tl-glitch-b { animation: tl-glitch-b 0.5s steps(1) 1; color: var(--tl-glitch-2); }
+[data-glitching][data-variant="slice"] > .tl-glitch-main { animation: tl-glitch-jolt 0.5s steps(1) 1; }
+[data-glitching][data-variant="shift"] > .tl-glitch-main { animation: tl-glitch-shift 0.5s steps(1) 1; }
+[data-glitching][data-variant="shift"] > .tl-glitch-a { animation-name: tl-glitch-split-a; opacity: 0.8; }
+[data-glitching][data-variant="shift"] > .tl-glitch-b { animation-name: tl-glitch-split-b; opacity: 0.8; }
+[data-variant="scan"] > .tl-glitch-scan { clip-path: none; background: linear-gradient(transparent 0%, transparent 38%, var(--tl-glitch-2) 50%, transparent 62%) no-repeat; background-size: 100% 40%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-position: 0 -120%; }
 [data-glitching][data-variant="scan"] > .tl-glitch-scan { animation: tl-glitch-scan 0.6s linear 1; }
+[data-glitching][data-variant="scan"] > .tl-glitch-main { animation: tl-glitch-jolt 0.6s steps(1) 1; }
 `;
 
 /**
@@ -62,7 +107,7 @@ export function GlitchText({ text, variant = "slice", trigger = "interval", ever
   }
   useEffect(() => {
     if (!glitching) return;
-    const id = setTimeout(() => setGlitching(false), 620);
+    const id = setTimeout(() => setGlitching(false), 650);
     return () => clearTimeout(id);
   }, [glitching, burst]);
 

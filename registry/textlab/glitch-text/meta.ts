@@ -20,7 +20,7 @@ export const meta: ComponentMeta = {
   usage: `<GlitchText text="Signal lost" trigger="hover" />`,
   whenToUse: ["Gaming, music and cyber themes.", "Error and 404 pages with personality."],
   whenNotToUse: ["Serious or high-trust contexts like payments.", "More than one glitch on screen."],
-  accessibility: ["Bursts are 450 ms with at least 3 s between them by default, well under flash thresholds.", "The readable text never moves except in the shift variant's short jolt."],
+  accessibility: ["Bursts are 500 ms with at least 3 s between them by default, well under flash thresholds.", "The readable text only jolts by a few hundredths of an em, and only during a burst."],
   motion: ["Hard steps, not tweens, so it looks digital.", "Long rests between bursts keep it intentional."],
   reducedMotion: "No glitching; plain text.",
   performance: ["CSS keyframes on clip-path and transform; idle between bursts."],
