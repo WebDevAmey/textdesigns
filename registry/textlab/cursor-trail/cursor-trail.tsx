@@ -39,7 +39,9 @@ export function CursorTrail({ text, variant = "chain", children, spacing = 0.62,
   const state = useRef(chars.map(() => ({ x: 0, y: 0, a: 0, o: 0 })));
   const rand = seeded(hashString(text));
   const emRef = useRef(0);
-  const jitter = useRef(chars.map(() => ({ x: (rand() - 0.5) * 2, y: (rand() - 0.5) * 2, r: (rand() - 0.5) * 40, rate: 6 + rand() * 8 })));
+  const jitter = useRef(chars.map(() => ({ x: (rand() - 0.5) * 2, y: (rand() - 0.5) * 2, r: (rand() - 0.5) * 50, rate: 5 + rand() * 7 })));
+  // Smoothed pointer velocity in px/s: scatter flings the letters apart in proportion to it.
+  const motionState = useRef({ x: 0, y: 0, vx: 0, vy: 0, seen: false });
 
   useFrame(
     (_, dt) => {
@@ -50,6 +52,19 @@ export function CursorTrail({ text, variant = "chain", children, spacing = 0.62,
       if (!emRef.current) emRef.current = letters.current[0]?.offsetHeight || 16;
       const em = emRef.current;
       const show = p.active && p.inside ? 1 : 0;
+      const m = motionState.current;
+      if (!show) {
+        m.seen = false;
+        m.vx = m.vy = 0;
+      } else if (dt > 0 && m.seen) {
+        m.vx = damp(m.vx, (p.x - m.x) / dt, 10, dt);
+        m.vy = damp(m.vy, (p.y - m.y) / dt, 10, dt);
+      }
+      m.x = p.x;
+      m.y = p.y;
+      if (show) m.seen = true;
+      // 0 when the cursor rests, 1 when it moves fast.
+      const fling = Math.min(Math.hypot(m.vx, m.vy) / 1200, 1);
       state.current.forEach((s, i) => {
         const el = letters.current[i];
         if (!el) return;
@@ -79,11 +94,13 @@ export function CursorTrail({ text, variant = "chain", children, spacing = 0.62,
           s.a = damp(s.a, Math.abs(ta) > 90 ? ta - 180 * Math.sign(ta) : ta, 10, dt);
         } else {
           const j = jitter.current[i];
-          tx = p.x + j.x * em + (i - chars.length / 2) * spacing * em * 0.5;
-          ty = p.y + j.y * em;
+          // At rest the letters settle into the word beside the cursor; moving scatters them, each
+          // drifting by its own amount and catching up at its own pace, then they regroup.
+          tx = p.x + (i + 0.9) * spacing * em + j.x * em * 1.6 * fling;
+          ty = p.y + j.y * em * 1.6 * fling;
           s.x = damp(s.x, tx, j.rate, dt);
           s.y = damp(s.y, ty, j.rate, dt);
-          s.a = damp(s.a, j.r, 4, dt);
+          s.a = damp(s.a, j.r * fling, 6, dt);
         }
         s.o = damp(s.o, show, 8, dt);
         el.style.transform = `translate(${s.x.toFixed(1)}px, ${s.y.toFixed(1)}px) translate(-50%, -50%) rotate(${s.a.toFixed(1)}deg)`;
