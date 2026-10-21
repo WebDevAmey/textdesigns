@@ -23,7 +23,7 @@ export const meta: ComponentMeta = {
     commonProps.reducedMotion,
     commonProps.className,
   ],
-  usage: `<p>Meetings that could have been an <StrikeThrough text="email" variant="replace" replacement="emoji" /></p>`,
+  usage: `<p>Meetings that could have been an <StrikeThrough text="email" variant="replace" replacement="👍" /></p>`,
   whenToUse: ["Witty headlines that correct themselves.", "Pricing before and after, changelog wording."],
   whenNotToUse: ["Legal or factual corrections; use <del> and <ins> styled plainly.", "More than one per line."],
   accessibility: ["Screen readers hear the meaning: the replacement and what it replaces, or that the word is struck out.", "The pen line and correction are decorative."],
@@ -33,6 +33,6 @@ export const meta: ComponentMeta = {
   related: ["underline-draw", "circle-annotate", "text-morph"],
   keywords: ["strikethrough", "cross out", "correction", "hand drawn", "edit"],
   controls: [{ prop: "variant", kind: "select", options: ["replace", "line", "scribble"] }],
-  preset: { text: "email", replacement: "emoji" },
+  preset: { text: "email", replacement: "👍" },
   added: "2026-10-17",
 };

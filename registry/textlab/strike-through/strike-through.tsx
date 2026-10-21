@@ -42,6 +42,8 @@ export function StrikeThrough({ text, variant = "line", replacement, color = "va
   const d = (variant === "scribble" ? roughStrikeScribble : roughStrike)(hashString(text));
   const draw = drawProps(struck, { duration: variant === "scribble" ? duration * 1.6 : duration, delay });
   const showReplacement = variant === "replace" && replacement && struck;
+  // An emoji correction pops in upright and larger; a word is handwritten small and slanted.
+  const isEmoji = !!replacement && /^[\p{Extended_Pictographic}\p{Emoji_Component}\u200d\ufe0f\s]+$/u.test(replacement);
   const spoken = variant === "replace" && replacement ? `${replacement} (replaces ${text})` : `${text} (struck out)`;
 
   return (
@@ -50,17 +52,17 @@ export function StrikeThrough({ text, variant = "line", replacement, color = "va
       <motion.span aria-hidden="true" initial={false} animate={{ opacity: struck ? 0.55 : 1 }} transition={{ duration: 0.3, delay: reduced ? 0 : delay + duration * 0.6 }}>
         {text}
       </motion.span>
-      <svg aria-hidden="true" viewBox="0 0 100 20" preserveAspectRatio="none" style={{ position: "absolute", left: "-3%", width: "106%", top: "22%", height: "0.6em", overflow: "visible", pointerEvents: "none" }}>
+      <svg aria-hidden="true" viewBox="0 0 100 20" preserveAspectRatio="none" style={{ position: "absolute", left: "-3%", width: "106%", top: "50%", marginTop: "-0.22em", height: "0.6em", overflow: "visible", pointerEvents: "none" }}>
         <motion.path d={d} fill="none" stroke={color} strokeWidth={thickness} strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" {...(reduced ? { initial: false, animate: { pathLength: 1, opacity: 1 } } : draw)} />
       </svg>
       <AnimatePresence>
         {showReplacement && (
           <motion.span
             aria-hidden="true"
-            style={{ position: "absolute", left: "50%", bottom: "78%", whiteSpace: "nowrap", color, fontSize: "0.62em", fontStyle: "italic" }}
-            initial={reduced ? false : { opacity: 0, transform: "translateX(-50%) translateY(0.3em) rotate(-3deg)", filter: "blur(4px)" }}
-            animate={{ opacity: 1, transform: "translateX(-50%) translateY(0em) rotate(-3deg)", filter: "blur(0px)" }}
-            transition={{ duration: 0.5, delay: reduced ? 0 : delay + duration + 0.1, ease: [...ease.enter] }}
+            style={{ position: "absolute", left: "50%", bottom: isEmoji ? "70%" : "78%", whiteSpace: "nowrap", color, fontSize: isEmoji ? "0.85em" : "0.62em", fontStyle: isEmoji ? "normal" : "italic", lineHeight: 1 }}
+            initial={reduced ? false : isEmoji ? { opacity: 0, transform: "translateX(-50%) translateY(0.4em) scale(0.4) rotate(-20deg)" } : { opacity: 0, transform: "translateX(-50%) translateY(0.3em) rotate(-3deg)", filter: "blur(4px)" }}
+            animate={isEmoji ? { opacity: 1, transform: "translateX(-50%) translateY(0em) scale(1) rotate(-6deg)" } : { opacity: 1, transform: "translateX(-50%) translateY(0em) rotate(-3deg)", filter: "blur(0px)" }}
+            transition={isEmoji ? { type: "spring", duration: 0.6, bounce: 0.3, delay: reduced ? 0 : delay + duration + 0.1 } : { duration: 0.5, delay: reduced ? 0 : delay + duration + 0.1, ease: [...ease.enter] }}
           >
             {replacement}
           </motion.span>
