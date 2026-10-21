@@ -8,6 +8,7 @@ import { InViewShowcase } from "@/site/home/in-view-showcase";
 import { Specimens } from "@/site/home/specimens";
 import { Code } from "@/site/doc-page";
 import { site } from "@/site/config";
+import { GithubStar } from "@/site/github-star";
 
 export default function Home() {
   return (
@@ -94,6 +95,10 @@ export default function Home() {
             Start typing.
           </span>
         </Link>
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <GithubStar size="lg" />
+          <p className="text-secondary">Free and MIT licensed. A star helps other people find it.</p>
+        </div>
       </section>
     </main>
   );
