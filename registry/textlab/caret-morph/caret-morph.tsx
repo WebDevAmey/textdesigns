@@ -43,7 +43,15 @@ export function CaretMorph({ text, variant = "highlight", autoplay = true, inter
     if (!node) return;
     const measure = () => {
       const spans = node.querySelectorAll<HTMLElement>("[data-tl-word]");
-      setBoxes(Array.from(spans, (s) => ({ x: s.offsetLeft, y: s.offsetTop, w: s.offsetWidth, h: s.offsetHeight })));
+      // Measure against the root's own box: offsetLeft is relative to the nearest positioned ancestor,
+      // which here is an inline wrapper whose origin moves when the sentence wraps.
+      const origin = node.getBoundingClientRect();
+      setBoxes(
+        Array.from(spans, (s) => {
+          const r = s.getBoundingClientRect();
+          return { x: r.left - origin.left, y: r.top - origin.top, w: r.width, h: r.height };
+        }),
+      );
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -97,14 +105,14 @@ export function CaretMorph({ text, variant = "highlight", autoplay = true, inter
             height: frame?.h,
             background: variant === "highlight" ? `color-mix(in oklab, ${color} 28%, transparent)` : "currentColor",
             mixBlendMode: variant === "block" ? "difference" : undefined,
-            zIndex: variant === "block" ? 1 : 0,
+            zIndex: variant === "block" ? 2 : 0,
           }}
           initial={false}
           animate={target}
           transition={{ duration: duration.base * 0.85, ease: [...ease.enter] }}
         />
       )}
-      <span aria-hidden="true" style={{ position: "relative" }}>
+      <span aria-hidden="true">
         {words.map((word, i) => (
           <span key={i}>
             <span
@@ -113,7 +121,7 @@ export function CaretMorph({ text, variant = "highlight", autoplay = true, inter
                 setEngaged(true);
                 setIndex(i);
               }}
-              style={{ position: "relative" }}
+              style={{ position: "relative", zIndex: 1 }}
             >
               {word.text}
             </span>
