@@ -3,6 +3,22 @@ import { useLayoutEffect, useEffect, useState, type RefObject } from "react";
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /**
+ * Layout top of `el` relative to `root`, ignoring transforms. offsetTop alone is not enough: animated
+ * parts are transformed, which makes them offset parents, so tops must be summed up the chain.
+ */
+function layoutTop(el: HTMLElement, root: HTMLElement) {
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node && node !== root && root.contains(node)) {
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
+  }
+  // The chain left the root (the root is not an offset parent): remove the root's own offset.
+  if (node !== root) top -= root.offsetTop;
+  return top;
+}
+
+/**
  * Group the word spans inside `ref` into visual lines.
  * Word spans are found by `[data-tl-word]`. Returns the line index of each word, or null before
  * the first measure. Re-measures when the container width changes, once per frame at most.
@@ -23,7 +39,7 @@ export function useSplitLines(ref: RefObject<HTMLElement | null>, wordCount: num
       let line = -1;
       let lastTop = Number.NEGATIVE_INFINITY;
       words.forEach((word) => {
-        const top = word.offsetTop;
+        const top = layoutTop(word, node);
         // Words on the same line can differ by a pixel or two with mixed fonts.
         if (top > lastTop + 2) {
           line += 1;
