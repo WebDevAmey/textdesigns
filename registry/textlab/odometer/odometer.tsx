@@ -57,7 +57,7 @@ function Wheel({ value, place, variant, framed }: { value: MotionValue<number>; 
       }}
     >
       <span style={{ visibility: "hidden" }}>0</span>
-      <motion.span style={{ position: "absolute", inset: framed ? "0 0.08em" : 0, display: "flex", flexDirection: "column", y }}>
+      <motion.span style={{ position: "absolute", top: 0, left: framed ? "0.08em" : 0, right: framed ? "0.08em" : 0, display: "flex", flexDirection: "column", y }}>
         {CELLS.map((n, i) => (
           <span key={i} style={{ height: "1.2em", lineHeight: "1.2em", textAlign: "center" }}>
             {n}
