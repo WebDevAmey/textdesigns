@@ -8,8 +8,6 @@ import { BlurReveal } from "@registry/textlab/blur-reveal/blur-reveal";
 import { useReduced } from "@registry/textlab/lib/use-reduced";
 import { ThemeToggle } from "../theme-toggle";
 import { site } from "../config";
-import { AsciiField } from "./ascii-field";
-import { Grain } from "./grain";
 import { Magnetic } from "./magnetic";
 import { Wordmark } from "./wordmark";
 
@@ -38,8 +36,6 @@ export function CinematicFooter({ total, star }: { total: number; star: ReactNod
         className="fixed inset-x-0 bottom-0 flex h-[100svh] min-h-[640px] flex-col overflow-hidden bg-[var(--tl-surface)]"
         onFocus={() => window.scrollTo({ top: document.documentElement.scrollHeight })}
       >
-        <AsciiField chars=" ..::" still="/landing/footer-still.webp" parallax={3} className="inset-x-0 bottom-0 h-2/3" mask="linear-gradient(to top, #000 10%, transparent 90%)" />
-        <Grain />
 
         <div className="relative mx-auto flex w-full max-w-[1400px] flex-1 flex-col px-6 pt-[calc(var(--header-h)+16px)] sm:pt-[calc(var(--header-h)+40px)] sm:px-10">
           <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 [&>*]:min-w-0">
@@ -48,7 +44,7 @@ export function CinematicFooter({ total, star }: { total: number; star: ReactNod
               <p className="mt-4 text-lg text-secondary">Pick an effect, run one command.</p>
               <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
                 <Magnetic>
-                  <Link href="/components" className="inline-flex h-12 items-center rounded-[2px] bg-accent px-6 text-base font-semibold text-accent-foreground transition-transform duration-200 active:scale-[0.98]">
+                  <Link href="/components" className="inline-flex h-12 items-center rounded-full bg-accent px-6 text-base font-semibold text-accent-foreground transition-transform duration-200 active:scale-[0.98]">
                     Browse all {total} effects
                   </Link>
                 </Magnetic>
