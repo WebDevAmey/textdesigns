@@ -1,4 +1,7 @@
-/** Join class names, skipping falsy values. Used by components installed from other shadcn registries. */
-export function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/** Join class names; later Tailwind classes win over earlier ones, so a caller's className overrides defaults. */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
