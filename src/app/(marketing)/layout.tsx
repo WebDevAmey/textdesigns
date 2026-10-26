@@ -1,18 +1,15 @@
 import { catalog } from "@registry/catalog";
 import { GithubStar } from "@/site/github-star";
-import { CinematicFooter } from "@/site/landing/cinematic-footer";
+import { LandingFooter } from "@/site/landing/landing-footer";
 import { SmoothScroll } from "@/site/landing/smooth-scroll";
 
-/**
- * The landing page scrolls over its footer like a curtain: main is opaque and lifted above, and the
- * footer is fixed underneath, revealed as the last section scrolls away.
- */
+/** The landing page ends on a cloud call to action whose rounded bottom sits over the dark footer. */
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SmoothScroll />
-      <div className="relative z-10 border-b border-[var(--hairline)] bg-background">{children}</div>
-      <CinematicFooter total={catalog.length} star={<GithubStar size="lg" />} />
+      <div className="relative z-10 bg-background">{children}</div>
+      <LandingFooter total={catalog.length} star={<GithubStar size="lg" />} />
     </>
   );
 }
