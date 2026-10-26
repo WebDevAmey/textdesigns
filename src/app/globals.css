@@ -235,3 +235,9 @@
     opacity: 0;
   }
 }
+
+@keyframes tl-fade-in {
+  from {
+    opacity: 0;
+  }
+}
