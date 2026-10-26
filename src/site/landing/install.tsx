@@ -8,6 +8,7 @@ import { useTrigger } from "@registry/textlab/lib/use-trigger";
 import { ease } from "@registry/textlab/lib/motion-tokens";
 import { CopyButton } from "../copy-button";
 import { Segmented } from "../segmented";
+import { SectionHead } from "./section-head";
 
 const MODES = ["Human", "Agent"] as const;
 type Mode = (typeof MODES)[number];
@@ -31,17 +32,14 @@ export function Install({ install, mcp, file }: { install: string; mcp: string; 
 
   return (
     <section aria-labelledby="install-title" className="relative border-t border-[var(--hairline)] bg-background">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-12 [&>*]:min-w-0">
-        <div className="lg:col-span-5">
-          <h2 id="install-title" className="font-display text-4xl font-semibold tracking-[-0.035em] [text-wrap:balance] md:text-5xl">
-            From browsing to shipped in a minute.
-          </h2>
-          <p className="mt-6 max-w-sm text-lg text-secondary">
-            {mode === "Human" ? "Run one command. The component and its helpers land in your project as plain TypeScript." : "Connect the MCP server and your agent can search by intent, read the props and install the right effect."}
-          </p>
-        </div>
-
-        <div className="lg:col-span-7">
+      <div className="mx-auto max-w-3xl px-4 py-20 md:px-8 md:py-28">
+        <SectionHead
+          id="install-title"
+          eyebrow="Install"
+          title="From browsing to shipped in a minute."
+          body={mode === "Human" ? "One command. The component and its helpers land in your project as plain TypeScript." : "Connect the MCP server and your agent can search, read the props and install the right effect."}
+        />
+        <div className="mt-12">
           <div className="mb-3 flex items-center justify-between gap-4">
             <Segmented size="sm" label="Who is installing" value={mode} options={MODES} onChange={(m) => { setMode(m); setStep(0); }} format={(v) => v} />
             {mode === "Agent" && (
