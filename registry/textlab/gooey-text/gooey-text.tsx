@@ -58,6 +58,8 @@ export function GooeyText({ words, variant = "blob", interval = 2.2, duration = 
       const blur = f <= 0.001 ? 100 : Math.min(8 / f - 8, 100);
       el.style.filter = `blur(${blur.toFixed(2)}px)`;
       el.style.opacity = `${(Math.pow(f, 0.4) * 100).toFixed(1)}%`;
+      // A fully melted word leaves the paint tree, so it is never read as faint text.
+      el.style.visibility = f <= 0.001 ? "hidden" : "visible";
       const drip = variant === "drip" ? 1 - f : 0;
       el.style.transform = leaving ? `translateY(${(drip * 0.45).toFixed(3)}em) scaleY(${(1 + drip * 0.35).toFixed(3)})` : `translateY(${(-drip * 0.2).toFixed(3)}em)`;
     };
@@ -98,7 +100,7 @@ export function GooeyText({ words, variant = "blob", interval = 2.2, duration = 
       <span style={srOnly}>{spoken}</span>
       <span aria-hidden="true" style={{ position: "relative", display: "inline-grid", filter: `url(#${id})` }}>
         <span style={{ gridArea: "1 / 1", visibility: "hidden" }}>{longest}</span>
-        <span ref={outgoing} style={{ ...layer, opacity: 0 }}>
+        <span ref={outgoing} style={{ ...layer, opacity: 0, visibility: "hidden" }}>
           {prev === null ? "" : words[prev]}
         </span>
         <span ref={incoming} style={layer}>

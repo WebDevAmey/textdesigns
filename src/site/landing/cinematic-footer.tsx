@@ -33,7 +33,11 @@ export function CinematicFooter({ total, star }: { total: number; star: ReactNod
 
   return (
     <footer ref={ref} className="relative h-[100svh] min-h-[640px]" style={{ clipPath: "inset(0)" }}>
-      <div className="fixed inset-x-0 bottom-0 flex h-[100svh] min-h-[640px] flex-col overflow-hidden bg-[var(--tl-surface)]">
+      {/* The footer sits under the page, so keyboard focus inside it scrolls the curtain fully open. */}
+      <div
+        className="fixed inset-x-0 bottom-0 flex h-[100svh] min-h-[640px] flex-col overflow-hidden bg-[var(--tl-surface)]"
+        onFocus={() => window.scrollTo({ top: document.documentElement.scrollHeight })}
+      >
         <AsciiField chars=" ..::" still="/landing/footer-still.webp" parallax={3} className="inset-x-0 bottom-0 h-2/3" mask="linear-gradient(to top, #000 10%, transparent 90%)" />
         <Grain />
 

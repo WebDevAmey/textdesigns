@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const QUERIES = ["(prefers-reduced-motion: reduce)", "(min-width: 768px)"];
@@ -10,6 +9,38 @@ const subscribe = (fn: () => void) => {
   lists.forEach((l) => l.addEventListener("change", fn));
   return () => lists.forEach((l) => l.removeEventListener("change", fn));
 };
+
+/**
+ * The fallback still, painted into a canvas rather than an img: it is decoration, and as an img it
+ * would outrank the headline as the page's largest contentful paint.
+ */
+function StillCanvas({ src }: { src: string }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const img = new window.Image();
+    const paint = () => {
+      const { width, height } = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      const ctx = canvas.getContext("2d");
+      if (!ctx || !img.naturalWidth) return;
+      // Cover-fit, like object-fit: cover.
+      const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+      const w = img.naturalWidth * scale;
+      const h = img.naturalHeight * scale;
+      ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+    };
+    img.onload = paint;
+    img.src = src;
+    const ro = new ResizeObserver(paint);
+    ro.observe(canvas);
+    return () => ro.disconnect();
+  }, [src]);
+  return <canvas ref={ref} className="size-full invert dark:invert-0" />;
+}
 
 type Props = {
   /** Characters from dark to light. */
@@ -67,7 +98,7 @@ export function AsciiField({ chars, still, mask, parallax = 5, className = "" }:
   const style = { maskImage: mask, WebkitMaskImage: mask };
   return (
     <div aria-hidden className={`pointer-events-none absolute ${className}`} style={style}>
-      {live === false && <Image src={still} alt="" fill sizes="100vw" className="object-cover invert dark:invert-0" />}
+      {live === false && <StillCanvas src={still} />}
       {/* The library tints its glyphs blue; grayscale makes them neutral, and light mode inverts them to ink. */}
       {live && <canvas ref={canvas} className="size-full opacity-50 grayscale invert dark:opacity-45 dark:invert-0" />}
     </div>

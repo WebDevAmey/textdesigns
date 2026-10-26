@@ -35,30 +35,32 @@ function GithubIcon({ className }: { className?: string }) {
 /** Link to the repository with its live star count: the quickest way to support the project. */
 export async function GithubStar({ size = "sm" }: { size?: "sm" | "lg" }) {
   const count = await stars();
-  const label = count === null ? "Star Textlab on GitHub" : `Star Textlab on GitHub, ${count} stars`;
+  // Names come from the visible text plus screen-reader-only words, so what people see is what they hear.
+  const suffix = count === null ? null : <span className="sr-only"> stars</span>;
   if (size === "lg") {
     return (
       <a
         href={site.github}
-        aria-label={label}
         className="group inline-flex h-11 items-center gap-2.5 rounded-full bg-surface-2 pl-4 pr-5 text-[15px] font-medium transition-transform duration-150 active:scale-[0.97]"
       >
         <StarIcon className="size-4 text-accent transition-transform duration-300 group-hover:rotate-[72deg]" />
         Star on GitHub
         {count !== null && <span className="font-mono text-[13px] text-secondary tabular-nums">{compact(count)}</span>}
+        {suffix}
       </a>
     );
   }
   return (
     <a
       href={site.github}
-      aria-label={label}
       className="group inline-flex h-8 items-center gap-1.5 rounded-full bg-surface-2 pl-2.5 pr-3 text-[13px] font-medium text-secondary transition-[color,transform] duration-150 hover:text-foreground active:scale-[0.97] pointer-coarse:h-11"
     >
       <GithubIcon className="size-3.5" />
-      <span className="hidden sm:inline">Star</span>
+      <span className="sr-only sm:not-sr-only">Star</span>
+      <span className="sr-only"> on GitHub</span>
       <StarIcon className="size-3 text-accent transition-transform duration-300 group-hover:rotate-[72deg] sm:hidden" />
       {count !== null && <span className="font-mono text-[12px] tabular-nums">{compact(count)}</span>}
+      {suffix}
     </a>
   );
 }
