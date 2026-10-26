@@ -23,6 +23,7 @@ export const docsNav = [
       { href: "/docs/installation", label: "Installation" },
       { href: "/docs/tokens", label: "Tokens" },
       { href: "/docs/ai", label: "AI and MCP" },
+      { href: "/docs/faq", label: "FAQ" },
       { href: "/docs/changelog", label: "Changelog" },
     ],
   },

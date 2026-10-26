@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { catalog } from "@registry/catalog";
 import { categories } from "@registry/types";
+import { Playground } from "@/site/playground";
 
 export const metadata = { title: "Components", description: "Every Textlab text effect, grouped by what it does." };
 
@@ -9,6 +10,9 @@ export default function ComponentsIndex() {
     <div className="max-w-[960px]">
       <h1 className="font-display text-[36px] leading-[1.05] tracking-[-0.035em] sm:text-[44px]">Components</h1>
       <p className="mt-2 text-lg text-secondary">{catalog.length} text effects, each live on its page and installable with one command.</p>
+      <div className="mt-8">
+        <Playground />
+      </div>
       {categories.map((category) => {
         const items = catalog.filter((c) => c.category === category.id);
         if (!items.length) return null;

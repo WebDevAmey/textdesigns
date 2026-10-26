@@ -16,10 +16,10 @@
   --color-accent: var(--tl-accent);
   --color-accent-foreground: var(--tl-accent-foreground);
   --color-code: var(--code-bg);
-  --font-sans: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
-  --font-flex: var(--font-roboto-flex), var(--font-switzer), sans-serif;
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-flex: var(--font-roboto-flex), var(--font-bricolage), sans-serif;
   --ease-enter: var(--tl-ease-enter);
   --ease-exit: var(--tl-ease-exit);
   --ease-standard: var(--tl-ease-standard);
@@ -27,14 +27,39 @@
   --default-transition-timing-function: var(--tl-ease-enter);
 }
 
+/*
+ * Site palette. The library ships neutral defaults in tokens.css; the site overrides them here:
+ * warm paper in light, a soft near-black in dark, and one ember accent for focus, the primary
+ * button and the hero.
+ */
 :root {
-  --code-bg: oklch(0.965 0 0);
+  --tl-background: #f2efe8;
+  --tl-surface: #ebe7de;
+  --tl-surface-2: #e2ddd2;
+  --tl-foreground: #171715;
+  --tl-text-secondary: #55534d;
+  --tl-text-tertiary: #6b6860;
+  --tl-border: rgba(0, 0, 0, 0.08);
+  --tl-accent: #e14a1d;
+  --tl-accent-foreground: #141414;
+  --hairline: rgba(0, 0, 0, 0.08);
+  --code-bg: #ebe7de;
   --header-h: 56px;
   color-scheme: light;
 }
 
 .dark {
-  --code-bg: oklch(0.185 0 0);
+  --tl-background: #141414;
+  --tl-surface: #1b1b1a;
+  --tl-surface-2: #242422;
+  --tl-foreground: #eceae4;
+  --tl-text-secondary: #a9a69e;
+  --tl-text-tertiary: #8e8b83;
+  --tl-border: rgba(255, 255, 255, 0.08);
+  --tl-accent: #ff5b2e;
+  --tl-accent-foreground: #141414;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --code-bg: #1b1b1a;
   color-scheme: dark;
 }
 
@@ -74,10 +99,18 @@
 }
 
 @layer components {
-  /* Switzer at display sizes: semibold and tight, the way it is drawn to be used large. Utilities can still override. */
+  /* Bricolage at display sizes: semibold and tight. Utilities can still override. */
   .font-display {
     font-weight: 600;
     letter-spacing: -0.04em;
+  }
+  /* Small monospace labels: figure numbers, captions, the stack line. */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
   .prose-docs {
     color: var(--tl-text-secondary);
@@ -195,4 +228,10 @@
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+@keyframes tl-caret {
+  50% {
+    opacity: 0;
+  }
 }
