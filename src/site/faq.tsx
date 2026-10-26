@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { FaqAccordion } from "./faq-accordion";
 
 export const faqs = [
   {
@@ -31,7 +31,7 @@ export const faqs = [
   },
 ];
 
-/** Plain question and answer pairs: native disclosure for the UI, FAQ schema for search engines. */
+/** Smooth single-open accordion for people, FAQ schema for search engines. */
 export function Faq({ limit }: { limit?: number } = {}) {
   const shown = limit ? faqs.slice(0, limit) : faqs;
   const schema = {
@@ -40,17 +40,9 @@ export function Faq({ limit }: { limit?: number } = {}) {
     mainEntity: shown.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
   return (
-    <div className="divide-y divide-border border-y">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      {shown.map((f) => (
-        <details key={f.q} className="group">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium transition-colors duration-200 hover:text-accent [&::-webkit-details-marker]:hidden">
-            {f.q}
-            <Plus aria-hidden className="size-5 shrink-0 text-tertiary transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45" strokeWidth={1.75} />
-          </summary>
-          <p className="tl-disclosure-panel max-w-2xl pb-6 text-base text-secondary [text-wrap:pretty]">{f.a}</p>
-        </details>
-      ))}
-    </div>
+      <FaqAccordion items={shown} />
+    </>
   );
 }
