@@ -31,9 +31,9 @@ export function Install({ install, mcp, file }: { install: string; mcp: string; 
 
   return (
     <section aria-labelledby="install-title" className="relative border-t border-[var(--hairline)] bg-background">
-      <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-24 sm:px-10 sm:py-32 lg:grid-cols-12 [&>*]:min-w-0">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-12 [&>*]:min-w-0">
         <div className="lg:col-span-5">
-          <h2 id="install-title" className="font-display text-[clamp(2rem,4.5vw,4rem)] font-semibold leading-[0.95] tracking-[-0.04em] [text-wrap:balance]">
+          <h2 id="install-title" className="font-display text-4xl font-semibold tracking-[-0.035em] [text-wrap:balance] md:text-5xl">
             From browsing to shipped in a minute.
           </h2>
           <p className="mt-6 max-w-sm text-lg text-secondary">
@@ -50,7 +50,7 @@ export function Install({ install, mcp, file }: { install: string; mcp: string; 
               </a>
             )}
           </div>
-          <div ref={ref} className="overflow-hidden rounded-[2px] bg-[var(--tl-surface)] ring-1 ring-[var(--hairline)]">
+          <div ref={ref} className="overflow-hidden rounded-2xl bg-[var(--tl-surface)] ring-1 ring-[var(--hairline)]">
             <div className="flex items-center justify-between border-b border-[var(--hairline)] px-4 py-2">
               <span className="label-mono text-tertiary">Terminal</span>
               <CopyButton value={command} label="Copy command" />
@@ -79,7 +79,7 @@ export function Install({ install, mcp, file }: { install: string; mcp: string; 
             </div>
           </div>
           {mode === "Human" && (
-            <div className="mt-3 flex min-h-[120px] items-center justify-between gap-4 rounded-[2px] px-5 ring-1 ring-[var(--hairline)]">
+            <div className="mt-3 flex min-h-[120px] items-center justify-between gap-4 rounded-2xl px-5 ring-1 ring-[var(--hairline)]">
               <div className="font-display text-5xl font-semibold tracking-[-0.04em]">
                 {step >= 2 ? <BlurReveal key={run} text="Hello" variant="word" trigger="mount" /> : <span className="opacity-0">Hello</span>}
               </div>

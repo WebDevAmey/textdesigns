@@ -32,16 +32,17 @@ export const faqs = [
 ];
 
 /** Plain question and answer pairs: native disclosure for the UI, FAQ schema for search engines. */
-export function Faq() {
+export function Faq({ limit }: { limit?: number } = {}) {
+  const shown = limit ? faqs.slice(0, limit) : faqs;
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    mainEntity: shown.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
   return (
     <div className="divide-y divide-border border-y">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      {faqs.map((f) => (
+      {shown.map((f) => (
         <details key={f.q} className="group">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium transition-colors duration-200 hover:text-accent [&::-webkit-details-marker]:hidden">
             {f.q}
