@@ -79,6 +79,7 @@ export default function CloudShaderHeroDemo() {
       {/* dashboard image */}
       <div className="relative z-10 mx-auto mt-12 w-full max-w-6xl px-4 pb-4 md:mt-16 md:px-8">
         <div className="rounded-2xl border border-white/30 bg-white/20 p-2 shadow-2xl backdrop-blur-md md:rounded-[2rem] md:p-3">
+          {/* eslint-disable-next-line @next/next/no-img-element -- kept as in the Aceternity source */}
           <img
             src="https://assets.aceternity.com/screenshots/fintech-dashboard.webp"
             alt="Altitude fintech dashboard"
