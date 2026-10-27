@@ -51,7 +51,7 @@ function Wordmark() {
     const el = box.current;
     const p = probe.current;
     if (!el || !p) return;
-    const fit = () => setSize((el.clientWidth / p.getBoundingClientRect().width) * 100);
+    const fit = () => setSize((el.clientWidth / p.getBoundingClientRect().width) * 100 * 0.97);
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
@@ -63,7 +63,7 @@ function Wordmark() {
       <span ref={probe} className="invisible absolute whitespace-nowrap font-display text-[100px] font-semibold tracking-[-0.06em]">
         textlab
       </span>
-      <p className="whitespace-nowrap font-display font-semibold leading-[0.8] tracking-[-0.06em] text-white" style={{ fontSize: size ? `${size}px` : "18vw" }}>
+      <p className="whitespace-nowrap font-display font-semibold leading-[0.8] tracking-[-0.06em] text-black dark:text-white" style={{ fontSize: size ? `${size}px` : "18vw" }}>
         textlab
       </p>
     </div>
@@ -119,15 +119,15 @@ export function LandingFooter({ total, star }: { total: number; star: ReactNode 
         </section>
       </div>
 
-      <footer className="-mt-10 bg-black pt-10 text-white">
+      <footer className="-mt-10 bg-[#f5f5f5] pt-10 text-black dark:bg-black dark:text-white">
         <div className="mx-auto max-w-[1056px] px-6 pt-16">
           <div className="grid gap-12 md:grid-cols-[1.6fr_1fr_1fr]">
             <div>
               <p className="font-display text-2xl font-semibold tracking-[-0.04em]">textlab</p>
-              <p className="mt-4 max-w-xs text-sm leading-6 text-white/70">Text effects for React and Next.js, installed as source with the shadcn CLI and readable by your AI tools.</p>
-              <p className="mt-4 text-sm text-white/70">
+              <p className="mt-4 max-w-xs text-sm leading-6 text-black/60 dark:text-white/70">Text effects for React and Next.js, installed as source with the shadcn CLI and readable by your AI tools.</p>
+              <p className="mt-4 text-sm text-black/60 dark:text-white/70">
                 Built by{" "}
-                <a href={site.github} className="text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white">
+                <a href={site.github} className="text-black underline decoration-black/25 underline-offset-4 transition hover:decoration-black dark:text-white dark:decoration-white/30 dark:hover:decoration-white">
                   WebDevAmey
                 </a>
               </p>
@@ -139,7 +139,7 @@ export function LandingFooter({ total, star }: { total: number; star: ReactNode 
               <ul key={i} className="space-y-2.5">
                 {links.map((l) => (
                   <li key={l.href}>
-                    <a href={l.href} className="text-sm text-white/85 transition hover:text-white">
+                    <a href={l.href} className="text-sm text-black/75 transition hover:text-black dark:text-white/85 dark:hover:text-white">
                       {l.label}
                     </a>
                   </li>
@@ -147,12 +147,12 @@ export function LandingFooter({ total, star }: { total: number; star: ReactNode 
               </ul>
             ))}
           </div>
-          <div className="mt-16 grid gap-4 border-b border-white/15 pb-6 text-sm text-white/70 md:grid-cols-[1.6fr_1fr_1fr]">
+          <div className="mt-16 grid gap-4 border-b border-black/10 dark:border-white/15 pb-6 text-sm text-black/60 dark:text-white/70 md:grid-cols-[1.6fr_1fr_1fr]">
             <p>©{new Date().getFullYear()} Textlab. MIT licensed.</p>
-            <a href="https://opensource.org/license/mit" className="transition hover:text-white">
+            <a href="https://opensource.org/license/mit" className="transition hover:text-black dark:hover:text-white">
               License
             </a>
-            <a href="#main" className="transition hover:text-white">
+            <a href="#main" className="transition hover:text-black dark:hover:text-white">
               Back to top
             </a>
           </div>
